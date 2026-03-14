@@ -174,9 +174,35 @@
         box-shadow: 0 0 0 3px rgba(167,139,250,0.1);
       }
 
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        filter: invert(0.6) sepia(0.5) saturate(2) hue-rotate(220deg);
-        opacity: 0.5;
+      /* ── CHECKBOX ─────────────────────────────────────── */
+      .check-field {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 1.4rem;
+        margin-top: 0.4rem;
+      }
+
+      .check-field input[type="checkbox"] {
+        width: 18px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0;
+        margin-top: 2px;
+        border-radius: 5px;
+        background: rgba(255,255,255,0.045);
+        border: 1px solid rgba(255,255,255,0.18);
+        cursor: pointer;
+        accent-color: #7c5cfc;
+      }
+
+      .check-field label {
+        text-transform: none;
+        letter-spacing: 0;
+        font-size: 0.84rem;
+        font-weight: 400;
+        color: rgba(255,255,255,0.52);
+        line-height: 1.5;
         cursor: pointer;
       }
 
@@ -250,20 +276,35 @@
       <p class="subtitle">Et varmt og levende fellesskap for deg som vil skape flere minner og nye forbindelser.</p>
       <div class="divider"></div>
 
-      <form>
+      <form id="regForm" novalidate>
+        <!-- Fullt navn -->
         <div class="field">
-          <label for="fullName">Fullt Navn</label>
-          <input type="text" id="fullName" name="fullName" placeholder="Ditt fulle navn" autocomplete="name" />
+          <label for="fullName">Fullt navn</label>
+          <input type="text" id="fullName" name="navn" placeholder="Ditt fulle navn" autocomplete="name" required />
         </div>
 
-        <div class="field">
-          <label for="birthday">Fødselsdato</label>
-          <input type="date" id="birthday" name="birthday" />
-        </div>
-
+        <!-- Telefonnummer -->
         <div class="field">
           <label for="phoneNumber">Telefonnummer</label>
-          <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+47 000 00 000" autocomplete="tel" />
+          <input type="tel" id="phoneNumber" name="telefon" placeholder="+47 000 00 000" autocomplete="tel" required />
+        </div>
+
+        <!-- E-postadresse -->
+        <div class="field">
+          <label for="email">E-postadresse</label>
+          <input type="email" id="email" name="e_post" placeholder="din@epost.no" autocomplete="email" />
+        </div>
+
+        <!-- Kommune -->
+        <div class="field">
+          <label for="kommune">Kommune</label>
+          <input type="text" id="kommune" name="kommune" placeholder="F.eks. Oslo" required />
+        </div>
+
+        <!-- Bekreftelse -->
+        <div class="check-field">
+          <input type="checkbox" id="bekreft" name="ønsker_medlemskap" required />
+          <label for="bekreft">Jeg bekrefter at jeg ønsker å bli medlem</label>
         </div>
 
         <button type="submit">Bli medlem</button>
@@ -273,34 +314,55 @@
     </main>
 
     <script>
+      /* ── VIDEO MONTAGE ─────────────────────────────────── */
       (function () {
         const wrap    = document.getElementById('bgWrap');
         const videos  = Array.from(wrap.querySelectorAll('video'));
-        const HOLD    = 5500;   // ms each clip is visible
-        const FADE    = 1400;   // ms crossfade (matches CSS transition)
+        const HOLD    = 5500;
+        const FADE    = 1400;
         let   current = 0;
 
-        // Start playing all videos so they're ready when needed
-        videos.forEach((v, i) => {
-          v.loop = true;
-          v.play().catch(() => {}); // silent if browser blocks
-        });
+        videos.forEach(v => { v.loop = true; v.play().catch(() => {}); });
 
         function next() {
           const prev = current;
           current    = (current + 1) % videos.length;
-
           videos[current].classList.add('active');
-
-          // Remove previous after fade completes
-          setTimeout(() => {
-            videos[prev].classList.remove('active');
-          }, FADE);
+          setTimeout(() => videos[prev].classList.remove('active'), FADE);
         }
 
-        // Cycle every HOLD ms
         setInterval(next, HOLD);
       })();
+
+      /* ── FORM SUBMIT ───────────────────────────────────── */
+      document.getElementById('regForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const navn    = document.getElementById('fullName').value.trim();
+        const telefon = document.getElementById('phoneNumber').value.trim();
+        const kommune = document.getElementById('kommune').value.trim();
+        const bekreft = document.getElementById('bekreft').checked;
+
+        if (!navn || !telefon || !kommune || !bekreft) {
+          alert('Vennligst fyll ut alle obligatoriske felt og bekreft medlemskap.');
+          return;
+        }
+
+        const payload = {
+          navn,
+          telefon,
+          e_post:           document.getElementById('email').value.trim(),
+          kommune,
+          ønsker_medlemskap: true,
+          innmeldingsdato:  new Date().toISOString().slice(0, 10) // YYYY-MM-DD
+        };
+
+        // TODO: send payload to your backend / database here
+        console.log('Registrering:', payload);
+
+        alert('Takk, ' + navn + '! Registreringen din er mottatt.');
+        this.reset();
+      });
     </script>
   </body>
 </html>
