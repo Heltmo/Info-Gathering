@@ -168,6 +168,16 @@
 
       input::placeholder { color: rgba(255,255,255,0.18); }
 
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        opacity: 0.5;
+        cursor: pointer;
+      }
+
+      input[type="date"]::-webkit-calendar-picker-indicator:hover {
+        opacity: 0.9;
+      }
+
       input:focus {
         border-color: rgba(167,139,250,0.55);
         background: rgba(167,139,250,0.05);
