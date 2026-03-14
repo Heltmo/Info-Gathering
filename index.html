@@ -184,6 +184,28 @@
         box-shadow: 0 0 0 3px rgba(167,139,250,0.1);
       }
 
+      input.error {
+        border-color: rgba(248, 113, 113, 0.7);
+        background: rgba(248, 113, 113, 0.05);
+        box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1);
+      }
+
+      .error-msg {
+        display: none;
+        margin-top: 0.35rem;
+        font-size: 0.75rem;
+        color: rgba(248, 113, 113, 0.9);
+        letter-spacing: 0.01em;
+      }
+
+      .error-msg.visible {
+        display: block;
+      }
+
+      .check-field.error label {
+        color: rgba(248, 113, 113, 0.85);
+      }
+
       /* ── CHECKBOX ─────────────────────────────────────── */
       .check-field {
         display: flex;
@@ -346,38 +368,44 @@
         <!-- Fullt navn -->
         <div class="field">
           <label for="fullName">Fullt navn</label>
-          <input type="text" id="fullName" name="navn" placeholder="Ditt fulle navn" autocomplete="name" required />
+          <input type="text" id="fullName" name="navn" placeholder="Ditt fulle navn" autocomplete="name" />
+          <span class="error-msg" id="err-fullName">Fullt navn er påkrevd.</span>
         </div>
 
         <!-- Telefonnummer -->
         <div class="field">
           <label for="phoneNumber">Telefonnummer</label>
-          <input type="tel" id="phoneNumber" name="telefon" placeholder="+47 000 00 000" autocomplete="tel" required />
+          <input type="tel" id="phoneNumber" name="telefon" placeholder="+47 000 00 000" autocomplete="tel" />
+          <span class="error-msg" id="err-phoneNumber">Telefonnummer er påkrevd.</span>
         </div>
 
         <!-- E-postadresse -->
         <div class="field">
           <label for="email">E-postadresse</label>
           <input type="email" id="email" name="e_post" placeholder="din@epost.no" autocomplete="email" />
+          <span class="error-msg" id="err-email">Oppgi en gyldig e-postadresse.</span>
         </div>
 
         <!-- Fødselsdato -->
         <div class="field">
           <label for="birthdate">Fødselsdato</label>
-          <input type="date" id="birthdate" name="birthdate" required />
+          <input type="date" id="birthdate" name="birthdate" />
+          <span class="error-msg" id="err-birthdate">Fødselsdato er påkrevd.</span>
         </div>
 
         <!-- Kommune -->
         <div class="field">
           <label for="kommune">Kommune</label>
-          <input type="text" id="kommune" name="kommune" placeholder="F.eks. Oslo" required />
+          <input type="text" id="kommune" name="kommune" placeholder="F.eks. Oslo" />
+          <span class="error-msg" id="err-kommune">Kommune er påkrevd.</span>
         </div>
 
         <!-- Bekreftelse -->
-        <div class="check-field">
-          <input type="checkbox" id="bekreft" name="ønsker_medlemskap" required />
+        <div class="check-field" id="check-wrap">
+          <input type="checkbox" id="bekreft" name="ønsker_medlemskap" />
           <label for="bekreft">Jeg bekrefter at jeg ønsker å bli medlem</label>
         </div>
+        <span class="error-msg" id="err-bekreft">Du må bekrefte at du ønsker å bli medlem.</span>
 
         <button type="submit">Bli medlem</button>
       </form>
@@ -447,20 +475,58 @@
 
       fetchCount();
 
+      /* ── VALIDATION HELPERS ────────────────────────────── */
+      function fieldError(inputId, errId, show) {
+        const el  = document.getElementById(inputId);
+        const msg = document.getElementById(errId);
+        el.classList.toggle('error', show);
+        msg.classList.toggle('visible', show);
+      }
+
+      function checkboxError(show) {
+        document.getElementById('check-wrap').classList.toggle('error', show);
+        document.getElementById('err-bekreft').classList.toggle('visible', show);
+      }
+
+      // Clear error on input
+      ['fullName','phoneNumber','email','birthdate','kommune'].forEach(id => {
+        document.getElementById(id).addEventListener('input', () => {
+          const errId = 'err-' + id;
+          document.getElementById(id).classList.remove('error');
+          document.getElementById(errId).classList.remove('visible');
+        });
+      });
+
+      document.getElementById('bekreft').addEventListener('change', () => {
+        checkboxError(false);
+        document.getElementById('check-wrap').classList.remove('error');
+      });
+
       /* ── FORM SUBMIT ───────────────────────────────────── */
       document.getElementById('regForm').addEventListener('submit', async function (e) {
         e.preventDefault();
 
         const name         = document.getElementById('fullName').value.trim();
         const phone        = document.getElementById('phoneNumber').value.trim();
+        const emailVal     = document.getElementById('email').value.trim();
         const birthdate    = document.getElementById('birthdate').value;
         const municipality = document.getElementById('kommune').value.trim();
         const bekreft      = document.getElementById('bekreft').checked;
 
-        if (!name || !phone || !birthdate || !municipality || !bekreft) {
-          alert('Vennligst fyll ut alle obligatoriske felt og bekreft medlemskap.');
-          return;
-        }
+        // Validate each field individually
+        let valid = true;
+
+        fieldError('fullName',    'err-fullName',    !name);
+        fieldError('phoneNumber', 'err-phoneNumber', !phone);
+        fieldError('birthdate',   'err-birthdate',   !birthdate);
+        fieldError('kommune',     'err-kommune',      !municipality);
+        checkboxError(!bekreft);
+
+        // E-post: only validate format if user typed something
+        const emailBad = emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+        fieldError('email', 'err-email', emailBad);
+
+        if (!name || !phone || !birthdate || !municipality || !bekreft || emailBad) return;
 
         const btn = this.querySelector('button[type="submit"]');
         btn.disabled    = true;
