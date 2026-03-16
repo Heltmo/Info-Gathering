@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Brim — Dashboard</title>
+    <title>UAN — Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,19 +11,21 @@
 
       body {
         font-family: 'Inter', system-ui, sans-serif;
-        background: #080810;
+        background: #090910;
         color: #fff;
         display: flex;
         min-height: 100vh;
         overflow-x: hidden;
       }
 
-      /* ── SIDEBAR ─────────────────────────────────────── */
+      /* ══════════════════════════════════════════════════
+         SIDEBAR
+         ══════════════════════════════════════════════════ */
       .sidebar {
-        width: 240px;
+        width: 230px;
         min-height: 100vh;
-        background: rgba(8,8,18,0.97);
-        border-right: 1px solid rgba(255,255,255,0.06);
+        background: rgba(7,7,16,0.99);
+        border-right: 1px solid rgba(255,255,255,0.055);
         display: flex;
         flex-direction: column;
         padding: 2rem 0;
@@ -33,381 +35,2132 @@
       }
 
       .sidebar-logo {
-        display: flex; align-items: center; gap: 0.6rem;
-        padding: 0 1.5rem 2rem;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-        margin-bottom: 1.5rem;
+        display: flex; align-items: center; gap: 0.55rem;
+        padding: 0 1.4rem 1.75rem;
+        border-bottom: 1px solid rgba(255,255,255,0.055);
+        margin-bottom: 1.4rem;
       }
       .sidebar-logo .dot {
-        width: 10px; height: 10px; border-radius: 50%;
+        width: 9px; height: 9px; border-radius: 50%;
         background: linear-gradient(135deg, #a78bfa, #c4b5fd);
-        box-shadow: 0 0 10px rgba(167,139,250,0.5);
+        box-shadow: 0 0 8px rgba(167,139,250,0.55);
       }
       .sidebar-logo span {
-        font-size: 0.75rem; font-weight: 700;
+        font-size: 0.72rem; font-weight: 700;
         letter-spacing: 0.18em; text-transform: uppercase;
-        color: rgba(255,255,255,0.5);
+        color: rgba(255,255,255,0.48);
       }
 
       .nav-section {
-        font-size: 0.65rem; font-weight: 700;
+        font-size: 0.6rem; font-weight: 700;
         letter-spacing: 0.14em; text-transform: uppercase;
-        color: rgba(255,255,255,0.22);
-        padding: 0 1.5rem; margin-bottom: 0.5rem; margin-top: 1rem;
+        color: rgba(255,255,255,0.18);
+        padding: 0 1.4rem; margin-bottom: 0.35rem; margin-top: 1rem;
       }
 
       .nav-item {
-        display: flex; align-items: center; gap: 0.75rem;
-        padding: 0.65rem 1.5rem;
-        font-size: 0.875rem; font-weight: 500;
-        color: rgba(255,255,255,0.45);
+        display: flex; align-items: center; gap: 0.7rem;
+        padding: 0.6rem 1.4rem;
+        font-size: 0.855rem; font-weight: 500;
+        color: rgba(255,255,255,0.42);
         cursor: pointer;
         transition: color 0.15s, background 0.15s;
-        border-radius: 0;
         user-select: none;
       }
-      .nav-item:hover { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.04); }
-      .nav-item.active { color: #a78bfa; background: rgba(167,139,250,0.08); border-right: 2px solid #a78bfa; }
-      .nav-item .icon { width: 18px; text-align: center; font-size: 1rem; }
+      .nav-item:hover  { color: rgba(255,255,255,0.78); background: rgba(255,255,255,0.04); }
+      .nav-item.active { color: #a78bfa; background: rgba(167,139,250,0.09); border-right: 2px solid #a78bfa; }
+      .nav-item .icon  { width: 17px; text-align: center; font-size: 0.95rem; }
 
       .sidebar-bottom {
         margin-top: auto;
-        border-top: 1px solid rgba(255,255,255,0.06);
-        padding-top: 1.25rem;
+        border-top: 1px solid rgba(255,255,255,0.055);
+        padding-top: 1.1rem;
       }
-
       .sidebar-user {
-        display: flex; align-items: center; gap: 0.75rem;
-        padding: 0 1.5rem;
+        display: flex; align-items: center; gap: 0.7rem;
+        padding: 0 1.4rem;
       }
       .avatar {
-        width: 36px; height: 36px; border-radius: 50%;
+        width: 34px; height: 34px; border-radius: 50%;
         background: linear-gradient(135deg, #7c5cfc, #a78bfa);
         display: flex; align-items: center; justify-content: center;
-        font-size: 0.85rem; font-weight: 700; color: #fff; flex-shrink: 0;
+        font-size: 0.8rem; font-weight: 700; color: #fff; flex-shrink: 0;
       }
       .user-info { overflow: hidden; }
-      .user-name { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.85); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      .user-level { font-size: 0.68rem; color: rgba(167,139,250,0.7); }
+      .user-name { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.85); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .user-role { font-size: 0.66rem; color: rgba(167,139,250,0.65); }
 
-      /* ── MAIN ────────────────────────────────────────── */
+      /* ══════════════════════════════════════════════════
+         MAIN
+         ══════════════════════════════════════════════════ */
       .main {
-        margin-left: 240px;
+        margin-left: 230px;
         flex: 1;
-        padding: 2.5rem;
         min-height: 100vh;
       }
 
-      .page-header {
+      .section { display: none; }
+      .section.active { display: block; }
+
+      /* ── OTHER SECTIONS header ───────────────────────── */
+      .page-header { padding: 2.5rem 2.75rem 0; margin-bottom: 2rem; }
+      .page-title   { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.022em; }
+      .page-subtitle { font-size: 0.875rem; color: rgba(255,255,255,0.35); margin-top: 0.3rem; }
+
+      /* ══════════════════════════════════════════════════
+         HERO — full-width photo, content overlaid
+         ══════════════════════════════════════════════════ */
+      .dash-hero {
+        position: relative;
+        min-height: 440px;
+        overflow: hidden;
+      }
+
+      /* Text block — overlaid left side */
+      .hero-left {
+        position: relative; z-index: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 3.5rem 3rem 3rem 2.75rem;
+        width: 50%;
+      }
+
+      .hero-eyebrow {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        background: rgba(167,139,250,0.13);
+        border: 1px solid rgba(167,139,250,0.26);
+        border-radius: 99px;
+        padding: 0.26rem 0.8rem;
+        font-size: 0.66rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.15em; color: #c4b5fd;
+        margin-bottom: 1.1rem;
+        align-self: flex-start;
+      }
+      .hero-eyebrow::before {
+        content: '';
+        width: 5px; height: 5px; border-radius: 50%;
+        background: #a78bfa; box-shadow: 0 0 5px rgba(167,139,250,0.9);
+      }
+
+      .hero-title {
+        font-size: 2.2rem; font-weight: 800;
+        letter-spacing: -0.035em; line-height: 1.1;
+        color: #fff; margin-bottom: 0.75rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.875rem;
+        color: rgba(255,255,255,0.48);
+        line-height: 1.65;
+        margin-bottom: 1.75rem;
+        max-width: 360px;
+      }
+
+      .hero-cta {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        padding: 0.8rem 1.7rem;
+        background: linear-gradient(135deg, #7c5cfc, #9b7dfa);
+        border: none; border-radius: 0.75rem;
+        font-size: 0.9rem; font-weight: 600; color: #fff;
+        cursor: pointer; font-family: inherit;
+        transition: transform 0.15s, box-shadow 0.2s;
+        box-shadow: 0 4px 28px rgba(124,92,252,0.6), 0 0 0 1px rgba(167,139,250,0.15);
+        align-self: flex-start;
+      }
+      .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(124,92,252,0.75), 0 0 0 1px rgba(167,139,250,0.25); }
+      .hero-cta-arrow { opacity: 0.8; font-size: 0.85rem; }
+
+      /* Right panel — card positioned right side */
+      .hero-right {
+        position: absolute;
+        top: 0; right: 0; bottom: 0;
+        width: 50%;
+        z-index: 3;
+      }
+
+      /* Background slideshow container — full hero */
+      .hero-photo {
+        position: absolute; inset: 0;
+        z-index: 1;
+      }
+
+      /* Each slide — stacked, crossfade via opacity */
+      .hero-slide {
+        position: absolute; inset: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transition: opacity 2.2s ease-in-out;
+      }
+      .hero-slide.active { opacity: 1; }
+
+      /* Slides — top 30% crop to show faces, not tabletops */
+      .hero-slide-1 {
+        background: url('img.png/ChatGPT Image Mar 16, 2026, 01_48_47 AM.png') center 25%/cover no-repeat,
+          linear-gradient(145deg, #1a0d40 0%, #2e1870 28%, #1a1060 55%, #0a0e35 100%);
+      }
+      .hero-slide-2 {
+        background: url('img.png/ChatGPT Image Mar 16, 2026, 01_49_48 AM.png') center 20%/cover no-repeat,
+          linear-gradient(145deg, #071a12 0%, #0f3020 30%, #0a2218 60%, #050e0a 100%);
+      }
+      .hero-slide-3 {
+        background: url('img.png/ChatGPT Image Mar 16, 2026, 01_50_55 AM.png') center 20%/cover no-repeat,
+          linear-gradient(145deg, #1a0a05 0%, #3a1808 30%, #200e04 60%, #0a0702 100%);
+      }
+
+      /* Shared texture overlay on all slides */
+      .hero-slide::before {
+        content: '';
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(ellipse 90% 70% at 60% 35%, rgba(80,40,180,0.35) 0%, transparent 55%),
+          radial-gradient(ellipse 50% 60% at 20% 75%, rgba(20,40,120,0.3) 0%, transparent 55%);
+      }
+
+      /* Overlay — darker left for text legibility, opens up toward right */
+      .hero-photo-overlay {
+        position: absolute; inset: 0;
+        background:
+          linear-gradient(to right, rgba(4,3,12,0.97) 0%, rgba(4,3,12,0.82) 28%, rgba(4,3,12,0.35) 55%, rgba(4,3,12,0.2) 100%),
+          linear-gradient(to top, rgba(4,3,12,0.55) 0%, transparent 50%);
+        z-index: 2;
+      }
+
+      /* Card — right-aligned inside photo panel */
+      .hero-card-wrap {
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: flex-end;
+        padding: 2.75rem 2.75rem 2.75rem 1rem;
+        z-index: 2;
+      }
+
+      /* ── Viktig nå — featured announcement card ── */
+      .viktig-hero-card {
+        width: min(430px, 100%);
+        background: linear-gradient(155deg, rgba(22, 12, 60, 0.96) 0%, rgba(10, 7, 32, 0.98) 100%);
+        backdrop-filter: blur(48px);
+        -webkit-backdrop-filter: blur(48px);
+        border: 1px solid rgba(167,139,250,0.28);
+        border-radius: 1.75rem;
+        padding: 2.75rem 2.75rem 2.5rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow:
+          0 48px 120px rgba(0,0,0,0.85),
+          0 0 0 1px rgba(255,255,255,0.06),
+          0 0 100px rgba(110,70,240,0.2),
+          inset 0 1px 0 rgba(255,255,255,0.1);
+      }
+      /* Top purple accent line */
+      .viktig-hero-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 12%; right: 12%; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(167,139,250,0.65), transparent);
+      }
+      /* Subtle inner glow */
+      .viktig-hero-card::after {
+        content: '';
+        position: absolute;
+        top: -40px; right: -40px;
+        width: 180px; height: 180px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(120,80,255,0.12) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .viktig-hero-label {
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        font-size: 0.63rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.16em; color: #a78bfa;
+        background: rgba(167,139,250,0.12);
+        border: 1px solid rgba(167,139,250,0.22);
+        border-radius: 99px;
+        padding: 0.22rem 0.75rem;
+        margin-bottom: 1.1rem;
+      }
+      .viktig-hero-label::before {
+        content: '';
+        width: 5px; height: 5px; border-radius: 50%;
+        background: #a78bfa; box-shadow: 0 0 6px rgba(167,139,250,0.9);
+      }
+
+      .viktig-hero-title {
+        font-size: 1.6rem; font-weight: 800;
+        color: #fff;
+        line-height: 1.2; margin-bottom: 0.85rem;
+        letter-spacing: -0.025em;
+      }
+
+      .viktig-hero-desc {
+        font-size: 0.86rem;
+        color: rgba(255,255,255,0.5);
+        line-height: 1.7; margin-bottom: 1.75rem;
+      }
+
+      .viktig-hero-btn {
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        padding: 0.72rem 1.5rem;
+        background: linear-gradient(135deg, rgba(124,92,252,0.28), rgba(167,139,250,0.18));
+        border: 1px solid rgba(124,92,252,0.45);
+        border-radius: 0.8rem;
+        font-size: 0.84rem; font-weight: 600; color: #c4b5fd;
+        cursor: pointer; font-family: inherit;
+        transition: background 0.2s, border-color 0.2s, transform 0.15s;
+        box-shadow: 0 4px 16px rgba(100,70,220,0.2);
+      }
+      .viktig-hero-btn:hover {
+        background: linear-gradient(135deg, rgba(124,92,252,0.42), rgba(167,139,250,0.28));
+        border-color: rgba(124,92,252,0.65);
+        transform: translateY(-1px);
+      }
+
+      .viktig-hero-empty {
+        font-size: 0.84rem; color: rgba(255,255,255,0.28);
+        padding: 0.5rem 0;
+      }
+
+      /* ══════════════════════════════════════════════════
+         CONTENT AREA (padding wrapper below hero)
+         ══════════════════════════════════════════════════ */
+      .dashboard-body {
+        padding: 2.5rem 3.25rem 4rem;
+      }
+
+      /* ══════════════════════════════════════════════════
+         TOP ROW — 3 boxes
+         ══════════════════════════════════════════════════ */
+      .top-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1.4rem;
+        margin-bottom: 3.25rem;
+      }
+
+      .dash-card {
+        background: rgba(255,255,255,0.034);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 1.1rem;
+        padding: 1.85rem 2rem;
+        transition: border-color 0.2s;
+        min-height: 210px;
+      }
+      .dash-card:hover { border-color: rgba(255,255,255,0.11); }
+
+      .dash-card-label {
+        display: flex; align-items: center; gap: 0.38rem;
+        font-size: 0.65rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.13em;
+        color: rgba(255,255,255,0.28);
+        margin-bottom: 1.35rem;
+      }
+      .dash-card-label::before {
+        content: '';
+        width: 5px; height: 5px; border-radius: 50%;
+        background: #a78bfa; box-shadow: 0 0 4px rgba(167,139,250,0.7);
+      }
+
+      .event-date-badge {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        background: rgba(52,211,153,0.1);
+        border: 1px solid rgba(52,211,153,0.18);
+        border-radius: 0.5rem;
+        padding: 0.26rem 0.6rem;
+        font-size: 0.7rem; font-weight: 600; color: #34d399;
+        margin-bottom: 0.75rem;
+      }
+      .event-title {
+        font-size: 0.95rem; font-weight: 700;
+        color: rgba(255,255,255,0.88);
+        margin-bottom: 0.3rem; line-height: 1.3;
+      }
+      .event-desc {
+        font-size: 0.79rem; color: rgba(255,255,255,0.38);
+        line-height: 1.55; margin: 0.5rem 0 0.85rem;
+      }
+      .btn-sm-outline {
+        display: inline-flex; align-items: center;
+        padding: 0.4rem 0.95rem;
+        border: 1px solid rgba(167,139,250,0.28);
+        border-radius: 0.5rem;
+        font-size: 0.75rem; font-weight: 600; color: #c4b5fd;
+        background: rgba(167,139,250,0.07);
+        cursor: pointer; font-family: inherit;
+        transition: background 0.2s, border-color 0.2s;
+      }
+      .btn-sm-outline:hover { background: rgba(167,139,250,0.14); border-color: rgba(167,139,250,0.45); }
+
+      .status-pill {
+        display: inline-flex; align-items: center; gap: 0.38rem;
+        padding: 0.26rem 0.7rem; border-radius: 99px;
+        font-size: 0.7rem; font-weight: 700; margin-bottom: 1rem;
+      }
+      .status-active   { background: rgba(52,211,153,0.11); color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+      .status-inactive { background: rgba(248,113,113,0.11); color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+      .status-pill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+      .status-row {
+        display: flex; justify-content: space-between; align-items: baseline;
+        padding: 0.52rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      .status-row:last-child { border-bottom: none; }
+      .status-row-label { font-size: 0.7rem; color: rgba(255,255,255,0.28); }
+      .status-row-value { font-size: 0.8rem; color: rgba(255,255,255,0.72); font-weight: 600; }
+
+      /* Nå i fellesskapet — live rotator */
+      .now-card {
+        display: flex; flex-direction: column; justify-content: space-between;
+        padding: 1.6rem 1.65rem !important;
+      }
+      .now-content { transition: opacity 0.45s ease; min-height: 90px; }
+      .now-content.fading { opacity: 0; }
+      .now-type-badge {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        background: rgba(167,139,250,0.18); border: 1px solid rgba(167,139,250,0.38);
+        border-radius: 99px; padding: 0.22rem 0.75rem;
+        font-size: 0.63rem; font-weight: 800; text-transform: uppercase;
+        letter-spacing: 0.14em; color: #c4b5fd;
+        margin-bottom: 0.95rem;
+      }
+      .now-type-badge::before {
+        content: ''; width: 6px; height: 6px; border-radius: 50%;
+        background: #a78bfa; box-shadow: 0 0 6px rgba(167,139,250,0.9);
+        animation: now-pulse 2s ease-in-out infinite;
+      }
+      @keyframes now-pulse {
+        0%, 100% { box-shadow: 0 0 4px rgba(167,139,250,0.7); }
+        50%       { box-shadow: 0 0 10px rgba(167,139,250,1); }
+      }
+      .now-main {
+        font-size: 1.05rem; font-weight: 800;
+        color: #fff;
+        line-height: 1.3; margin-bottom: 0.5rem;
+        text-shadow: 0 0 28px rgba(167,139,250,0.18);
+        letter-spacing: -0.015em;
+      }
+      .now-sub  { font-size: 0.8rem; color: rgba(255,255,255,0.48); line-height: 1.55; }
+      .now-footer {
         display: flex; align-items: center; justify-content: space-between;
-        margin-bottom: 2.5rem;
+        margin-top: 1.2rem; padding-top: 0.9rem;
+        border-top: 1px solid rgba(255,255,255,0.07);
       }
-      .page-title { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; }
-      .page-subtitle { font-size: 0.85rem; color: rgba(255,255,255,0.38); margin-top: 0.2rem; }
+      .now-dots { display: flex; gap: 0.4rem; }
+      .now-dot {
+        width: 6px; height: 6px; border-radius: 99px;
+        background: rgba(255,255,255,0.13); transition: background 0.3s, width 0.3s;
+      }
+      .now-dot.active {
+        background: #a78bfa;
+        width: 18px;
+        box-shadow: 0 0 6px rgba(167,139,250,0.55);
+      }
 
-      /* ── CARDS ───────────────────────────────────────── */
-      .card {
-        background: rgba(255,255,255,0.04);
+      /* ══════════════════════════════════════════════════
+         SECTION HEADERS
+         ══════════════════════════════════════════════════ */
+      .db-section { margin-bottom: 3.75rem; }
+      .db-section-header {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 1.1rem;
+      }
+      .db-section-title {
+        font-size: 0.7rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.12em;
+        color: rgba(255,255,255,0.32);
+      }
+      .db-section-link {
+        font-size: 0.75rem; font-weight: 500;
+        color: rgba(167,139,250,0.6);
+        cursor: pointer; background: none; border: none; font-family: inherit; padding: 0;
+      }
+      .db-section-link:hover { color: #a78bfa; }
+
+      /* ══════════════════════════════════════════════════
+         SISTE FRA FELLESSKAPET — 3 equal image cards
+         ══════════════════════════════════════════════════ */
+      .community-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.4rem;
+      }
+
+      .comm-card {
+        background: rgba(255,255,255,0.03);
         border: 1px solid rgba(255,255,255,0.07);
-        border-radius: 1.25rem;
-        padding: 1.5rem;
+        border-radius: 1.1rem;
+        overflow: hidden;
+        transition: border-color 0.2s, transform 0.2s;
+        cursor: default;
+      }
+      .comm-card:hover { border-color: rgba(255,255,255,0.13); transform: translateY(-2px); }
+
+      .comm-card-photo {
+        height: 190px;
+        display: flex; align-items: flex-end; justify-content: flex-start;
+        padding: 0.85rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .comm-card-photo::after {
+        content: '';
+        position: absolute; inset: 0;
+        background: linear-gradient(to top, rgba(8,7,20,0.75) 0%, rgba(8,7,20,0.1) 60%, transparent 100%);
       }
 
-      .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-      .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
+      /* photo gradient variants */
+      .cp-1 { background: linear-gradient(145deg, #1a1060 0%, #2d1b69 40%, #0f1f4a 100%); }
+      .cp-2 { background: linear-gradient(145deg, #0d2c1e 0%, #1a4a2e 40%, #0a2818 100%); }
+      .cp-3 { background: linear-gradient(145deg, #2a1a08 0%, #4a2e0a 40%, #3a2005 100%); }
 
-      .stat-card {
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.07);
-        border-radius: 1rem; padding: 1.25rem 1.5rem;
+      .comm-card-photo-icon {
+        position: relative; z-index: 1;
+        font-size: 1.8rem; opacity: 0.4;
       }
-      .stat-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; color: rgba(255,255,255,0.35); margin-bottom: 0.4rem; }
-      .stat-value { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; }
-      .stat-sub   { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 0.2rem; }
 
-      /* ── LEVEL CARD ──────────────────────────────────── */
-      .level-card {
-        background: linear-gradient(135deg, rgba(124,92,252,0.15), rgba(167,139,250,0.08));
-        border: 1px solid rgba(167,139,250,0.2);
-        border-radius: 1.25rem; padding: 1.5rem;
-        margin-bottom: 1rem;
+      .comm-card-body { padding: 1.25rem 1.4rem; }
+
+      .comm-card-meta {
+        display: flex; align-items: center; gap: 0.6rem;
+        margin-bottom: 0.55rem;
       }
-      .level-name { font-size: 1.1rem; font-weight: 700; color: #c4b5fd; margin-bottom: 0.25rem; }
-      .level-sub  { font-size: 0.78rem; color: rgba(167,139,250,0.6); margin-bottom: 1rem; }
-      .xp-bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; margin-bottom: 0.4rem; }
-      .xp-fill { height: 100%; background: linear-gradient(90deg, #7c5cfc, #a78bfa); border-radius: 99px; transition: width 0.8s cubic-bezier(0.22,1,0.36,1); }
-      .xp-labels { display: flex; justify-content: space-between; font-size: 0.7rem; color: rgba(255,255,255,0.3); }
-
-      /* ── SECTION HEADER ──────────────────────────────── */
-      .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-      .section-title  { font-size: 0.88rem; font-weight: 600; color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 0.08em; }
-
-      /* ── COMMUNITY FEED ──────────────────────────────── */
-      .feed-post {
-        padding: 1rem 0;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+      .comm-card-avatar {
+        width: 26px; height: 26px; border-radius: 50%;
+        background: linear-gradient(135deg, #7c5cfc, #a78bfa);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.62rem; font-weight: 700; color: #fff; flex-shrink: 0;
       }
-      .feed-post:last-child { border-bottom: none; }
-      .feed-meta { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
-      .feed-author { font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.7); }
-      .feed-time   { font-size: 0.72rem; color: rgba(255,255,255,0.25); }
-      .feed-content { font-size: 0.875rem; color: rgba(255,255,255,0.6); line-height: 1.55; }
-      .feed-badge-system {
-        font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      .comm-card-author { font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.7); }
+      .comm-card-sep    { font-size: 0.7rem; color: rgba(255,255,255,0.2); }
+      .comm-card-time   { font-size: 0.7rem; color: rgba(255,255,255,0.28); }
+      .comm-card-sys-badge {
+        font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em;
         color: #a78bfa; background: rgba(167,139,250,0.12);
-        padding: 0.15rem 0.45rem; border-radius: 4px;
+        padding: 0.1rem 0.38rem; border-radius: 3px;
       }
 
-      .post-input-wrap {
-        display: flex; gap: 0.75rem; align-items: flex-start;
+      .comm-card-text {
+        font-size: 0.82rem; color: rgba(255,255,255,0.62);
+        line-height: 1.6;
+        display: -webkit-box; -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical; overflow: hidden;
+        margin-bottom: 0;
+      }
+      .comm-card-footer {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0.75rem 1.4rem 1rem;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        margin-top: 0.75rem;
+      }
+      .comm-card-counts {
+        display: flex; gap: 0.85rem; font-size: 0.73rem; color: rgba(255,255,255,0.25);
+      }
+      .comm-card-count-item { display: flex; align-items: center; gap: 0.28rem; }
+      .comm-card-goto {
+        font-size: 0.73rem; font-weight: 600; color: rgba(167,139,250,0.65);
+        background: none; border: none; cursor: pointer; font-family: inherit;
+        padding: 0; transition: color 0.15s;
+      }
+      .comm-card-goto:hover { color: #a78bfa; }
+
+      /* ══════════════════════════════════════════════════
+         COMMUNITY PAGE
+         ══════════════════════════════════════════════════ */
+      .community-page {
+        display: grid;
+        grid-template-columns: 1fr 290px;
+        gap: 1.5rem;
+        padding: 1.5rem 2.75rem 3rem;
+        align-items: start;
+      }
+
+      /* Compose card */
+      .compose-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 1.25rem; padding: 1.4rem 1.5rem;
         margin-bottom: 1rem;
       }
+      .compose-row { display: flex; gap: 0.85rem; align-items: flex-start; margin-bottom: 0.85rem; }
+      .compose-avatar {
+        width: 38px; height: 38px; border-radius: 50%;
+        background: linear-gradient(135deg, #7c5cfc, #a78bfa);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.82rem; font-weight: 700; color: #fff; flex-shrink: 0;
+      }
+      .compose-textarea {
+        flex: 1; padding: 0.78rem 1rem;
+        background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 0.9rem; color: #fff; font-family: inherit; font-size: 0.9rem;
+        resize: none; outline: none; min-height: 88px; transition: border-color 0.2s; line-height: 1.6;
+      }
+      .compose-textarea:focus { border-color: rgba(167,139,250,0.4); }
+      .compose-textarea::placeholder { color: rgba(255,255,255,0.2); }
+      .compose-footer {
+        display: flex; align-items: center; justify-content: space-between;
+        padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);
+      }
+      .compose-media-btns { display: flex; gap: 0.45rem; }
+      .compose-media-btn {
+        display: inline-flex; align-items: center; gap: 0.32rem;
+        padding: 0.35rem 0.7rem; border-radius: 0.5rem;
+        background: none; border: 1px solid rgba(255,255,255,0.07);
+        color: rgba(255,255,255,0.32); font-size: 0.77rem; font-family: inherit; cursor: pointer;
+        transition: background 0.15s, color 0.15s;
+      }
+      .compose-media-btn:hover { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); }
+
+      /* Feed post cards */
+      .feed-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 1.25rem; padding: 1.4rem 1.5rem;
+        margin-bottom: 1rem; transition: border-color 0.2s;
+      }
+      .feed-card:hover { border-color: rgba(255,255,255,0.11); }
+      .feed-card-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+      .feed-card-avatar {
+        width: 42px; height: 42px; border-radius: 50%;
+        background: linear-gradient(135deg, #7c5cfc, #a78bfa);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.88rem; font-weight: 700; color: #fff; flex-shrink: 0;
+      }
+      .feed-card-author { font-size: 0.9rem; font-weight: 600; color: #fff; }
+      .feed-card-time   { font-size: 0.73rem; color: rgba(255,255,255,0.28); margin-top: 0.1rem; }
+      .feed-sys-badge {
+        margin-left: auto;
+        font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+        color: #a78bfa; background: rgba(167,139,250,0.12); padding: 0.14rem 0.45rem; border-radius: 4px;
+      }
+      .feed-card-text {
+        font-size: 0.9rem; color: rgba(255,255,255,0.78); line-height: 1.72; margin-bottom: 1rem;
+        white-space: pre-wrap;
+      }
+      .feed-card-actions {
+        display: flex; gap: 0.45rem;
+        padding-top: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05);
+      }
+      .feed-action-btn {
+        display: inline-flex; align-items: center; gap: 0.38rem;
+        padding: 0.4rem 0.85rem; border-radius: 0.55rem;
+        background: none; border: 1px solid rgba(255,255,255,0.07);
+        color: rgba(255,255,255,0.32); font-size: 0.8rem; font-family: inherit;
+        cursor: pointer; transition: all 0.15s;
+      }
+      .feed-action-btn:hover { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.65); border-color: rgba(255,255,255,0.12); }
+      .feed-action-btn.liked     { background: rgba(239,68,68,0.09); color: #f87171; border-color: rgba(239,68,68,0.2); }
+      .feed-action-btn.commented { background: rgba(167,139,250,0.08); color: #a78bfa; border-color: rgba(167,139,250,0.18); }
+
+      /* Comments */
+      .feed-comments { margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); display: none; }
+      .feed-comments.open { display: block; }
+      .comment-item { display: flex; gap: 0.6rem; margin-bottom: 0.7rem; }
+      .comment-avatar {
+        width: 28px; height: 28px; border-radius: 50%;
+        background: linear-gradient(135deg, #6d4cca, #9b7dfa);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.58rem; font-weight: 700; color: #fff; flex-shrink: 0; margin-top: 1px;
+      }
+      .comment-bubble {
+        background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 0.75rem; padding: 0.55rem 0.85rem; flex: 1;
+      }
+      .comment-author { font-size: 0.73rem; font-weight: 600; color: rgba(255,255,255,0.68); margin-bottom: 0.2rem; }
+      .comment-text   { font-size: 0.82rem; color: rgba(255,255,255,0.48); line-height: 1.55; }
+      .comment-compose { display: flex; gap: 0.55rem; align-items: center; margin-top: 0.75rem; }
+      .comment-input {
+        flex: 1; padding: 0.5rem 0.88rem;
+        background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 0.65rem; color: #fff; font-family: inherit; font-size: 0.82rem;
+        outline: none; transition: border-color 0.2s;
+      }
+      .comment-input:focus { border-color: rgba(167,139,250,0.35); }
+      .comment-input::placeholder { color: rgba(255,255,255,0.18); }
+      .comment-send-btn {
+        padding: 0.48rem 0.9rem; border-radius: 0.6rem;
+        background: rgba(124,92,252,0.18); border: 1px solid rgba(124,92,252,0.28);
+        color: #a78bfa; font-size: 0.78rem; font-weight: 600; font-family: inherit;
+        cursor: pointer; transition: background 0.2s; white-space: nowrap;
+      }
+      .comment-send-btn:hover { background: rgba(124,92,252,0.3); }
+
+      /* Right panel */
+      .community-right-panel { display: flex; flex-direction: column; gap: 1rem; position: sticky; top: 1.5rem; }
+      .panel-card {
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 1.1rem; padding: 1.25rem 1.35rem;
+      }
+      .panel-title {
+        font-size: 0.66rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.13em; color: rgba(255,255,255,0.28); margin-bottom: 1rem;
+      }
+      .active-member-item { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.65rem; }
+      .active-member-item:last-child { margin-bottom: 0; }
+      .active-member-avatar {
+        width: 30px; height: 30px; border-radius: 50%;
+        background: linear-gradient(135deg, #7c5cfc, #a78bfa);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.64rem; font-weight: 700; color: #fff; flex-shrink: 0;
+      }
+      .active-member-name { font-size: 0.82rem; font-weight: 500; color: rgba(255,255,255,0.62); flex: 1; }
+      .active-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: #34d399; box-shadow: 0 0 5px rgba(52,211,153,0.55); flex-shrink: 0;
+      }
+      .upcoming-item { padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+      .upcoming-item:last-child { border-bottom: none; padding-bottom: 0; }
+      .upcoming-item-title { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.7); margin-bottom: 0.22rem; }
+      .upcoming-item-meta  { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
+      .guideline-item {
+        display: flex; align-items: flex-start; gap: 0.5rem;
+        padding: 0.3rem 0; font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.5;
+      }
+      .guideline-item::before { content: '·'; color: #a78bfa; flex-shrink: 0; font-size: 1.1rem; line-height: 1.3; }
+
+      /* ══════════════════════════════════════════════════
+         PRAKTISK INFORMASJON
+         ══════════════════════════════════════════════════ */
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+      .info-card {
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.055);
+        border-radius: 1rem; padding: 1.2rem 1.3rem;
+        transition: border-color 0.2s;
+      }
+      .info-card:hover { border-color: rgba(255,255,255,0.09); }
+      .info-card-icon  { font-size: 1.2rem; margin-bottom: 0.55rem; display: block; opacity: 0.5; }
+      .info-card-title { font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 0.35rem; }
+      .info-card-text  { font-size: 0.77rem; color: rgba(255,255,255,0.26); line-height: 1.6; }
+
+      /* ══════════════════════════════════════════════════
+         OTHER SECTIONS
+         ══════════════════════════════════════════════════ */
+      .other-body { padding: 0 2.75rem 3rem; }
+
+      .card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 1.1rem; padding: 1.5rem;
+      }
+
+      /* ══════════════════════════════════════════════════
+         PROFILE PAGE
+         ══════════════════════════════════════════════════ */
+      .profile-page { padding: 2rem 2.75rem 3rem; }
+
+      /* ── Header card ── */
+      .profile-header-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 1.5rem;
+        padding: 2.25rem 2.5rem;
+        margin-bottom: 1.25rem;
+        display: flex; gap: 2rem; align-items: flex-start;
+        position: relative;
+      }
+      /* subtle top accent */
+      .profile-header-card::before {
+        content: '';
+        position: absolute; top: 0; left: 15%; right: 15%; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(167,139,250,0.35), transparent);
+      }
+
+      .profile-avatar-wrap { position: relative; flex-shrink: 0; }
+      .profile-avatar-lg {
+        width: 84px; height: 84px; border-radius: 50%;
+        background: linear-gradient(135deg, #7c5cfc, #a78bfa);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.75rem; font-weight: 800; color: #fff;
+        border: 3px solid rgba(167,139,250,0.28);
+        box-shadow: 0 0 0 6px rgba(167,139,250,0.07), 0 8px 28px rgba(0,0,0,0.5);
+      }
+      .profile-photo-btn {
+        position: absolute; bottom: -2px; right: -2px;
+        width: 26px; height: 26px; border-radius: 50%;
+        background: rgba(124,92,252,0.9); border: 2px solid #090910;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.65rem; cursor: pointer;
+        transition: background 0.2s; color: #fff; font-family: inherit;
+      }
+      .profile-photo-btn:hover { background: #7c5cfc; }
+
+      .profile-header-info { flex: 1; min-width: 0; }
+      .profile-name {
+        font-size: 1.55rem; font-weight: 800; letter-spacing: -0.025em;
+        color: #fff; margin-bottom: 0.4rem; line-height: 1.15;
+      }
+      .profile-role-badge {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        background: rgba(167,139,250,0.11); border: 1px solid rgba(167,139,250,0.22);
+        border-radius: 99px; padding: 0.18rem 0.7rem;
+        font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.12em; color: #a78bfa; margin-bottom: 0.7rem;
+      }
+      .profile-role-badge::before {
+        content: ''; width: 5px; height: 5px; border-radius: 50%;
+        background: #a78bfa; box-shadow: 0 0 4px rgba(167,139,250,0.8);
+      }
+      .profile-meta-row {
+        display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.9rem;
+      }
+      .profile-meta-item {
+        display: flex; align-items: center; gap: 0.35rem;
+        font-size: 0.77rem; color: rgba(255,255,255,0.35);
+      }
+      .profile-bio {
+        font-size: 0.875rem; color: rgba(255,255,255,0.48);
+        line-height: 1.7; max-width: 500px;
+      }
+      .profile-header-actions {
+        flex-shrink: 0; display: flex; flex-direction: column; gap: 0.5rem;
+        align-items: flex-end;
+      }
+
+      /* ── Member info card ── */
+      .member-info-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 1.25rem; padding: 1.75rem 2rem;
+        margin-bottom: 1.25rem;
+      }
+      .member-info-header {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+      .member-info-card-title {
+        font-size: 0.67rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.13em; color: rgba(255,255,255,0.28);
+      }
+      .member-info-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 2.5rem;
+      }
+      .member-info-field { }
+      .member-info-label {
+        font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
+        letter-spacing: 0.1em; color: rgba(255,255,255,0.22); margin-bottom: 0.3rem;
+      }
+      .member-info-value {
+        font-size: 0.9rem; font-weight: 500; color: rgba(255,255,255,0.82);
+      }
+      .member-status-pill {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        padding: 0.18rem 0.6rem; border-radius: 99px;
+        font-size: 0.72rem; font-weight: 700;
+      }
+      .msp-active   { background: rgba(52,211,153,0.1); color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+      .msp-inactive { background: rgba(248,113,113,0.1); color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+      .member-status-pill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+      /* ── Secondary sections ── */
+      .profile-sub-section { margin-bottom: 1.25rem; }
+      .profile-sub-title {
+        font-size: 0.67rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.13em; color: rgba(255,255,255,0.28); margin-bottom: 0.85rem;
+      }
+      .my-post-item {
+        padding: 0.9rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      .my-post-item:last-child { border-bottom: none; }
+      .my-post-time { font-size: 0.7rem; color: rgba(255,255,255,0.22); margin-bottom: 0.25rem; }
+      .my-post-text { font-size: 0.86rem; color: rgba(255,255,255,0.55); line-height: 1.55; }
+      .my-activity-item {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+        gap: 1rem;
+      }
+      .my-activity-item:last-child { border-bottom: none; }
+      .my-activity-title { font-size: 0.875rem; font-weight: 600; color: rgba(255,255,255,0.75); }
+      .my-activity-date  { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 0.15rem; }
+
+      .feed-post { padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+      .feed-post:last-child { border-bottom: none; }
+      .feed-meta    { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; }
+      .feed-author  { font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.7); }
+      .feed-time    { font-size: 0.7rem; color: rgba(255,255,255,0.22); }
+      .feed-content { font-size: 0.875rem; color: rgba(255,255,255,0.52); line-height: 1.55; }
+      .feed-badge-sys {
+        font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+        color: #a78bfa; background: rgba(167,139,250,0.12);
+        padding: 0.12rem 0.4rem; border-radius: 3px;
+      }
+
+      .post-input-wrap { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
       .post-input-wrap textarea {
         flex: 1; padding: 0.75rem 1rem;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 0.9rem; color: #fff;
-        font-family: inherit; font-size: 0.875rem;
-        resize: none; outline: none; min-height: 80px;
-        transition: border-color 0.2s;
+        background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 0.9rem; color: #fff; font-family: inherit; font-size: 0.875rem;
+        resize: none; outline: none; min-height: 80px; transition: border-color 0.2s;
       }
       .post-input-wrap textarea:focus { border-color: rgba(167,139,250,0.4); }
       .post-input-wrap textarea::placeholder { color: rgba(255,255,255,0.2); }
 
-      /* ── TOURNAMENTS ─────────────────────────────────── */
-      .tournament-card {
+      .event-row {
+        background: rgba(255,255,255,0.028); border: 1px solid rgba(255,255,255,0.065);
+        border-radius: 0.9rem; padding: 1rem 1.25rem; margin-bottom: 0.65rem;
+        display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        transition: border-color 0.2s;
+      }
+      .event-row:last-child { margin-bottom: 0; }
+      .event-row:hover { border-color: rgba(167,139,250,0.15); }
+      .event-row-title { font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.8); margin-bottom: 0.2rem; }
+      .event-row-meta  { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+      .event-status-badge {
+        font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+        padding: 0.2rem 0.55rem; border-radius: 99px; white-space: nowrap; flex-shrink: 0;
+      }
+      .est-upcoming  { background: rgba(167,139,250,0.12); color: #a78bfa; }
+      .est-active    { background: rgba(52,211,153,0.12);  color: #34d399; }
+      .est-completed { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.35); }
+
+      /* ══════════════════════════════════════════════════
+         RESULTATER
+         ══════════════════════════════════════════════════ */
+
+      /* Hall of Fame */
+      .hof-section {
+        padding: 0 2.75rem 2rem;
+      }
+      .hof-header { margin-bottom: 1.25rem; }
+      .hof-title {
+        font-size: 1.05rem; font-weight: 800;
+        letter-spacing: -0.018em; color: #fff;
+        display: flex; align-items: center; gap: 0.5rem;
+      }
+      .hof-sub {
+        font-size: 0.78rem; color: rgba(255,255,255,0.32);
+        margin-top: 0.2rem;
+      }
+      .hof-grid {
+        display: flex; gap: 0.85rem; flex-wrap: wrap;
+      }
+      .hof-card {
+        display: flex; flex-direction: column; align-items: center;
+        gap: 0.45rem;
         background: rgba(255,255,255,0.03);
         border: 1px solid rgba(255,255,255,0.07);
-        border-radius: 1rem; padding: 1.25rem;
-        margin-bottom: 0.75rem;
-        display: flex; align-items: center; justify-content: space-between;
-        gap: 1rem;
+        border-radius: 1.1rem;
+        padding: 1.35rem 1.5rem;
+        min-width: 120px;
+        transition: border-color 0.2s, transform 0.15s;
       }
-      .tournament-info { flex: 1; }
-      .tournament-title  { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
-      .tournament-meta   { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
-      .status-badge {
-        font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-        padding: 0.25rem 0.6rem; border-radius: 99px;
+      .hof-card:hover { border-color: rgba(255,255,255,0.14); transform: translateY(-2px); }
+      .hof-card.rank-1 { border-color: rgba(251,191,36,0.28); background: rgba(251,191,36,0.05); }
+      .hof-medal { font-size: 1.5rem; }
+      .hof-avatar {
+        width: 44px; height: 44px; border-radius: 50%;
+        background: linear-gradient(135deg, #7c5cfc, #a78bfa);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.85rem; font-weight: 700; color: #fff;
       }
-      .status-upcoming  { background: rgba(167,139,250,0.15); color: #a78bfa; }
-      .status-active    { background: rgba(52,211,153,0.15);  color: #34d399; }
-      .status-completed { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.4); }
+      .hof-card.rank-1 .hof-avatar { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+      .hof-name {
+        font-size: 0.82rem; font-weight: 700;
+        color: rgba(255,255,255,0.82); text-align: center;
+        max-width: 110px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      .hof-stat {
+        font-size: 0.72rem; color: rgba(255,255,255,0.35);
+      }
 
-      /* ── WINNER ROWS ─────────────────────────────────── */
-      .winner-row {
-        display: flex; align-items: center; gap: 1rem;
-        padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      /* Filter bar */
+      .results-filter-bar {
+        display: flex; gap: 0.5rem; flex-wrap: wrap;
+        padding: 0 2.75rem 1.75rem;
       }
-      .winner-row:last-child { border-bottom: none; }
-      .winner-pos  { font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.2); width: 24px; }
-      .winner-name { font-size: 0.88rem; font-weight: 600; flex: 1; }
-      .winner-tournament { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
-      .crown { color: #f59e0b; }
+      .results-filter-btn {
+        padding: 0.42rem 1.05rem;
+        font-size: 0.8rem; font-weight: 600; font-family: inherit;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 99px;
+        background: rgba(255,255,255,0.04);
+        color: rgba(255,255,255,0.42);
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .results-filter-btn:hover { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.18); }
+      .results-filter-btn.active {
+        background: rgba(167,139,250,0.14);
+        border-color: rgba(167,139,250,0.35);
+        color: #c4b5fd;
+      }
 
-      /* ── BUTTONS ─────────────────────────────────────── */
-      .btn {
+      /* Result cards grid */
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+        gap: 1.2rem;
+        padding: 0 2.75rem 3rem;
+        align-items: start;
+      }
+      .result-card {
+        background: rgba(255,255,255,0.028);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 1.25rem;
+        padding: 1.5rem;
+        display: flex; flex-direction: column; gap: 0.65rem;
+        transition: border-color 0.2s, transform 0.15s;
+        cursor: default;
+      }
+      .result-card:hover { border-color: rgba(255,255,255,0.13); transform: translateY(-2px); }
+      .result-card-top { display: flex; align-items: center; justify-content: space-between; }
+      .result-winner-crown { font-size: 1.1rem; }
+      .result-type-badge {
+        font-size: 0.66rem; font-weight: 700;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        padding: 0.22rem 0.6rem; border-radius: 99px;
+      }
+      .badge-turnering { background: rgba(167,139,250,0.15); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.25); }
+      .badge-kamp      { background: rgba(248,113,113,0.13); color: #fca5a5; border: 1px solid rgba(248,113,113,0.22); }
+      .badge-aktivitet { background: rgba(52,211,153,0.13);  color: #6ee7b7; border: 1px solid rgba(52,211,153,0.22); }
+      .badge-samling   { background: rgba(251,191,36,0.13);  color: #fde68a; border: 1px solid rgba(251,191,36,0.22); }
+      .badge-arrangement { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1); }
+
+      .result-card-title {
+        font-size: 1rem; font-weight: 700;
+        color: rgba(255,255,255,0.88);
+        letter-spacing: -0.018em;
+        line-height: 1.3;
+      }
+      .result-card-meta {
+        display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
+        font-size: 0.75rem; color: rgba(255,255,255,0.35);
+      }
+      .result-card-summary {
+        font-size: 0.8rem; color: rgba(255,255,255,0.4);
+        line-height: 1.6;
+      }
+      .result-card-winner {
+        display: flex; align-items: center; gap: 0.55rem;
+        background: rgba(251,191,36,0.08);
+        border: 1px solid rgba(251,191,36,0.18);
+        border-radius: 0.65rem; padding: 0.55rem 0.85rem;
+      }
+      .result-winner-label {
+        font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.08em; color: rgba(251,191,36,0.7);
+      }
+      .result-winner-name {
+        font-size: 0.85rem; font-weight: 700; color: #fde68a;
+      }
+      .result-card-done {
+        display: flex;
+      }
+      .result-done-badge {
+        font-size: 0.72rem; font-weight: 700;
+        padding: 0.22rem 0.65rem; border-radius: 99px;
+        background: rgba(52,211,153,0.1);
+        border: 1px solid rgba(52,211,153,0.2);
+        color: #6ee7b7;
+      }
+      .result-card-footer { margin-top: 0.25rem; }
+      .result-detail-btn {
+        font-size: 0.8rem; font-weight: 600; font-family: inherit;
         padding: 0.5rem 1.1rem;
-        font-size: 0.82rem; font-family: inherit; font-weight: 600;
-        border: none; border-radius: 0.6rem; cursor: pointer;
-        transition: opacity 0.15s, transform 0.1s;
+        background: rgba(167,139,250,0.1);
+        border: 1px solid rgba(167,139,250,0.22);
+        border-radius: 0.65rem; color: #c4b5fd;
+        cursor: pointer; transition: background 0.15s, border-color 0.15s;
       }
-      .btn:hover { opacity: 0.85; }
+      .result-detail-btn:hover { background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.38); }
+
+      /* Detail view */
+      .result-detail { padding: 0 2.75rem 3rem; }
+      .detail-back-btn {
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        font-size: 0.8rem; font-weight: 600; font-family: inherit;
+        color: rgba(255,255,255,0.42); background: none;
+        border: none; cursor: pointer; padding: 0; margin-bottom: 1.75rem;
+        transition: color 0.15s;
+      }
+      .detail-back-btn:hover { color: rgba(255,255,255,0.75); }
+      .detail-hero-band {
+        border-radius: 1.25rem;
+        padding: 2.25rem 2.5rem 2rem;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, rgba(22,12,55,0.9), rgba(10,8,28,0.96));
+        border: 1px solid rgba(167,139,250,0.15);
+      }
+      .detail-hero-band .result-type-badge { margin-bottom: 1rem; }
+      .detail-hero-title {
+        font-size: 1.65rem; font-weight: 800;
+        letter-spacing: -0.03em; color: #fff;
+        margin-bottom: 0.75rem; line-height: 1.2;
+      }
+      .detail-hero-meta {
+        display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+        font-size: 0.82rem; color: rgba(255,255,255,0.38);
+      }
+      .detail-section {
+        margin-bottom: 1.75rem;
+      }
+      .detail-section-title {
+        font-size: 0.7rem; font-weight: 700;
+        letter-spacing: 0.12em; text-transform: uppercase;
+        color: rgba(255,255,255,0.25);
+        margin-bottom: 0.9rem;
+      }
+      .detail-description {
+        font-size: 0.875rem; color: rgba(255,255,255,0.52);
+        line-height: 1.7;
+      }
+      .detail-placements {
+        display: flex; flex-direction: column; gap: 0.5rem;
+      }
+      .detail-placement-row {
+        display: flex; align-items: center; gap: 1rem;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 0.75rem;
+        padding: 0.85rem 1.1rem;
+      }
+      .detail-placement-row.place-gold   { background: rgba(251,191,36,0.07); border-color: rgba(251,191,36,0.2); }
+      .detail-placement-row.place-silver { background: rgba(209,213,219,0.05); border-color: rgba(209,213,219,0.15); }
+      .detail-placement-row.place-bronze { background: rgba(217,119,6,0.06);  border-color: rgba(217,119,6,0.18); }
+      .detail-placement-pos { font-size: 1.1rem; width: 28px; text-align: center; }
+      .detail-placement-name { font-size: 0.9rem; font-weight: 700; color: rgba(255,255,255,0.82); }
+      .detail-done-note {
+        font-size: 0.875rem; color: #6ee7b7;
+        background: rgba(52,211,153,0.07);
+        border: 1px solid rgba(52,211,153,0.18);
+        border-radius: 0.75rem;
+        padding: 1rem 1.25rem;
+      }
+      .detail-badges { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+      .badge-chip {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-size: 0.75rem; font-weight: 600;
+        padding: 0.3rem 0.75rem; border-radius: 99px;
+        background: rgba(167,139,250,0.1);
+        border: 1px solid rgba(167,139,250,0.22);
+        color: rgba(167,139,250,0.85);
+      }
+      .detail-photos-empty {
+        font-size: 0.8rem; color: rgba(255,255,255,0.2);
+        font-style: italic;
+      }
+
+      .btn {
+        padding: 0.5rem 1.1rem; font-size: 0.82rem; font-family: inherit; font-weight: 600;
+        border: none; border-radius: 0.6rem; cursor: pointer; transition: opacity 0.15s, transform 0.1s;
+      }
+      .btn:hover  { opacity: 0.85; }
       .btn:active { transform: scale(0.97); }
       .btn-primary { background: linear-gradient(135deg, #7c5cfc, #a78bfa); color: #fff; }
-      .btn-ghost   { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.08); }
+      .btn-ghost   { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.08); }
       .btn-sm      { padding: 0.35rem 0.8rem; font-size: 0.75rem; }
 
-      /* ── SECTION VISIBILITY ──────────────────────────── */
-      .section { display: none; }
-      .section.active { display: block; }
+      .empty   { text-align: center; padding: 2rem; color: rgba(255,255,255,0.2); font-size: 0.85rem; }
 
-      /* ── EMPTY STATE ─────────────────────────────────── */
-      .empty { text-align: center; padding: 2.5rem; color: rgba(255,255,255,0.25); font-size: 0.875rem; }
+      .empty-state {
+        display: flex; flex-direction: column; align-items: center;
+        padding: 3.5rem 2rem; text-align: center;
+        grid-column: 1 / -1;
+      }
+      .empty-state-icon {
+        font-size: 2.4rem; margin-bottom: 1.1rem;
+        filter: grayscale(0.3);
+      }
+      .empty-state-title {
+        font-size: 1rem; font-weight: 700;
+        color: rgba(255,255,255,0.7);
+        margin-bottom: 0.55rem;
+        letter-spacing: -0.015em;
+      }
+      .empty-state-text {
+        font-size: 0.83rem; color: rgba(255,255,255,0.32);
+        line-height: 1.65; max-width: 320px;
+        margin-bottom: 1.5rem;
+      }
+      .empty-state-btn {
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        padding: 0.65rem 1.4rem;
+        font-size: 0.85rem; font-weight: 600; font-family: inherit;
+        background: rgba(167,139,250,0.14);
+        border: 1px solid rgba(167,139,250,0.28);
+        border-radius: 0.75rem; color: #c4b5fd;
+        cursor: pointer;
+        transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      }
+      .empty-state-btn:hover {
+        background: rgba(167,139,250,0.22);
+        border-color: rgba(167,139,250,0.45);
+        transform: translateY(-1px);
+      }
+      .loading { color: rgba(255,255,255,0.2); font-size: 0.85rem; padding: 0.5rem 0; }
 
-      /* ── LOADING ─────────────────────────────────────── */
-      .loading { color: rgba(255,255,255,0.25); font-size: 0.85rem; padding: 1rem 0; }
+      /* ══════════════════════════════════════════════════
+         ARRANGEMENTER PAGE
+         ══════════════════════════════════════════════════ */
+      .events-page { padding: 0 2.75rem 3rem; }
+      .events-intro { font-size: 0.875rem; color: rgba(255,255,255,0.38); margin-top: 0.35rem; line-height: 1.6; }
+
+      /* Info banner */
+      .events-info-banner {
+        background: linear-gradient(135deg, rgba(22,12,55,0.9) 0%, rgba(10,8,28,0.95) 100%);
+        border: 1px solid rgba(167,139,250,0.2);
+        border-radius: 1.5rem;
+        padding: 2.25rem 2.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .events-info-banner::before {
+        content: '';
+        position: absolute; top: 0; left: 12%; right: 12%; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(167,139,250,0.55), transparent);
+      }
+      .events-info-banner::after {
+        content: '';
+        position: absolute; top: -60px; right: -60px;
+        width: 240px; height: 240px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(120,80,255,0.1) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .events-info-inner {
+        display: flex; gap: 2rem; align-items: flex-start;
+        position: relative; z-index: 1;
+      }
+      .events-info-icon {
+        font-size: 2.75rem; flex-shrink: 0; line-height: 1;
+        filter: drop-shadow(0 0 12px rgba(167,139,250,0.4));
+      }
+      .events-info-text { flex: 1; }
+      .events-info-title {
+        font-size: 1.2rem; font-weight: 800; color: #fff;
+        letter-spacing: -0.02em; margin-bottom: 0.65rem; line-height: 1.25;
+      }
+      .events-info-body {
+        font-size: 0.875rem; color: rgba(255,255,255,0.48);
+        line-height: 1.75; margin-bottom: 1.4rem; max-width: 600px;
+      }
+      .events-info-pills {
+        display: flex; gap: 0.55rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+      }
+      .events-info-pill {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2);
+        border-radius: 99px; padding: 0.22rem 0.75rem;
+        font-size: 0.72rem; font-weight: 600; color: rgba(167,139,250,0.85);
+      }
+      .events-info-pill::before {
+        content: ''; width: 4px; height: 4px; border-radius: 50%;
+        background: #a78bfa; box-shadow: 0 0 4px rgba(167,139,250,0.8);
+      }
+      .events-info-actions { display: flex; gap: 0.65rem; flex-wrap: wrap; }
+
+      /* Event cards grid */
+      .events-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+      .events-section-title { font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.13em; color: rgba(255,255,255,0.28); }
+      .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-bottom: 2.5rem; }
+
+      .event-card {
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 1.25rem; overflow: hidden;
+        transition: border-color 0.2s, transform 0.2s; cursor: pointer;
+      }
+      .event-card:hover { border-color: rgba(167,139,250,0.22); transform: translateY(-2px); }
+      .event-card-img {
+        height: 155px; position: relative; overflow: hidden;
+        display: flex; align-items: flex-end; padding: 0.85rem;
+      }
+      .event-card-img::after {
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(to top, rgba(8,7,20,0.72) 0%, rgba(8,7,20,0.1) 60%, transparent 100%);
+      }
+      .event-card-img-icon { font-size: 2.8rem; opacity: 0.2; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-60%); }
+      .event-card-body { padding: 1.1rem 1.25rem 1.25rem; }
+      .event-card-date  { font-size: 0.72rem; font-weight: 600; color: #a78bfa; margin-bottom: 0.38rem; }
+      .event-card-title { font-size: 0.975rem; font-weight: 700; color: rgba(255,255,255,0.88); margin-bottom: 0.3rem; line-height: 1.3; }
+      .event-card-location { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-bottom: 0.55rem; }
+      .event-card-desc { font-size: 0.79rem; color: rgba(255,255,255,0.4); line-height: 1.55; margin-bottom: 0.85rem; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      .event-card-footer { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.75rem; }
+
+      /* Detail view */
+      .event-detail { display: none; }
+      .event-detail.active { display: block; }
+      .event-detail-back {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        background: none; border: none; color: rgba(255,255,255,0.38); font-size: 0.82rem;
+        font-family: inherit; cursor: pointer; margin-bottom: 1.25rem; padding: 0; transition: color 0.15s;
+      }
+      .event-detail-back:hover { color: rgba(255,255,255,0.75); }
+      .event-detail-card {
+        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 1.25rem; overflow: hidden; margin-bottom: 1.5rem;
+      }
+      .event-detail-img {
+        height: 260px; display: flex; align-items: center; justify-content: center;
+        font-size: 4rem; position: relative; overflow: hidden;
+      }
+      .event-detail-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,7,20,0.7) 0%, transparent 60%); }
+      .event-detail-body { padding: 1.85rem 2.25rem 2rem; }
+      .event-detail-meta-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
+      .event-detail-meta-item { font-size: 0.82rem; color: rgba(255,255,255,0.38); }
+      .event-detail-title { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.025em; color: #fff; margin-bottom: 0.75rem; line-height: 1.2; }
+      .event-detail-desc { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 1.75rem; }
+      .event-detail-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.07); }
+      .event-participants-count { font-size: 0.85rem; color: rgba(255,255,255,0.38); }
+      .event-participants-count strong { color: rgba(255,255,255,0.78); font-size: 1rem; }
+
+      /* Propose modal */
+      .modal-overlay {
+        position: fixed; inset: 0; z-index: 500;
+        background: rgba(0,0,0,0.65); backdrop-filter: blur(10px);
+        display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+      }
+      .hidden { display: none !important; }
+      .modal-overlay.hidden { display: none; }
+      .propose-modal {
+        width: min(540px, 100%); background: #0d0b1e;
+        border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5rem;
+        padding: 2.25rem 2.5rem; position: relative;
+        box-shadow: 0 40px 100px rgba(0,0,0,0.8); max-height: 90vh; overflow-y: auto;
+      }
+      .propose-modal::before {
+        content: ''; position: absolute; top: 0; left: 15%; right: 15%; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(167,139,250,0.5), transparent);
+      }
+      .modal-close-btn {
+        position: absolute; top: 1.25rem; right: 1.25rem;
+        background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 0.5rem; width: 30px; height: 30px;
+        display: flex; align-items: center; justify-content: center;
+        color: rgba(255,255,255,0.4); cursor: pointer; font-size: 0.9rem; font-family: inherit; transition: all 0.15s;
+      }
+      .modal-close-btn:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+      .modal-title    { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem; }
+      .modal-subtitle { font-size: 0.82rem; color: rgba(255,255,255,0.32); margin-bottom: 1.75rem; }
+      .form-field     { margin-bottom: 1.05rem; }
+      .form-label     { display: block; font-size: 0.67rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); margin-bottom: 0.4rem; }
+      .form-input, .form-textarea {
+        width: 100%; padding: 0.75rem 1rem;
+        background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 0.8rem; color: #fff; font-family: inherit; font-size: 0.875rem; outline: none; transition: border-color 0.2s;
+      }
+      .form-input:focus, .form-textarea:focus { border-color: rgba(167,139,250,0.4); }
+      .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+      .form-textarea  { resize: vertical; min-height: 90px; line-height: 1.6; }
+      .form-row       { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+      .form-submit-row { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+
+      /* Mine forslag */
+      .my-proposals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+      .proposal-card {
+        background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.065);
+        border-radius: 1rem; padding: 1.25rem 1.35rem;
+        display: flex; flex-direction: column; gap: 0.5rem;
+        transition: border-color 0.2s;
+      }
+      .proposal-card:hover { border-color: rgba(255,255,255,0.1); }
+      .proposal-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+      .proposal-title { font-size: 0.9rem; font-weight: 700; color: rgba(255,255,255,0.82); line-height: 1.3; }
+      .proposal-meta { display: flex; flex-direction: column; gap: 0.22rem; }
+      .proposal-meta-row { font-size: 0.75rem; color: rgba(255,255,255,0.3); display: flex; align-items: center; gap: 0.35rem; }
+      .proposal-desc { font-size: 0.78rem; color: rgba(255,255,255,0.3); line-height: 1.55; margin-top: 0.1rem; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      .proposal-status-badge { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.2rem 0.65rem; border-radius: 99px; white-space: nowrap; flex-shrink: 0; }
+      .ps-pending  { background: rgba(167,139,250,0.1); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.22); }
+      .ps-review   { background: rgba(251,191,36,0.1);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+      .ps-approved { background: rgba(52,211,153,0.1);  color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+      .ps-rejected { background: rgba(248,113,113,0.1); color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+
+
+      /* ══════════════════════════════════════════════════
+         SETTINGS
+         ══════════════════════════════════════════════════ */
+      .settings-layout {
+        display: flex;
+        gap: 1.75rem;
+        padding: 0 2.75rem 3rem;
+        align-items: flex-start;
+      }
+
+      .settings-nav {
+        width: 170px;
+        flex-shrink: 0;
+        background: rgba(255,255,255,0.028);
+        border: 1px solid rgba(255,255,255,0.065);
+        border-radius: 1rem;
+        padding: 0.5rem;
+        position: sticky;
+        top: 1.5rem;
+      }
+
+      .settings-nav-item {
+        padding: 0.65rem 1rem;
+        border-radius: 0.6rem;
+        font-size: 0.855rem;
+        font-weight: 500;
+        color: rgba(255,255,255,0.42);
+        cursor: pointer;
+        transition: color 0.15s, background 0.15s;
+        user-select: none;
+      }
+      .settings-nav-item:hover  { color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.05); }
+      .settings-nav-item.active { color: #a78bfa; background: rgba(167,139,250,0.1); font-weight: 600; }
+
+      .settings-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .settings-panel { display: none; }
+      .settings-panel.active { display: block; }
+
+      .settings-card {
+        background: rgba(255,255,255,0.034);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 1.1rem;
+        padding: 1.75rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .settings-card-title {
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(255,255,255,0.28);
+        margin-bottom: 1.4rem;
+      }
+
+      .settings-field {
+        margin-bottom: 1.1rem;
+      }
+      .settings-field:last-child { margin-bottom: 0; }
+
+      .settings-label {
+        display: block;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: rgba(255,255,255,0.55);
+        margin-bottom: 0.45rem;
+      }
+
+      .settings-input {
+        width: 100%;
+        background: rgba(255,255,255,0.055);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 0.65rem;
+        padding: 0.72rem 1rem;
+        font-size: 0.875rem;
+        font-family: inherit;
+        color: rgba(255,255,255,0.85);
+        outline: none;
+        transition: border-color 0.18s, background 0.18s;
+      }
+      .settings-input:focus {
+        border-color: rgba(167,139,250,0.5);
+        background: rgba(167,139,250,0.06);
+      }
+      .settings-input::placeholder { color: rgba(255,255,255,0.22); }
+
+      .settings-textarea {
+        resize: vertical;
+        min-height: 90px;
+      }
+
+      .settings-avatar-row {
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+      }
+
+      .settings-avatar-preview {
+        width: 56px; height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #7c5cfc, #a78bfa);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.2rem; font-weight: 700; color: #fff;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+      .settings-avatar-preview img {
+        width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+      }
+
+      .settings-toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.85rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      .settings-toggle-row:last-child { border-bottom: none; padding-bottom: 0; }
+      .settings-toggle-row:first-of-type { padding-top: 0; }
+
+      .settings-toggle-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 0.2rem;
+      }
+      .settings-toggle-sub {
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.3);
+      }
+
+      /* Toggle switch */
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 42px; height: 24px;
+        flex-shrink: 0;
+      }
+      .toggle-switch input { opacity: 0; width: 0; height: 0; }
+      .toggle-slider {
+        position: absolute; inset: 0;
+        background: rgba(255,255,255,0.12);
+        border-radius: 99px;
+        cursor: pointer;
+        transition: background 0.22s;
+      }
+      .toggle-slider::before {
+        content: '';
+        position: absolute;
+        width: 18px; height: 18px;
+        left: 3px; bottom: 3px;
+        background: rgba(255,255,255,0.55);
+        border-radius: 50%;
+        transition: transform 0.22s, background 0.22s;
+      }
+      .toggle-switch input:checked + .toggle-slider { background: rgba(124,92,252,0.7); }
+      .toggle-switch input:checked + .toggle-slider::before {
+        transform: translateX(18px);
+        background: #fff;
+      }
+
+      .settings-save-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.78rem 1.75rem;
+        background: linear-gradient(135deg, #7c5cfc, #9b7dfa);
+        border: none;
+        border-radius: 0.75rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+        font-family: inherit;
+        transition: transform 0.15s, box-shadow 0.2s;
+        box-shadow: 0 4px 22px rgba(124,92,252,0.5);
+        margin-bottom: 1rem;
+      }
+      .settings-save-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 32px rgba(124,92,252,0.65);
+      }
+
+      .settings-toast {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(52,211,153,0.12);
+        border: 1px solid rgba(52,211,153,0.25);
+        border-radius: 0.6rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #34d399;
+        transition: opacity 0.3s;
+      }
+      .settings-toast::before {
+        content: '✓';
+        font-size: 0.9rem;
+      }
+      .settings-toast.hidden { display: none; }
     </style>
   </head>
   <body>
 
-    <!-- ── SIDEBAR ──────────────────────────────────────── -->
+    <!-- ══════════════════════════════════════════════════
+         SIDEBAR
+         ══════════════════════════════════════════════════ -->
     <aside class="sidebar">
       <div class="sidebar-logo">
         <div class="dot"></div>
-        <span>Brim Community</span>
+        <span>UAN COMMUNITY</span>
       </div>
 
       <span class="nav-section">Hoved</span>
-      <div class="nav-item active" data-section="dashboard">
-        <span class="icon">⊞</span> Dashboard
-      </div>
-      <div class="nav-item" data-section="profil">
-        <span class="icon">◎</span> Profil
-      </div>
-      <div class="nav-item" data-section="community">
-        <span class="icon">◈</span> Community
-      </div>
+      <div class="nav-item active" data-section="dashboard"><span class="icon">⊞</span> Dashboard</div>
+      <div class="nav-item" data-section="community"><span class="icon">◈</span> Fellesskap</div>
 
-      <span class="nav-section">Konkurranser</span>
-      <div class="nav-item" data-section="turneringer">
-        <span class="icon">⚡</span> Turneringer
-      </div>
-      <div class="nav-item" data-section="vinnere">
-        <span class="icon">★</span> Hall of Fame
-      </div>
+      <span class="nav-section">Foreningen</span>
+      <div class="nav-item" data-section="turneringer"><span class="icon">📅</span> Arrangementer</div>
+      <div class="nav-item" data-section="vinnere"><span class="icon">★</span> Resultater</div>
 
       <div class="sidebar-bottom">
         <div class="sidebar-user">
           <div class="avatar" id="sidebarAvatar">?</div>
           <div class="user-info">
             <div class="user-name" id="sidebarName">Laster…</div>
-            <div class="user-level" id="sidebarLevel">—</div>
+            <div class="user-role" id="sidebarRole">Medlem</div>
           </div>
         </div>
-        <div class="nav-item" id="logoutBtn" style="margin-top:0.75rem; color:rgba(248,113,113,0.6);">
+        <div class="nav-item hidden" id="adminLink" onclick="window.location.href='admin.html'"
+          style="color:rgba(245,158,11,0.65);">
+          <span class="icon">🛡️</span> Adminpanel
+        </div>
+        <div class="nav-item" data-section="settings"><span class="icon">⚙️</span> Settings</div>
+        <div class="nav-item" id="logoutBtn" style="margin-top:0.25rem; color:rgba(248,113,113,0.5);">
           <span class="icon">→</span> Logg ut
         </div>
       </div>
     </aside>
 
-    <!-- ── MAIN ─────────────────────────────────────────── -->
+    <!-- ══════════════════════════════════════════════════
+         MAIN
+         ══════════════════════════════════════════════════ -->
     <main class="main">
 
-      <!-- DASHBOARD -->
+      <!-- ══════════════════════════════════════════════════
+           DASHBOARD
+           ══════════════════════════════════════════════════ -->
       <div class="section active" id="sec-dashboard">
-        <div class="page-header">
-          <div>
-            <div class="page-title" id="welcomeTitle">Hei, —</div>
-            <div class="page-subtitle">Her er en oversikt over din aktivitet og fellesskapet.</div>
+
+        <!-- ── HERO ──────────────────────────────────────── -->
+        <div class="dash-hero">
+
+          <!-- Left: text panel -->
+          <div class="hero-left">
+            <div class="hero-eyebrow">Ung og Aktive Norge</div>
+            <h1 class="hero-title">Velkommen til<br>Ung og Aktive Norge</h1>
+            <p class="hero-subtitle">Her finner du informasjon, aktiviteter og fellesskapet som holder UAN levende.</p>
+            <button class="hero-cta" id="heroCta">
+              Se hva som skjer <span class="hero-cta-arrow">→</span>
+            </button>
           </div>
+
+          <!-- Full-width background slideshow -->
+          <div class="hero-photo">
+            <div class="hero-slide hero-slide-1 active"></div>
+            <div class="hero-slide hero-slide-2"></div>
+            <div class="hero-slide hero-slide-3"></div>
+          </div>
+          <div class="hero-photo-overlay"></div>
+
+          <!-- Right: featured card -->
+          <div class="hero-right">
+            <div class="hero-card-wrap">
+              <div class="viktig-hero-card">
+                <div class="viktig-hero-label">Viktig nå</div>
+                <div id="viktigHeroContent">
+                  <div class="loading">Laster…</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <!-- Level card -->
-        <div class="level-card">
-          <div class="level-name" id="levelName">—</div>
-          <div class="level-sub" id="levelSub">Grad 1 av 7</div>
-          <div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
-          <div class="xp-labels">
-            <span id="xpCur">0 XP</span>
-            <span id="xpNext">Neste: 100 XP</span>
-          </div>
-        </div>
+        <!-- ── DASHBOARD BODY ─────────────────────────────── -->
+        <div class="dashboard-body">
 
-        <!-- Stats -->
-        <div class="grid-3">
-          <div class="stat-card">
-            <div class="stat-label">Totale Medlemmer</div>
-            <div class="stat-value" id="statMembers">—</div>
-            <div class="stat-sub">av 200 mål</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Ditt XP</div>
-            <div class="stat-value" id="statXP">0</div>
-            <div class="stat-sub">erfaringspoeng</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Innmeldt</div>
-            <div class="stat-value" id="statJoined" style="font-size:1.1rem; padding-top:0.4rem;">—</div>
-            <div class="stat-sub">dato</div>
-          </div>
-        </div>
+          <!-- ── TOP ROW ──────────────────────────────────── -->
+          <div class="top-row">
 
-        <!-- Recent community preview -->
-        <div class="card" style="margin-bottom:1rem;">
-          <div class="section-header">
-            <span class="section-title">Siste i Community</span>
-            <button class="btn btn-ghost btn-sm" onclick="showSection('community')">Se alle</button>
-          </div>
-          <div id="dashFeed"><div class="loading">Laster…</div></div>
-        </div>
+            <!-- Neste arrangement -->
+            <div class="dash-card">
+              <div class="dash-card-label">Neste arrangement</div>
+              <div id="nesteArrangement"><div class="loading">Laster…</div></div>
+            </div>
 
-        <!-- Upcoming tournaments preview -->
-        <div class="card">
-          <div class="section-header">
-            <span class="section-title">Kommende turneringer</span>
-            <button class="btn btn-ghost btn-sm" onclick="showSection('turneringer')">Se alle</button>
+            <!-- Nå i fellesskapet — live rotator -->
+            <div class="dash-card now-card">
+              <div class="dash-card-label">Nå i fellesskapet</div>
+              <div class="now-content" id="nowContent">
+                <div class="loading">Laster…</div>
+              </div>
+              <div class="now-footer">
+                <div class="now-dots" id="nowDots"></div>
+                <span style="font-size:0.68rem;color:rgba(255,255,255,0.18);">Oppdateres automatisk</span>
+              </div>
+            </div>
+
+            <!-- Min status -->
+            <div class="dash-card">
+              <div class="dash-card-label">Min medlemsstatus</div>
+              <div id="minStatus"><div class="loading">Laster…</div></div>
+            </div>
+
           </div>
-          <div id="dashTournaments"><div class="loading">Laster…</div></div>
+
+          <!-- ── SISTE FRA FELLESSKAPET ─────────────────────── -->
+          <div class="db-section">
+            <div class="db-section-header">
+              <span class="db-section-title">Siste fra fellesskapet</span>
+              <button class="db-section-link" id="seeAllFellBtn">Se alle innlegg</button>
+            </div>
+            <div class="community-cards" id="communityPreview">
+              <div class="loading">Laster…</div>
+            </div>
+          </div>
+
+          <!-- ── MINE INNLEGG ───────────────────────────────── -->
+          <div class="db-section">
+            <div class="db-section-header">
+              <span class="db-section-title">Mine innlegg</span>
+              <button class="db-section-link" id="dashGoToFellBtn">Gå til Fellesskapet</button>
+            </div>
+            <div class="dash-card" id="myPostsList"><div class="loading">Laster…</div></div>
+          </div>
+
+          <!-- ── MINE AKTIVITETER ───────────────────────────── -->
+          <div class="db-section">
+            <div class="db-section-header">
+              <span class="db-section-title">Mine aktiviteter</span>
+              <button class="db-section-link" id="dashGoToEventsBtn">Se arrangementer</button>
+            </div>
+            <div class="dash-card" id="myActivitiesList"><div class="loading">Laster…</div></div>
+          </div>
+
+          <!-- ── PRAKTISK INFORMASJON ───────────────────────── -->
+          <div class="db-section" style="margin-top:3.5rem; padding-top:2rem; border-top:1px solid rgba(255,255,255,0.06); margin-bottom:1rem;">
+            <div class="db-section-header">
+              <span class="db-section-title" style="color:rgba(255,255,255,0.2);">Praktisk informasjon</span>
+            </div>
+            <div class="info-grid">
+              <div class="info-card">
+                <span class="info-card-icon">🏛️</span>
+                <div class="info-card-title">Om UAN</div>
+                <div class="info-card-text">Ung og Aktive Norge er en nasjonal forening for unge og aktive mennesker som ønsker å bidra til et levende og inkluderende samfunn.</div>
+              </div>
+              <div class="info-card">
+                <span class="info-card-icon">📋</span>
+                <div class="info-card-title">Regler</div>
+                <div class="info-card-text">Alle medlemmer forventes å opptre respektfullt. Hatefulle ytringer og ekskluderende atferd tolereres ikke.</div>
+              </div>
+              <div class="info-card">
+                <span class="info-card-icon">🤝</span>
+                <div class="info-card-title">Forventninger</div>
+                <div class="info-card-text">Delta aktivt, bidra positivt og still opp for hverandre. Meld deg på arrangementer og hold deg oppdatert.</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <!-- PROFIL -->
+      <!-- ══════════════════════════════════════════════════
+           PROFIL
+           ══════════════════════════════════════════════════ -->
       <div class="section" id="sec-profil">
-        <div class="page-header">
-          <div><div class="page-title">Profil</div><div class="page-subtitle">Din medlemsinformasjon</div></div>
-        </div>
-        <div class="card">
-          <div id="profileContent"><div class="loading">Laster…</div></div>
-        </div>
+        <!-- Profil er flyttet til Settings -->
       </div>
 
-      <!-- COMMUNITY -->
+      <!-- ══════════════════════════════════════════════════
+           FELLESSKAPET
+           ══════════════════════════════════════════════════ -->
       <div class="section" id="sec-community">
         <div class="page-header">
-          <div><div class="page-title">Community</div><div class="page-subtitle">Del, følg med og vær en del av fellesskapet</div></div>
+          <div class="page-title">Fellesskapet</div>
+          <div class="page-subtitle">Del, følg med og vær en del av UAN</div>
         </div>
+        <div class="community-page">
 
-        <div class="card" style="margin-bottom:1rem;">
-          <div class="post-input-wrap">
-            <textarea id="postContent" placeholder="Del noe med fellesskapet…"></textarea>
-          </div>
-          <div style="text-align:right;">
-            <button class="btn btn-primary" id="postBtn">Publiser</button>
-          </div>
-        </div>
+          <!-- Feed column -->
+          <div>
+            <!-- Compose -->
+            <div class="compose-card">
+              <div class="compose-row">
+                <div class="compose-avatar" id="composeAvatar">?</div>
+                <textarea class="compose-textarea" id="postContent" placeholder="Hva vil du dele med fellesskapet?"></textarea>
+              </div>
+              <div class="compose-footer">
+                <div class="compose-media-btns">
+                  <button class="compose-media-btn">🖼 Bilde</button>
+                  <button class="compose-media-btn">🎬 Video</button>
+                </div>
+                <button class="btn btn-primary btn-sm" id="postBtn">Publiser</button>
+              </div>
+            </div>
 
-        <div class="card">
-          <div id="communityFeed"><div class="loading">Laster…</div></div>
+            <!-- Feed -->
+            <div id="communityFeed"><div class="loading">Laster…</div></div>
+          </div>
+
+          <!-- Right panel -->
+          <aside class="community-right-panel">
+            <div class="panel-card">
+              <div class="panel-title">Kommende aktiviteter</div>
+              <div id="upcomingActivitiesList"><div class="loading">Laster…</div></div>
+            </div>
+            <div class="panel-card">
+              <div class="panel-title">Retningslinjer</div>
+              <div class="guideline-item">Vis respekt for alle medlemmer</div>
+              <div class="guideline-item">Hold tonen positiv og konstruktiv</div>
+              <div class="guideline-item">Del tanker, erfaringer og aktiviteter</div>
+              <div class="guideline-item">Hatefulle ytringer tolereres ikke</div>
+            </div>
+          </aside>
+
         </div>
       </div>
 
-      <!-- TURNERINGER -->
+      <!-- ══════════════════════════════════════════════════
+           ARRANGEMENTER
+           ══════════════════════════════════════════════════ -->
       <div class="section" id="sec-turneringer">
-        <div class="page-header">
-          <div><div class="page-title">Turneringer</div><div class="page-subtitle">Delta og kjemp deg til toppen</div></div>
+        <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;">
+          <div>
+            <div class="page-title">Arrangementer</div>
+            <div class="events-intro">Her finner du kommende aktiviteter og arrangementer i UngOgAktiveNorge.</div>
+          </div>
+          <button class="btn btn-primary" id="proposeBtn" style="margin-top:0.5rem;white-space:nowrap;">+ Foreslå arrangement</button>
         </div>
-        <div id="tournamentList"><div class="loading">Laster…</div></div>
+
+        <div class="events-page">
+
+          <!-- Info banner -->
+          <div class="events-info-banner">
+            <div class="events-info-inner">
+              <div class="events-info-icon">🎯</div>
+              <div class="events-info-text">
+                <div class="events-info-title">Start noe. Bli med. Skap aktivitet.</div>
+                <div class="events-info-body">
+                  Har du en idé til noe gøy? Lag et arrangement, inviter andre og skap aktivitet i UAN. Her kan medlemmer starte alt fra kamper og aktiviteter til samlinger og utfordringer – og alle kan bli med.
+                </div>
+                <div class="events-info-pills">
+                  <span class="events-info-pill">Kommende arrangementer</span>
+                  <span class="events-info-pill">Medlemsskapte aktiviteter</span>
+                  <span class="events-info-pill">Kamper og utfordringer</span>
+                  <span class="events-info-pill">Admin-godkjenning</span>
+                  <span class="events-info-pill">Premier og anerkjennelse</span>
+                </div>
+                <div class="events-info-actions">
+                  <button class="btn btn-ghost" id="scrollToEventsBtn">Se kommende →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Events grid / detail toggle -->
+          <div id="eventsMain">
+            <div id="eventsGridView">
+              <div class="events-section-header">
+                <span class="events-section-title" id="eventsGridLabel">Kommende arrangementer</span>
+              </div>
+              <div class="events-grid" id="eventsGrid">
+                <div class="loading">Laster…</div>
+              </div>
+            </div>
+            <div class="event-detail" id="eventDetailView">
+              <button class="event-detail-back" id="eventDetailBack">← Tilbake til arrangementer</button>
+              <div id="eventDetailContent"></div>
+            </div>
+          </div>
+
+          <!-- Mine forslag -->
+          <div style="margin-top:2.5rem; padding-top:2rem; border-top:1px solid rgba(255,255,255,0.06);">
+            <div class="events-section-header">
+              <span class="events-section-title">Mine forslag</span>
+            </div>
+            <div class="my-proposals-grid" id="mineForslagGrid">
+              <div class="loading">Laster…</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Propose modal -->
+        <div class="modal-overlay hidden" id="proposeModal">
+          <div class="propose-modal">
+            <button class="modal-close-btn" id="proposeModalClose">✕</button>
+            <div class="modal-title">Foreslå arrangement</div>
+            <div class="modal-subtitle">Forslaget sendes til admin for godkjenning før det publiseres</div>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="prop-title">Tittel</label>
+                <input class="form-input" id="prop-title" type="text" placeholder="Navn på arrangementet">
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="prop-date">Dato</label>
+                <input class="form-input" id="prop-date" type="date">
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="prop-location">Sted</label>
+              <input class="form-input" id="prop-location" type="text" placeholder="F.eks. Halden kulturhus">
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="prop-desc">Beskrivelse</label>
+              <textarea class="form-textarea" id="prop-desc" placeholder="Beskriv arrangementet…"></textarea>
+            </div>
+            <div class="form-submit-row">
+              <button class="btn btn-ghost" id="proposeCancel">Avbryt</button>
+              <button class="btn btn-primary" id="proposeSubmit">Send forslag</button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- HALL OF FAME -->
+      <!-- ══════════════════════════════════════════════════
+           RESULTATER
+           ══════════════════════════════════════════════════ -->
       <div class="section" id="sec-vinnere">
         <div class="page-header">
-          <div><div class="page-title">Hall of Fame</div><div class="page-subtitle">Tidligere turneringsvinnere</div></div>
+          <div class="page-title">Resultater</div>
+          <div class="page-subtitle">Her finner du resultater og oppsummeringer fra gjennomførte aktiviteter i UAN.</div>
         </div>
-        <div class="card">
-          <div id="winnerList"><div class="loading">Laster…</div></div>
+
+        <!-- Hall of Fame — injected by JS, hidden until data exists -->
+        <div class="hof-section" id="hofSection" style="display:none;">
+          <div class="hof-header">
+            <div class="hof-title">🏅 Hall of Fame</div>
+            <div class="hof-sub">Medlemmer med flest seiere</div>
+          </div>
+          <div class="hof-grid" id="hofGrid"></div>
         </div>
+
+        <!-- Filter bar -->
+        <div class="results-filter-bar" id="resultsFilterBar">
+          <button class="results-filter-btn active" data-type="all">Alle</button>
+          <button class="results-filter-btn" data-type="kamp">Kamper</button>
+          <button class="results-filter-btn" data-type="turnering">Turneringer</button>
+          <button class="results-filter-btn" data-type="aktivitet">Aktiviteter</button>
+          <button class="results-filter-btn" data-type="samling">Samlinger</button>
+        </div>
+
+        <!-- Results grid -->
+        <div class="results-grid" id="resultsGrid">
+          <div class="loading" style="grid-column:1/-1;">Laster…</div>
+        </div>
+
+        <!-- Detail view (shown instead of grid) -->
+        <div class="result-detail" id="resultDetail" style="display:none;"></div>
+
       </div>
+
+
+      <!-- ══════════════════════════════════════════════════
+           SETTINGS
+           ══════════════════════════════════════════════════ -->
+      <div class="section" id="sec-settings">
+        <div class="page-header">
+          <div class="page-title">Settings</div>
+          <div class="page-subtitle">Administrer konto, profil, varsler og personvern</div>
+        </div>
+        <div class="settings-layout">
+
+          <!-- Left menu -->
+          <nav class="settings-nav">
+            <div class="settings-nav-item active" data-tab="konto">Konto</div>
+            <div class="settings-nav-item" data-tab="profil">Profil</div>
+            <div class="settings-nav-item" data-tab="varsler">Varsler</div>
+            <div class="settings-nav-item" data-tab="personvern">Personvern</div>
+          </nav>
+
+          <!-- Right content -->
+          <div class="settings-content">
+
+            <!-- KONTO -->
+            <div class="settings-panel active" id="stab-konto">
+              <div class="settings-card">
+                <div class="settings-card-title">Kontoinformasjon</div>
+                <div class="settings-field">
+                  <label class="settings-label">E-postadresse</label>
+                  <input type="email" class="settings-input" id="settingsEmail" placeholder="din@epost.no" />
+                </div>
+                <div class="settings-field">
+                  <label class="settings-label">Telefonnummer</label>
+                  <input type="tel" class="settings-input" id="settingsPhone" placeholder="+47 000 00 000" />
+                </div>
+              </div>
+              <div class="settings-card">
+                <div class="settings-card-title">Endre passord</div>
+                <div class="settings-field">
+                  <label class="settings-label">Nåværende passord</label>
+                  <input type="password" class="settings-input" id="settingsCurrentPw" placeholder="••••••••" />
+                </div>
+                <div class="settings-field">
+                  <label class="settings-label">Nytt passord</label>
+                  <input type="password" class="settings-input" id="settingsNewPw" placeholder="••••••••" />
+                </div>
+                <div class="settings-field">
+                  <label class="settings-label">Bekreft nytt passord</label>
+                  <input type="password" class="settings-input" id="settingsConfirmPw" placeholder="••••••••" />
+                </div>
+              </div>
+              <button class="settings-save-btn" id="saveKontoBtn">Lagre endringer</button>
+              <div class="settings-toast hidden" id="toastKonto">Endringer lagret</div>
+            </div>
+
+            <!-- PROFIL -->
+            <div class="settings-panel" id="stab-profil">
+
+              <!-- Profile overview card -->
+              <div class="profile-header-card" id="profileHeader" style="margin-bottom:1.25rem;">
+                <div class="loading">Laster…</div>
+              </div>
+
+              <!-- Member info card -->
+              <div class="member-info-card" id="memberInfoCard" style="display:none; margin-bottom:1.25rem;">
+                <div class="member-info-header">
+                  <span class="member-info-card-title">Medlemsinformasjon</span>
+                </div>
+                <div class="member-info-grid" id="memberInfoGrid"></div>
+              </div>
+
+              <!-- Edit form -->
+              <div class="settings-card">
+                <div class="settings-card-title">Rediger profil</div>
+                <div class="settings-field">
+                  <label class="settings-label">Profilbilde</label>
+                  <div class="settings-avatar-row">
+                    <div class="settings-avatar-preview" id="settingsAvatarPreview">?</div>
+                    <div>
+                      <input type="url" class="settings-input" id="settingsAvatarUrl" placeholder="URL til bilde (valgfritt)" style="margin-bottom:0.5rem;" />
+                      <div style="font-size:0.72rem;color:rgba(255,255,255,0.28);">Lim inn en URL til profilbildet ditt</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="settings-field">
+                  <label class="settings-label">Navn</label>
+                  <input type="text" class="settings-input" id="settingsName" placeholder="Ditt fulle navn" />
+                </div>
+                <div class="settings-field">
+                  <label class="settings-label">Bio</label>
+                  <textarea class="settings-input settings-textarea" id="settingsBio" placeholder="Kort om deg selv…"></textarea>
+                </div>
+                <div class="settings-field">
+                  <label class="settings-label">Kommune</label>
+                  <input type="text" class="settings-input" id="settingsKommune" placeholder="Din kommune" />
+                </div>
+              </div>
+              <button class="settings-save-btn" id="saveProfilBtn">Oppdater profil</button>
+              <div class="settings-toast hidden" id="toastProfil">Endringer lagret</div>
+            </div>
+
+            <!-- VARSLER -->
+            <div class="settings-panel" id="stab-varsler">
+              <div class="settings-card">
+                <div class="settings-card-title">Varslingsinnstillinger</div>
+                <div class="settings-toggle-row">
+                  <div>
+                    <div class="settings-toggle-label">Nye arrangementer</div>
+                    <div class="settings-toggle-sub">Varsle når det legges til nye arrangementer</div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="notifEvents" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="settings-toggle-row">
+                  <div>
+                    <div class="settings-toggle-label">Svar på innlegg i fellesskapet</div>
+                    <div class="settings-toggle-sub">Varsle når noen svarer på et innlegg</div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="notifReplies" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="settings-toggle-row">
+                  <div>
+                    <div class="settings-toggle-label">Kommentarer på dine innlegg</div>
+                    <div class="settings-toggle-sub">Varsle når noen kommenterer innleggene dine</div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="notifComments" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+              <button class="settings-save-btn" id="saveVarslerBtn">Lagre endringer</button>
+              <div class="settings-toast hidden" id="toastVarsler">Endringer lagret</div>
+            </div>
+
+            <!-- PERSONVERN -->
+            <div class="settings-panel" id="stab-personvern">
+              <div class="settings-card">
+                <div class="settings-card-title">Synlighet og personvern</div>
+                <div class="settings-toggle-row">
+                  <div>
+                    <div class="settings-toggle-label">Vis profil for andre medlemmer</div>
+                    <div class="settings-toggle-sub">Andre medlemmer kan se profilen din</div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="privacyProfile" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="settings-toggle-row">
+                  <div>
+                    <div class="settings-toggle-label">Vis aktivitetsstatus</div>
+                    <div class="settings-toggle-sub">Andre kan se om du er aktiv</div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="privacyActivity" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="settings-toggle-row">
+                  <div>
+                    <div class="settings-toggle-label">Tillat direktemeldinger fra medlemmer</div>
+                    <div class="settings-toggle-sub">Andre medlemmer kan sende deg meldinger</div>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="privacyDm" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+              <button class="settings-save-btn" id="savePersonvernBtn">Lagre endringer</button>
+              <div class="settings-toast hidden" id="toastPersonvern">Endringer lagret</div>
+            </div>
+
+          </div><!-- /settings-content -->
+        </div><!-- /settings-layout -->
+      </div><!-- /sec-settings -->
 
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="js/brim.js"></script>
     <script>
-      let currentMember = null;
+      // Unregister any leftover service workers from the PWA attempt
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(regs => {
+          regs.forEach(r => r.unregister());
+        });
+      }
+
+      let currentMember  = null;
       let currentSession = null;
+
+      function escHtml(str) {
+        return String(str ?? '')
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+          .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+      }
 
       // ── NAVIGATION ───────────────────────────────────────
       function showSection(name) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.querySelectorAll('.nav-item[data-section]').forEach(n => n.classList.remove('active'));
         document.getElementById('sec-' + name).classList.add('active');
-        document.querySelector(`[data-section="${name}"]`)?.classList.add('active');
-        if (name === 'community')  loadCommunityFeed();
-        if (name === 'turneringer') loadTournaments();
-        if (name === 'vinnere')    loadWinners();
-        if (name === 'profil')     renderProfile();
+        document.querySelector('[data-section="' + name + '"]')?.classList.add('active');
+        if (name === 'community')   { loadCommunityFeed(); loadCommunityRightPanel(); }
+        if (name === 'turneringer') loadArrangementer();
+        if (name === 'vinnere')     loadWinners();
+if (name === 'settings')    loadSettingsData();
       }
 
       document.querySelectorAll('.nav-item[data-section]').forEach(el => {
         el.addEventListener('click', () => showSection(el.dataset.section));
       });
 
-      // ── LOGOUT ───────────────────────────────────────────
+      document.getElementById('seeAllFellBtn').addEventListener('click', () => showSection('community'));
+      document.getElementById('heroCta').addEventListener('click', () => showSection('turneringer'));
+
       document.getElementById('logoutBtn').addEventListener('click', async () => {
         await db.auth.signOut();
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
       });
 
       // ── INIT ─────────────────────────────────────────────
@@ -417,189 +2170,1362 @@
 
         currentMember = await getMember(currentSession.user.id);
 
-        // Sidebar user info
         const initials = currentMember?.name?.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase() || '?';
-        document.getElementById('sidebarAvatar').textContent = initials;
-        document.getElementById('sidebarName').textContent   = currentMember?.name || '—';
+        document.getElementById('sidebarAvatar').textContent  = initials;
+        document.getElementById('sidebarName').textContent    = currentMember?.name || '—';
+        document.getElementById('sidebarRole').textContent    = currentMember?.role === 'admin' ? 'Admin' : 'Medlem';
+        if (currentMember?.role === 'admin') {
+          document.getElementById('adminLink').classList.remove('hidden');
+        }
+        document.getElementById('composeAvatar').textContent  = initials;
 
-        const lvl = getLevelFromXP(currentMember?.xp || 0);
-        document.getElementById('sidebarLevel').textContent = lvl.name;
+        renderMinStatus();
+        loadViktigNaa();
+        loadNesteArrangement();
+        loadCommunityPreview();
+        loadNowInFellesskap();
+        loadMyPosts();
+        loadMyActivities();
 
-        // Welcome title
-        document.getElementById('welcomeTitle').textContent = `Hei, ${currentMember?.name?.split(' ')[0] || ''}`;
-
-        // Level card
-        const xp    = currentMember?.xp || 0;
-        const next  = getNextLevel(xp);
-        const pct   = xpProgress(xp);
-        document.getElementById('levelName').textContent = lvl.name;
-        document.getElementById('levelSub').textContent  = `Grad ${lvl.id} av 7`;
-        document.getElementById('xpFill').style.width    = pct + '%';
-        document.getElementById('xpCur').textContent     = xp + ' XP';
-        document.getElementById('xpNext').textContent    = next ? `Neste: ${next.xp} XP` : 'Maks nivå';
-
-        // Stats
-        document.getElementById('statXP').textContent     = xp;
-        document.getElementById('statJoined').textContent = currentMember?.join_date
-          ? new Date(currentMember.join_date).toLocaleDateString('no-NO') : '—';
-
-        // Member count
-        const { count } = await db.from('members').select('*', { count: 'exact', head: true });
-        document.getElementById('statMembers').textContent = count || '—';
-
-        // Load dashboard previews
-        loadDashFeed();
-        loadDashTournaments();
+        document.getElementById('dashGoToFellBtn').addEventListener('click', () => showSection('community'));
+        document.getElementById('dashGoToEventsBtn').addEventListener('click', () => showSection('turneringer'));
       }
 
-      // ── DASHBOARD FEED PREVIEW ────────────────────────────
-      async function loadDashFeed() {
+      // ── VIKTIG NÅ — in hero card ──────────────────────────
+      async function loadViktigNaa() {
         const { data } = await db
-          .from('community_posts')
-          .select('*')
-          .order('created_at', { ascending: false })
-          .limit(3);
+          .from('announcements').select('*')
+          .order('created_at', { ascending: false }).limit(1);
 
-        const el = document.getElementById('dashFeed');
-        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen innlegg ennå.</div>'; return; }
-        el.innerHTML = data.map(p => renderPost(p)).join('');
+        const el = document.getElementById('viktigHeroContent');
+
+        if (!data?.length) {
+          el.innerHTML =
+            '<div class="viktig-hero-title">Påmelding til vårens aktivitetshelg er åpen!</div>'
+            + '<div class="viktig-hero-desc">Meld deg på og sikre plassen din til årets første samling. Begrenset antall plasser tilgjengelig.</div>'
+            + '<button class="viktig-hero-btn">Les mer →</button>';
+          return;
+        }
+
+        const a = data[0];
+        const excerpt = a.content
+          ? (a.content.length > 120 ? a.content.slice(0, 120) + '…' : a.content) : '';
+
+        el.innerHTML =
+          '<div class="viktig-hero-title">' + escHtml(a.title) + '</div>'
+          + (excerpt ? '<div class="viktig-hero-desc">' + escHtml(excerpt) + '</div>' : '')
+          + '<button class="viktig-hero-btn">Les mer →</button>';
       }
 
-      // ── DASHBOARD TOURNAMENTS PREVIEW ─────────────────────
-      async function loadDashTournaments() {
+      // ── NESTE ARRANGEMENT ─────────────────────────────────
+      async function loadNesteArrangement() {
         const { data } = await db
-          .from('tournaments')
-          .select('*')
-          .in('status', ['upcoming', 'active'])
-          .order('created_at', { ascending: false })
-          .limit(2);
+          .from('tournaments').select('*')
+          .in('status', ['upcoming','active'])
+          .order('start_date', { ascending: true }).limit(1);
 
-        const el = document.getElementById('dashTournaments');
-        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen kommende turneringer.</div>'; return; }
-        el.innerHTML = data.map(t => renderTournamentRow(t, false)).join('');
+        const el = document.getElementById('nesteArrangement');
+        if (!data?.length) {
+          el.innerHTML = '<div class="loading" style="padding-top:0;">Ingen kommende arrangementer.</div>';
+          return;
+        }
+        const t = data[0];
+        const dateStr = t.start_date
+          ? new Date(t.start_date).toLocaleDateString('no-NO', { weekday:'long', day:'numeric', month:'long' })
+          : null;
+        const desc = t.description
+          ? (t.description.length > 80 ? t.description.slice(0,80)+'…' : t.description) : '';
+
+        el.innerHTML =
+          (dateStr ? '<div class="event-date-badge">📅 ' + dateStr + '</div>' : '')
+          + '<div class="event-title">' + escHtml(t.title) + '</div>'
+          + (desc ? '<div class="event-desc">' + escHtml(desc) + '</div>' : '')
+          + '<button class="btn-sm-outline" data-id="' + t.id + '">Meld interesse</button>';
+
+        el.querySelector('.btn-sm-outline').addEventListener('click', function () {
+          registerInterest(parseInt(this.dataset.id, 10));
+        });
+      }
+
+      async function registerInterest(id) {
+        const { error } = await db.from('tournament_participants').insert({
+          tournament_id: id, user_id: currentSession.user.id, member_name: currentMember?.name,
+        });
+        if (!error) alert('Interesse registrert! Du vil bli kontaktet med mer informasjon.');
+        else        alert('Du har allerede meldt interesse, eller noe gikk galt.');
+      }
+
+      // ── MIN STATUS ────────────────────────────────────────
+      function renderMinStatus() {
+        const m = currentMember;
+        const active   = m?.verified !== false;
+        const joinDate = m?.join_date
+          ? new Date(m.join_date).toLocaleDateString('no-NO', { day:'numeric', month:'long', year:'numeric' })
+          : '—';
+        const memberId = m?.id ? '#' + String(m.id).padStart(4,'0') : '—';
+
+        document.getElementById('minStatus').innerHTML =
+          '<div class="status-pill ' + (active ? 'status-active' : 'status-inactive') + '">'
+          + (active ? 'Aktiv' : 'Inaktiv') + '</div>'
+          + '<div class="status-row"><span class="status-row-label">Innmeldt</span><span class="status-row-value">' + joinDate + '</span></div>'
+          + '<div class="status-row"><span class="status-row-label">Medlemsnummer</span><span class="status-row-value">' + memberId + '</span></div>'
+          + '<div class="status-row"><span class="status-row-label">Kommune</span><span class="status-row-value">' + escHtml(m?.municipality || '—') + '</span></div>';
+      }
+
+      // ── COMMUNITY PREVIEW — 3 image cards ─────────────────
+      const CP_CLASSES = ['cp-1','cp-2','cp-3'];
+      const CP_ICONS   = ['👥','🌿','🔥'];
+
+      async function loadCommunityPreview() {
+        const { data } = await db
+          .from('community_posts').select('*')
+          .is('parent_id', null)
+          .order('created_at', { ascending: false }).limit(3);
+
+        const el = document.getElementById('communityPreview');
+        if (!data?.length) {
+          el.innerHTML =
+            '<div class="empty-state">'
+            + '<div class="empty-state-icon">💬</div>'
+            + '<div class="empty-state-title">Ingen innlegg i UAN ennå</div>'
+            + '<div class="empty-state-text">Når medlemmer deler oppdateringer og tanker i Fellesskapet, vises de her. Vær den første som starter noe.</div>'
+            + '<button class="empty-state-btn" id="communityPreviewEmptyBtn">Gå til Fellesskapet →</button>'
+            + '</div>';
+          document.getElementById('communityPreviewEmptyBtn')
+            .addEventListener('click', () => showSection('community'));
+          return;
+        }
+
+        const postIds = data.map(p => p.id);
+        const [{ data: likes }, { data: commentRows }] = await Promise.all([
+          db.from('community_post_likes').select('post_id').in('post_id', postIds),
+          db.from('community_posts').select('parent_id').in('parent_id', postIds),
+        ]);
+
+        const likeCounts = {};
+        (likes || []).forEach(l => { likeCounts[l.post_id] = (likeCounts[l.post_id] || 0) + 1; });
+        const commentCounts = {};
+        (commentRows || []).forEach(c => { commentCounts[c.parent_id] = (commentCounts[c.parent_id] || 0) + 1; });
+
+        const isSystem = p => p.type === 'system' || p.type === 'welcome';
+
+        el.innerHTML = data.map((p, i) => {
+          const initials = (p.author_name || 'UA').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+          const author   = escHtml(p.author_name || 'UAN');
+          const sys      = isSystem(p);
+          const lc       = likeCounts[p.id] || 0;
+          const cc       = commentCounts[p.id] || 0;
+
+          return '<div class="comm-card" data-postid="' + p.id + '">'
+            + '<div class="comm-card-photo ' + CP_CLASSES[i % 3] + '">'
+            + '<span class="comm-card-photo-icon">' + CP_ICONS[i % 3] + '</span>'
+            + '</div>'
+            + '<div class="comm-card-body">'
+            + '<div class="comm-card-meta">'
+            + '<div class="comm-card-avatar">' + initials + '</div>'
+            + '<span class="comm-card-author">' + author + '</span>'
+            + (sys ? '<span class="comm-card-sys-badge">System</span>' : '')
+            + '<span class="comm-card-sep">|</span>'
+            + '<span class="comm-card-time">' + timeAgo(p.created_at) + '</span>'
+            + '</div>'
+            + '<div class="comm-card-text">' + escHtml(p.content) + '</div>'
+            + '</div>'
+            + '<div class="comm-card-footer">'
+            + '<div class="comm-card-counts">'
+            + '<span class="comm-card-count-item">🤍 ' + lc + '</span>'
+            + '<span class="comm-card-count-item">💬 ' + cc + '</span>'
+            + '</div>'
+            + '<button class="comm-card-goto preview-goto-btn">Se innlegg →</button>'
+            + '</div>'
+            + '</div>';
+        }).join('');
+
+        el.querySelectorAll('.preview-goto-btn').forEach(btn => {
+          btn.addEventListener('click', () => showSection('community'));
+        });
       }
 
       // ── COMMUNITY FEED ────────────────────────────────────
-      async function loadCommunityFeed() {
-        const { data } = await db
-          .from('community_posts')
-          .select('*')
-          .order('created_at', { ascending: false })
-          .limit(30);
+      function buildFeedCard(p) {
+        const sys      = p.type === 'system' || p.type === 'welcome';
+        const initials = (p.author_name || 'UA').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+        const myInit   = currentMember?.name?.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || '?';
+        const canDelete = p.author_id && currentSession && p.author_id === currentSession.user.id;
+        const liked = !!p.liked;
+        const likeCount = p.likeCount || 0;
 
-        const el = document.getElementById('communityFeed');
-        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen innlegg ennå. Vær den første!</div>'; return; }
-        el.innerHTML = data.map(p => renderPost(p)).join('');
+        return '<div class="feed-card" id="post-' + p.id + '">' 
+          + '<div class="feed-card-top">'
+          + '<div class="feed-card-avatar">' + initials + '</div>'
+          + '<div><div class="feed-card-author">' + escHtml(p.author_name || 'UAN') + '</div>'
+          + '<div class="feed-card-time">' + timeAgo(p.created_at) + '</div></div>'
+          + (sys ? '<span class="feed-sys-badge">System</span>' : '')
+          + (canDelete ? '<button class="feed-action-btn delete-post-btn" data-id="' + p.id + '">🗑️ Slett</button>' : '')
+          + '</div>'
+          + '<div class="feed-card-text">' + escHtml(p.content) + '</div>'
+          + '<div class="feed-card-actions">'
+          + '<button class="feed-action-btn like-btn' + (liked ? ' liked' : '') + '" data-id="' + p.id + '">'
+          + (liked ? '❤️' : '🤍') + ' <span class="like-count">' + likeCount + '</span>'
+          + '</button>'
+          + '<button class="feed-action-btn comment-btn" data-id="' + p.id + '">💬'
+          + (p.commentCount > 0 ? ' ' + p.commentCount : ' Kommenter')
+          + '</button>'
+          + '</div>'
+          + '<div class="feed-comments" id="comments-' + p.id + '">'
+          + '<div id="comments-list-' + p.id + '"></div>'
+          + '<div class="comment-compose">'
+          + '<div class="comment-avatar">' + myInit + '</div>'
+          + '<input class="comment-input" id="ci-' + p.id + '" placeholder="Skriv en kommentar…" type="text">'
+          + '<button class="comment-send-btn" data-id="' + p.id + '">Send</button>'
+          + '</div></div>'
+          + '</div>';
       }
 
-      function renderPost(p) {
-        const badge = p.type === 'system' || p.type === 'welcome'
-          ? '<span class="feed-badge-system">System</span>' : '';
-        return `
-          <div class="feed-post">
-            <div class="feed-meta">
-              <span class="feed-author">${p.author_name || 'Brim Community'}</span>
-              ${badge}
-              <span class="feed-time">${timeAgo(p.created_at)}</span>
-            </div>
-            <div class="feed-content">${p.content}</div>
-          </div>`;
+      // silent=true → never overwrite existing feed content (used after optimistic prepend)
+      async function loadCommunityFeed({ silent = false } = {}) {
+        const el = document.getElementById('communityFeed');
+
+        // Fetch all recent posts — filter parent_id client-side so a missing column
+        // never causes the entire query to fail and destroy the feed.
+        const { data: raw, error } = await db.from('community_posts')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(60);
+
+        if (error) {
+          console.error('loadCommunityFeed error:', error);
+          // In silent mode (background refresh) keep whatever is already shown
+          if (!silent) {
+            el.innerHTML =
+              '<div style="text-align:center;padding:3rem 1.5rem;color:rgba(255,255,255,0.28);">'
+              + 'Kunne ikke laste innlegg. Sjekk tilkoblingen og prøv igjen.</div>';
+          }
+          return;
+        }
+
+        // Keep only top-level, non-hidden posts; pinned posts float to top
+        const topLevel = (raw || []).filter(p => !p.parent_id && !p.is_hidden);
+        const data = [
+          ...topLevel.filter(p => p.is_pinned),
+          ...topLevel.filter(p => !p.is_pinned),
+        ];
+
+        if (!data.length) {
+          // In silent mode don't replace a live feed with empty state
+          if (!silent) {
+            el.innerHTML =
+              '<div style="text-align:center;padding:3rem 1.5rem;">'
+              + '<div style="font-size:2rem;margin-bottom:0.85rem;opacity:0.3;">✍️</div>'
+              + '<div style="font-size:0.95rem;font-weight:700;color:rgba(255,255,255,0.55);">Ingen innlegg ennå</div>'
+              + '<div style="font-size:0.82rem;color:rgba(255,255,255,0.25);margin-top:0.4rem;">Vær den første til å dele noe!</div>'
+              + '</div>';
+          }
+          return;
+        }
+
+        const postIds = data.map(p => p.id);
+
+        // Secondary queries — always fail-safe; a missing table must never block the feed
+        let likes = [], commentRows = [];
+        const [likesRes, commentsRes] = await Promise.all([
+          db.from('community_post_likes').select('post_id, user_id').in('post_id', postIds),
+          db.from('community_posts').select('parent_id, id').in('parent_id', postIds),
+        ]);
+        likes       = likesRes.data      || [];
+        commentRows = commentsRes.data   || [];
+
+        const likeCounts = {};
+        const likedByMe  = {};
+        likes.forEach(l => {
+          likeCounts[l.post_id] = (likeCounts[l.post_id] || 0) + 1;
+          if (l.user_id === currentSession?.user?.id) likedByMe[l.post_id] = true;
+        });
+
+        const commentCounts = {};
+        commentRows.forEach(c => {
+          if (c.parent_id) commentCounts[c.parent_id] = (commentCounts[c.parent_id] || 0) + 1;
+        });
+
+        const postsWithCounts = data.map(p => ({
+          ...p,
+          likeCount:    likeCounts[p.id]    || 0,
+          liked:        !!likedByMe[p.id],
+          commentCount: commentCounts[p.id] || 0,
+        }));
+
+        el.innerHTML = postsWithCounts.map(buildFeedCard).join('');
+        wireFeedEvents(el);
+      }
+
+      function wireFeedEvents(el) {
+        el.querySelectorAll('.like-btn').forEach(btn => {
+          btn.addEventListener('click', async function () {
+            await togglePostLike(this.dataset.id, this.classList.contains('liked'));
+          });
+        });
+        el.querySelectorAll('.comment-btn').forEach(btn => {
+          btn.addEventListener('click', function () { toggleComments(this.dataset.id); });
+        });
+        el.querySelectorAll('.comment-send-btn').forEach(btn => {
+          btn.addEventListener('click', function () { submitComment(this.dataset.id); });
+        });
+        el.querySelectorAll('.comment-input').forEach(input => {
+          input.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') submitComment(this.id.replace('ci-', ''));
+          });
+        });
+        el.querySelectorAll('.delete-post-btn').forEach(btn => {
+          btn.addEventListener('click', async function () {
+            const id = this.dataset.id;
+            if (!confirm('Vil du slette dette innlegget?')) return;
+            await deletePost(id);
+          });
+        });
+      }
+
+      async function togglePostLike(postId, currentlyLiked) {
+        if (!currentSession) return;
+
+        // ── Optimistic UI update — no full feed reload ────────
+        const card        = document.getElementById('post-' + postId);
+        const likeBtn     = card?.querySelector('.like-btn');
+        const likeCountEl = card?.querySelector('.like-count');
+        if (likeBtn && likeCountEl) {
+          const prev = parseInt(likeCountEl.textContent) || 0;
+          const next = currentlyLiked ? Math.max(0, prev - 1) : prev + 1;
+          likeCountEl.textContent = next;
+          likeBtn.classList.toggle('liked', !currentlyLiked);
+          likeBtn.innerHTML = (currentlyLiked ? '🤍' : '❤️')
+            + ' <span class="like-count">' + next + '</span>';
+          // Re-wire so the next click reflects the new state
+          likeBtn.onclick = async function () {
+            await togglePostLike(postId, this.classList.contains('liked'));
+          };
+        }
+
+        // ── Persist to DB ─────────────────────────────────────
+        if (currentlyLiked) {
+          await db.from('community_post_likes').delete()
+            .eq('post_id', postId).eq('user_id', currentSession.user.id);
+        } else {
+          const { error } = await db.from('community_post_likes')
+            .insert({ post_id: Number(postId), user_id: currentSession.user.id });
+          if (error) {
+            // Revert optimistic update if the table doesn't exist yet
+            console.error('like error:', error);
+            if (likeBtn && likeCountEl) {
+              const prev = parseInt(likeCountEl.textContent) || 0;
+              likeCountEl.textContent = currentlyLiked ? prev + 1 : Math.max(0, prev - 1);
+              likeBtn.classList.toggle('liked', currentlyLiked);
+              likeBtn.innerHTML = (currentlyLiked ? '❤️' : '🤍')
+                + ' <span class="like-count">' + likeCountEl.textContent + '</span>';
+              likeBtn.onclick = async function () {
+                await togglePostLike(postId, this.classList.contains('liked'));
+              };
+            }
+          }
+        }
+
+        // Update dashboard preview count only (no full feed re-render)
+        loadCommunityPreview();
+      }
+
+      function toggleComments(postId) {
+        const wrap = document.getElementById('comments-' + postId);
+        const btn  = document.querySelector('.comment-btn[data-id="' + postId + '"]');
+        const open = wrap.classList.toggle('open');
+        btn?.classList.toggle('commented', open);
+        if (open) loadComments(postId);
+      }
+
+      async function loadComments(postId) {
+        const listEl = document.getElementById('comments-list-' + postId);
+        if (!listEl) return;
+        const { data } = await db.from('community_posts').select('*')
+          .eq('parent_id', postId).order('created_at', { ascending: true });
+        if (!data?.length) {
+          listEl.innerHTML = '<div style="font-size:0.8rem;color:rgba(255,255,255,0.2);margin-bottom:0.5rem;">Ingen kommentarer ennå.</div>';
+          return;
+        }
+        listEl.innerHTML = data.map(c => {
+          const init = (c.author_name || 'UA').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+          const canDelete = c.author_id && currentSession && c.author_id === currentSession.user.id;
+          return '<div class="comment-item" id="comment-' + c.id + '">'
+            + '<div class="comment-avatar">' + init + '</div>'
+            + '<div class="comment-bubble">'
+            + '<div class="comment-top">'
+            + '<div class="comment-author">' + escHtml(c.author_name || 'Ukjent') + '</div>'
+            + (canDelete ? '<button class="comment-delete-btn" data-id="' + c.id + '" style="font-size:0.75rem;opacity:0.6;border:none;background:none;color:inherit;cursor:pointer;">Slett</button>' : '')
+            + '</div>'
+            + '<div class="comment-text">' + escHtml(c.content) + '</div>'
+            + '</div></div>';
+        }).join('');
+        listEl.querySelectorAll('.comment-delete-btn').forEach(btn => {
+          btn.addEventListener('click', async function () {
+            const id = this.dataset.id;
+            if (!confirm('Vil du slette denne kommentaren?')) return;
+            await deleteComment(id, postId);
+          });
+        });
+      }
+
+      async function submitComment(postId) {
+        const input   = document.getElementById('ci-' + postId);
+        const content = input?.value.trim();
+        if (!content) return;
+
+        // ── Optimistic: show comment instantly ───────────────
+        input.value = '';
+        const listEl = document.getElementById('comments-list-' + postId);
+        if (listEl) {
+          // Remove "Ingen kommentarer" placeholder if present
+          const placeholder = listEl.querySelector('[style*="color:rgba(255,255,255,0.2)"]');
+          if (placeholder) placeholder.remove();
+
+          const myInit = (currentMember?.name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+          const tmp = document.createElement('div');
+          tmp.className = 'comment-item';
+          tmp.dataset.optimistic = '1';
+          tmp.innerHTML =
+            '<div class="comment-avatar">' + myInit + '</div>'
+            + '<div class="comment-bubble">'
+            + '<div class="comment-top"><div class="comment-author">'
+            + escHtml(currentMember?.name || 'Ukjent') + '</div></div>'
+            + '<div class="comment-text">' + escHtml(content) + '</div>'
+            + '</div>';
+          listEl.appendChild(tmp);
+
+          // Update comment button count
+          const commentBtn = document.querySelector('.comment-btn[data-id="' + postId + '"]');
+          if (commentBtn) {
+            const prev = parseInt(commentBtn.textContent.replace(/\D/g, '')) || 0;
+            commentBtn.innerHTML = '💬 ' + (prev + 1);
+          }
+        }
+
+        // ── Persist to DB ─────────────────────────────────────
+        const { data: saved, error } = await db.from('community_posts').insert({
+          author_id:   currentSession.user.id,
+          author_name: currentMember?.name || 'Ukjent',
+          content, type: 'post', parent_id: Number(postId),
+        }).select().single();
+
+        if (error) {
+          console.error('submitComment error:', error.message || error);
+          // Remove the optimistic comment
+          listEl?.querySelector('[data-optimistic="1"]')?.remove();
+          // Revert the comment count
+          const commentBtnRevert = document.querySelector('.comment-btn[data-id="' + postId + '"]');
+          if (commentBtnRevert) {
+            const cur = parseInt(commentBtnRevert.textContent.replace(/\D/g, '')) || 0;
+            commentBtnRevert.innerHTML = cur > 1 ? '💬 ' + (cur - 1) : '💬 Kommenter';
+          }
+          // Restore input text
+          input.value = content;
+          alert('Kommentar kunne ikke sendes.\n\nFeil: ' + (error.message || 'Ukjent feil') + '\n\nSjekk at schema.sql er kjørt i Supabase.');
+          return;
+        }
+
+        // Sync comment list from DB (adds delete button, real ID, etc.)
+        loadComments(postId);
+      }
+
+      async function deletePost(postId) {
+        await db.from('community_posts').delete().eq('id', postId);
+        loadCommunityFeed();
+      }
+
+      async function deleteComment(commentId, postId) {
+        await db.from('community_posts').delete().eq('id', commentId);
+        loadComments(postId);
       }
 
       document.getElementById('postBtn').addEventListener('click', async () => {
-        const content = document.getElementById('postContent').value.trim();
+        const textarea = document.getElementById('postContent');
+        const content  = textarea.value.trim();
         if (!content) return;
 
         const btn = document.getElementById('postBtn');
         btn.disabled = true; btn.textContent = 'Sender…';
 
-        await db.from('community_posts').insert({
+        const { data: newPost, error } = await db.from('community_posts').insert({
           author_id:   currentSession.user.id,
           author_name: currentMember?.name || 'Ukjent',
-          content,
-          type:        'post',
-        });
+          content, type: 'post',
+        }).select().single();
 
-        document.getElementById('postContent').value = '';
         btn.disabled = false; btn.textContent = 'Publiser';
-        loadCommunityFeed();
+
+        if (error || !newPost) {
+          console.error('postBtn insert error:', error);
+          alert('Kunne ikke publisere innlegget. Prøv igjen.');
+          return;
+        }
+
+        // Clear field immediately
+        textarea.value = '';
+
+        // ── Optimistic prepend: post appears instantly ──
+        const feedEl = document.getElementById('communityFeed');
+        const optimisticPost = { ...newPost, likeCount: 0, liked: false, commentCount: 0 };
+        const tmp = document.createElement('div');
+        tmp.innerHTML = buildFeedCard(optimisticPost);
+        const card = tmp.firstElementChild;
+
+        // Clear empty-state placeholder, then prepend the new card
+        feedEl.innerHTML = '';
+        feedEl.prepend(card);
+        wireFeedEvents(card);
+
+        feedEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Background refresh — silent=true so a fetch error never wipes the card
+        // that is already visible on screen.
+        loadCommunityFeed({ silent: true });
+        loadCommunityPreview();
       });
 
-      // ── TOURNAMENTS ───────────────────────────────────────
-      async function loadTournaments() {
-        const { data } = await db.from('tournaments').select('*').order('created_at', { ascending: false });
-        const el = document.getElementById('tournamentList');
-        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen turneringer ennå.</div>'; return; }
-        el.innerHTML = data.map(t => renderTournamentRow(t, true)).join('');
+      // ── COMMUNITY RIGHT PANEL ─────────────────────────────
+      async function loadCommunityRightPanel() {
+        // Upcoming activities
+        const { data: events } = await db.from('tournaments').select('title, start_date')
+          .in('status', ['upcoming', 'active']).order('start_date', { ascending: true }).limit(3);
+        const upcomingEl = document.getElementById('upcomingActivitiesList');
+        if (events?.length) {
+          upcomingEl.innerHTML = events.map(t => {
+            const d = t.start_date
+              ? new Date(t.start_date).toLocaleDateString('no-NO', { day: 'numeric', month: 'long' }) : '—';
+            return '<div class="upcoming-item">'
+              + '<div class="upcoming-item-title">' + escHtml(t.title) + '</div>'
+              + '<div class="upcoming-item-meta">📅 ' + d + '</div>'
+              + '</div>';
+          }).join('');
+        } else {
+          upcomingEl.innerHTML = '<div class="upcoming-item" style="border:none;padding:0;"><div class="upcoming-item-meta">Ingen kommende aktiviteter.</div></div>';
+        }
       }
 
-      function renderTournamentRow(t, showJoin) {
-        const badge = { upcoming: 'status-upcoming', active: 'status-active', completed: 'status-completed' }[t.status] || '';
-        const label = { upcoming: 'Kommende', active: 'Aktiv', completed: 'Avsluttet' }[t.status] || t.status;
-        const joinBtn = showJoin && t.status !== 'completed'
-          ? `<button class="btn btn-primary btn-sm" onclick="joinTournament(${t.id})">Delta</button>` : '';
-        const dates = t.start_date ? `${new Date(t.start_date).toLocaleDateString('no-NO')}` : '';
-        return `
-          <div class="tournament-card">
-            <div class="tournament-info">
-              <div class="tournament-title">${t.title}</div>
-              <div class="tournament-meta">${t.description || ''} ${dates ? '· ' + dates : ''}</div>
-            </div>
-            <span class="status-badge ${badge}">${label}</span>
-            ${joinBtn}
-          </div>`;
+      // ── ARRANGEMENTER ─────────────────────────────────────
+      let calAllEvents = [];
+      const EV_COLORS = [
+        'linear-gradient(145deg,#1a1060,#2d1b69 40%,#0f1f4a)',
+        'linear-gradient(145deg,#071a12,#0f3020 40%,#0a2818)',
+        'linear-gradient(145deg,#1e0a2a,#3a1060 40%,#1a082a)',
+        'linear-gradient(145deg,#2a1a08,#4a2e0a 40%,#3a2005)',
+      ];
+      const EV_ICONS = ['📅','🏃','🎯','🤝','🎪','⚽','🌿','🔥'];
+
+      async function loadArrangementer() {
+        const { data } = await db.from('tournaments').select('*')
+          .in('status', ['upcoming','active'])
+          .order('start_date', { ascending: true });
+        calAllEvents = data || [];
+        renderEventsGrid(calAllEvents);
+        loadMineForslag();
       }
 
-      async function joinTournament(tournamentId) {
-        const { error } = await db.from('tournament_participants').insert({
-          tournament_id: tournamentId,
-          user_id:       currentSession.user.id,
-          member_name:   currentMember?.name,
+      // ── Events grid ───────────────────────────────────────
+      function renderEventsGrid(events) {
+        const el = document.getElementById('eventsGrid');
+        if (!events?.length) {
+          el.innerHTML =
+            '<div style="grid-column:1/-1;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:1.25rem;padding:2.75rem 2.5rem;text-align:center;">'
+            + '<div style="font-size:2.5rem;margin-bottom:1rem;opacity:0.4;">📅</div>'
+            + '<div style="font-size:1rem;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:0.5rem;">Ingen arrangementer er publisert ennå</div>'
+            + '<div style="font-size:0.855rem;color:rgba(255,255,255,0.35);line-height:1.65;max-width:380px;margin:0 auto 1.5rem;">Når nye aktiviteter og arrangementer blir lagt ut, vises de her. Du kan også være den første til å foreslå noe.</div>'
+            + '<button class="btn btn-primary" id="emptyProposeBtn">+ Foreslå arrangement</button>'
+            + '</div>';
+          document.getElementById('emptyProposeBtn').addEventListener('click', openProposeModal);
+          return;
+        }
+        el.innerHTML = events.map((t, i) => {
+          const d = t.start_date
+            ? new Date(t.start_date).toLocaleDateString('no-NO', { weekday:'long', day:'numeric', month:'long' }) : '—';
+          const desc  = t.description ? (t.description.length > 90 ? t.description.slice(0,90) + '…' : t.description) : '';
+          const sCls  = { upcoming:'est-upcoming', active:'est-active' }[t.status] || '';
+          const sLbl  = { upcoming:'Kommende', active:'Pågående' }[t.status] || '';
+          return '<div class="event-card" data-id="' + t.id + '">'
+            + '<div class="event-card-img" style="background:' + EV_COLORS[i % EV_COLORS.length] + '">'
+            + '<div class="event-card-img-icon">' + EV_ICONS[i % EV_ICONS.length] + '</div>'
+            + '<span class="event-status-badge ' + sCls + '" style="position:relative;z-index:1;">' + sLbl + '</span>'
+            + '</div>'
+            + '<div class="event-card-body">'
+            + '<div class="event-card-date">📅 ' + d + '</div>'
+            + '<div class="event-card-title">' + escHtml(t.title) + '</div>'
+            + (t.location ? '<div class="event-card-location">📍 ' + escHtml(t.location) + '</div>' : '')
+            + (desc ? '<div class="event-card-desc">' + escHtml(desc) + '</div>' : '')
+            + '<div class="event-card-footer"><button class="btn btn-ghost btn-sm">Se detaljer →</button></div>'
+            + '</div></div>';
+        }).join('');
+        el.querySelectorAll('.event-card').forEach(card => {
+          card.addEventListener('click', function () { showEventDetail(parseInt(this.dataset.id)); });
         });
-        if (!error) alert('Du er nå påmeldt turneringen!');
-        else        alert('Du er allerede påmeldt, eller noe gikk galt.');
       }
 
-      // ── WINNERS ───────────────────────────────────────────
+      // ── Event detail ──────────────────────────────────────
+      async function showEventDetail(id) {
+        const event = calAllEvents.find(e => e.id === id)
+          || (await db.from('tournaments').select('*').eq('id', id).single()).data;
+        if (!event) return;
+
+        const { count } = await db.from('tournament_participants')
+          .select('id', { count: 'exact', head: true }).eq('tournament_id', id);
+        const { data: mine } = await db.from('tournament_participants')
+          .select('id').eq('tournament_id', id).eq('user_id', currentSession.user.id);
+        const alreadySigned = mine?.length > 0;
+
+        const d  = event.start_date
+          ? new Date(event.start_date).toLocaleDateString('no-NO', { weekday:'long', day:'numeric', month:'long', year:'numeric' }) : '—';
+        const bg = EV_COLORS[0];
+
+        document.getElementById('eventDetailContent').innerHTML =
+          '<div class="event-detail-card">'
+          + '<div class="event-detail-img" style="background:' + bg + '">'
+          + '<span style="position:relative;z-index:1;font-size:4rem;opacity:0.3;">📅</span>'
+          + '</div>'
+          + '<div class="event-detail-body">'
+          + '<div class="event-detail-meta-row">'
+          + '<span class="event-detail-meta-item">📅 ' + d + '</span>'
+          + (event.location ? '<span class="event-detail-meta-item">📍 ' + escHtml(event.location) + '</span>' : '')
+          + '</div>'
+          + '<div class="event-detail-title">' + escHtml(event.title) + '</div>'
+          + '<div class="event-detail-desc">' + escHtml(event.description || 'Ingen beskrivelse tilgjengelig.') + '</div>'
+          + '<div class="event-detail-footer">'
+          + '<div class="event-participants-count"><strong>' + (count || 0) + '</strong> '
+          + ((count === 1) ? 'person er' : 'personer er') + ' påmeldt</div>'
+          + (alreadySigned
+            ? '<button class="btn btn-ghost" disabled>✓ Du er påmeldt</button>'
+            : '<button class="btn btn-primary" id="signUpBtn" data-id="' + id + '">Meld deg på</button>')
+          + '</div></div></div>';
+
+        document.getElementById('eventsGridView').style.display = 'none';
+        document.getElementById('eventDetailView').classList.add('active');
+
+        const signBtn = document.getElementById('signUpBtn');
+        if (signBtn) signBtn.addEventListener('click', function () { signUpForEvent(parseInt(this.dataset.id)); });
+      }
+
+      async function signUpForEvent(id) {
+        const btn = document.getElementById('signUpBtn');
+        if (btn) { btn.disabled = true; btn.textContent = 'Melder på…'; }
+        const { error } = await db.from('tournament_participants').insert({
+          tournament_id: id, user_id: currentSession.user.id, member_name: currentMember?.name,
+        });
+        if (!error) { showEventDetail(id); }
+        else { if (btn) { btn.disabled = false; btn.textContent = 'Meld deg på'; } alert('Du er allerede påmeldt, eller noe gikk galt.'); }
+      }
+
+      document.getElementById('eventDetailBack').addEventListener('click', () => {
+        document.getElementById('eventsGridView').style.display = '';
+        document.getElementById('eventDetailView').classList.remove('active');
+      });
+
+      // ── Propose modal ─────────────────────────────────────
+      function openProposeModal() {
+        document.getElementById('proposeModal').classList.remove('hidden');
+      }
+      document.getElementById('proposeBtn').addEventListener('click', openProposeModal);
+      document.getElementById('scrollToEventsBtn').addEventListener('click', () => {
+        document.getElementById('eventsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      document.getElementById('proposeModalClose').addEventListener('click', () => {
+        document.getElementById('proposeModal').classList.add('hidden');
+      });
+      document.getElementById('proposeCancel').addEventListener('click', () => {
+        document.getElementById('proposeModal').classList.add('hidden');
+      });
+      document.getElementById('proposeModal').addEventListener('click', function (e) {
+        if (e.target === this) this.classList.add('hidden');
+      });
+      document.getElementById('proposeSubmit').addEventListener('click', async () => {
+        const title    = document.getElementById('prop-title').value.trim();
+        const date     = document.getElementById('prop-date').value;
+        const location = document.getElementById('prop-location').value.trim();
+        const desc     = document.getElementById('prop-desc').value.trim();
+        if (!title) { document.getElementById('prop-title').focus(); return; }
+        const btn = document.getElementById('proposeSubmit');
+        btn.disabled = true; btn.textContent = 'Sender…';
+        await db.from('event_proposals').insert({
+          member_id:   currentMember.id,
+          title,
+          description: desc || null,
+          location:    location || null,
+          event_date:  date || null,
+          status:      'pending',
+        });
+        btn.disabled = false; btn.textContent = 'Send forslag';
+        document.getElementById('proposeModal').classList.add('hidden');
+        ['prop-title','prop-date','prop-location','prop-desc'].forEach(id => { document.getElementById(id).value = ''; });
+        loadMineForslag();
+      });
+
+      // ── Mine forslag ──────────────────────────────────────
+      async function loadMineForslag() {
+        const el = document.getElementById('mineForslagGrid');
+        const { data, error } = await db.from('event_proposals').select('*')
+          .eq('member_id', currentMember.id)
+          .order('created_at', { ascending: false });
+        window._proposalCache = data || [];
+        if (error) {
+          console.error('loadMineForslag error:', error);
+          el.innerHTML = '<div style="grid-column:1/-1;padding:2rem;text-align:center;font-size:0.82rem;color:rgba(248,113,113,0.7);">Kunne ikke laste forslag: ' + escHtml(error.message) + '</div>';
+          return;
+        }
+        if (!data?.length) {
+          el.innerHTML =
+            '<div style="grid-column:1/-1;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:1.25rem;padding:2.25rem 2.5rem;text-align:center;">'
+            + '<div style="font-size:2.2rem;margin-bottom:0.9rem;opacity:0.4;">💡</div>'
+            + '<div style="font-size:0.95rem;font-weight:700;color:rgba(255,255,255,0.65);margin-bottom:0.45rem;">Du har ikke foreslått noe ennå</div>'
+            + '<div style="font-size:0.84rem;color:rgba(255,255,255,0.32);line-height:1.65;max-width:360px;margin:0 auto 1.35rem;">Har du en idé til en aktivitet, samling eller kamp? Send inn et forslag og bidra til mer aktivitet i UAN.</div>'
+            + '<button class="btn btn-ghost btn-sm" id="emptyProposeBtnMine">Send inn forslag</button>'
+            + '</div>';
+          document.getElementById('emptyProposeBtnMine').addEventListener('click', openProposeModal);
+          return;
+        }
+        const S = {
+          pending:      { label: 'Sendt inn',       cls: 'ps-pending'  },
+          under_review: { label: 'Under vurdering', cls: 'ps-review'   },
+          upcoming:     { label: 'Godkjent',        cls: 'ps-approved' },
+          active:       { label: 'Godkjent',        cls: 'ps-approved' },
+          completed:    { label: 'Godkjent',        cls: 'ps-approved' },
+          rejected:     { label: 'Avvist',          cls: 'ps-rejected' },
+        };
+        el.innerHTML = data.map(t => {
+          const dateStr = t.event_date
+            ? new Date(t.event_date).toLocaleDateString('no-NO', { day: 'numeric', month: 'long', year: 'numeric' })
+            : 'Dato ikke satt';
+          const s = S[t.status] || { label: t.status, cls: 'ps-pending' };
+          return '<div class="proposal-card">'
+            + '<div class="proposal-card-top">'
+            + '<div class="proposal-title">' + escHtml(t.title) + '</div>'
+            + '<span class="proposal-status-badge ' + s.cls + '">' + s.label + '</span>'
+            + '</div>'
+            + '<div class="proposal-meta">'
+            + '<div class="proposal-meta-row">📅 ' + escHtml(dateStr) + '</div>'
+            + (t.location ? '<div class="proposal-meta-row">📍 ' + escHtml(t.location) + '</div>' : '')
+            + '</div>'
+            + (t.description ? '<div class="proposal-desc">' + escHtml(t.description) + '</div>' : '')
+            + (t.status === 'pending'
+                ? '<button class="btn-sm-outline js-edit-proposal" data-id="' + t.id + '" style="margin-top:0.75rem;font-size:0.72rem;">Rediger</button>'
+                : '')
+            + '</div>';
+        }).join('');
+
+        el.querySelectorAll('.js-edit-proposal').forEach(btn => {
+          btn.addEventListener('click', () => openEditProposalModal(Number(btn.dataset.id)));
+        });
+      }
+
+      // ── Edit proposal modal (pending only) ────────────────
+      function openEditProposalModal(id) {
+        const existing = document.getElementById('editProposalModal');
+        if (existing) existing.remove();
+
+        const proposal = window._proposalCache?.find(p => p.id === id);
+        if (!proposal) return;
+
+        const modal = document.createElement('div');
+        modal.id = 'editProposalModal';
+        modal.className = 'modal-overlay';
+        modal.innerHTML =
+          '<div style="width:min(520px,100%);background:#0d0b1e;border:1px solid rgba(255,255,255,0.1);border-radius:1.5rem;padding:2.25rem 2.5rem;position:relative;box-shadow:0 40px 100px rgba(0,0,0,0.8);max-height:90vh;overflow-y:auto;">'
+          + '<button id="editPropClose" style="position:absolute;top:1.25rem;right:1.25rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.4);cursor:pointer;font-size:0.9rem;font-family:inherit;">✕</button>'
+          + '<div class="modal-title">Rediger forslag</div>'
+          + '<div class="modal-subtitle" style="font-size:0.82rem;color:rgba(255,255,255,0.32);margin-bottom:1.75rem;">Du kan redigere forslaget så lenge det er i status Sendt inn</div>'
+          + '<div class="form-row">'
+          + '<div class="form-field"><label class="form-label" for="ep-title">Tittel</label><input class="form-input" id="ep-title" type="text" value="' + escHtml(proposal.title) + '"></div>'
+          + '<div class="form-field"><label class="form-label" for="ep-date">Dato</label><input class="form-input" id="ep-date" type="date" value="' + escHtml(proposal.event_date || '') + '"></div>'
+          + '</div>'
+          + '<div class="form-field"><label class="form-label" for="ep-location">Sted</label><input class="form-input" id="ep-location" type="text" value="' + escHtml(proposal.location || '') + '"></div>'
+          + '<div class="form-field"><label class="form-label" for="ep-desc">Beskrivelse</label><textarea class="form-textarea" id="ep-desc">' + escHtml(proposal.description || '') + '</textarea></div>'
+          + '<div class="form-submit-row">'
+          + '<button class="btn btn-ghost" id="editPropCancel">Avbryt</button>'
+          + '<button class="btn btn-primary" id="editPropSave">Lagre endringer</button>'
+          + '</div>'
+          + '</div>';
+        document.body.appendChild(modal);
+
+        const closeModal = () => modal.remove();
+        document.getElementById('editPropClose').addEventListener('click', closeModal);
+        document.getElementById('editPropCancel').addEventListener('click', closeModal);
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+        document.getElementById('editPropSave').addEventListener('click', async () => {
+          const title    = document.getElementById('ep-title').value.trim();
+          const date     = document.getElementById('ep-date').value || null;
+          const location = document.getElementById('ep-location').value.trim() || null;
+          const desc     = document.getElementById('ep-desc').value.trim() || null;
+          if (!title) { document.getElementById('ep-title').focus(); return; }
+
+          const btn = document.getElementById('editPropSave');
+          btn.disabled = true; btn.textContent = 'Lagrer…';
+          const { error } = await db.from('event_proposals')
+            .update({ title, event_date: date, location, description: desc })
+            .eq('id', id).eq('status', 'pending');
+          if (error) { alert('Feil: ' + error.message); btn.disabled = false; btn.textContent = 'Lagre endringer'; return; }
+          closeModal();
+          loadMineForslag();
+        });
+      }
+
+      // ── RESULTATER ────────────────────────────────────────
+      let allCompletedEvents = [];
+      let allEventResults    = [];
+      let currentResultFilter = 'all';
+
+      function getEventTypeLabel(type) {
+        const map = { kamp: 'Kamp', turnering: 'Turnering', aktivitet: 'Aktivitet', samling: 'Samling' };
+        return map[(type || '').toLowerCase()] || 'Arrangement';
+      }
+      function getEventTypeCls(type) {
+        const map = { kamp: 'badge-kamp', turnering: 'badge-turnering', aktivitet: 'badge-aktivitet', samling: 'badge-samling' };
+        return map[(type || '').toLowerCase()] || 'badge-arrangement';
+      }
+      function isCompetition(type) {
+        return ['kamp', 'turnering'].includes((type || '').toLowerCase());
+      }
+
       async function loadWinners() {
-        const { data } = await db
-          .from('tournament_results')
-          .select('*, tournaments(title)')
-          .order('created_at', { ascending: false })
-          .limit(20);
+        const [eventsRes, resultsRes] = await Promise.all([
+          db.from('tournaments').select('*').eq('status', 'completed')
+            .order('start_date', { ascending: false }),
+          db.from('tournament_results').select('*')
+            .order('position', { ascending: true }),
+        ]);
 
-        const el = document.getElementById('winnerList');
-        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen vinnere registrert ennå.</div>'; return; }
-        el.innerHTML = data.map((w, i) => `
-          <div class="winner-row">
-            <div class="winner-pos">${w.position === 1 ? '<span class="crown">★</span>' : '#' + w.position}</div>
-            <div class="winner-name">${w.winner_name}</div>
-            <div class="winner-tournament">${w.tournaments?.title || '—'}</div>
-          </div>`).join('');
+        allCompletedEvents = eventsRes.data  || [];
+        allEventResults    = resultsRes.data || [];
+
+        renderHallOfFame();
+        setupResultsFilter();
+        renderResultsGrid(allCompletedEvents);
       }
 
-      // ── PROFILE ───────────────────────────────────────────
+      function renderHallOfFame() {
+        const wins = {};
+        allEventResults.filter(r => r.position === 1).forEach(r => {
+          const n = r.winner_name || 'Ukjent';
+          wins[n] = (wins[n] || 0) + 1;
+        });
+        const hofData = Object.entries(wins).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        const hofSection = document.getElementById('hofSection');
+        if (!hofData.length) { hofSection.style.display = 'none'; return; }
+        hofSection.style.display = 'block';
+        const medals = ['🥇', '🥈', '🥉', '🎖️', '🎖️'];
+        document.getElementById('hofGrid').innerHTML = hofData.map(([name, count], i) => {
+          const init = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+          return '<div class="hof-card' + (i === 0 ? ' rank-1' : '') + '">'
+            + '<div class="hof-medal">' + medals[i] + '</div>'
+            + '<div class="hof-avatar">' + escHtml(init) + '</div>'
+            + '<div class="hof-name">' + escHtml(name) + '</div>'
+            + '<div class="hof-stat">' + count + (count === 1 ? ' seier' : ' seiere') + '</div>'
+            + '</div>';
+        }).join('');
+      }
+
+      function setupResultsFilter() {
+        document.getElementById('resultsFilterBar').querySelectorAll('.results-filter-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.results-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentResultFilter = btn.dataset.type;
+            const filtered = currentResultFilter === 'all'
+              ? allCompletedEvents
+              : allCompletedEvents.filter(e => (e.type || '').toLowerCase() === currentResultFilter);
+            renderResultsGrid(filtered);
+          });
+        });
+      }
+
+      function renderResultsGrid(events) {
+        document.getElementById('resultDetail').style.display = 'none';
+        const grid = document.getElementById('resultsGrid');
+        grid.style.display = '';
+
+        if (!events.length) {
+          grid.innerHTML =
+            '<div class="empty-state">'
+            + '<div class="empty-state-icon">🏆</div>'
+            + '<div class="empty-state-title">Ingen resultater ennå</div>'
+            + '<div class="empty-state-text">Når arrangementer og aktiviteter er gjennomført, vil resultater og oppsummeringer vises her.</div>'
+            + '</div>';
+          return;
+        }
+
+        grid.innerHTML = events.map(e => {
+          const results    = allEventResults.filter(r => r.tournament_id === e.id).sort((a, b) => a.position - b.position);
+          const winner     = results.find(r => r.position === 1);
+          const comp       = isCompetition(e.type);
+          const typeCls    = getEventTypeCls(e.type);
+          const typeLabel  = getEventTypeLabel(e.type);
+          const dateStr    = e.start_date
+            ? new Date(e.start_date).toLocaleDateString('no-NO', { day: 'numeric', month: 'long', year: 'numeric' }) : '—';
+
+          return '<div class="result-card" data-id="' + e.id + '">'
+            + '<div class="result-card-top">'
+            + '<span class="result-type-badge ' + typeCls + '">' + typeLabel + '</span>'
+            + (comp && winner ? '<span class="result-winner-crown">🏆</span>' : '')
+            + '</div>'
+            + '<div class="result-card-title">' + escHtml(e.title) + '</div>'
+            + '<div class="result-card-meta">'
+            + '<span>📅 ' + dateStr + '</span>'
+            + (e.location ? '<span>📍 ' + escHtml(e.location) + '</span>' : '')
+            + '</div>'
+            + (e.description
+              ? '<div class="result-card-summary">' + escHtml(e.description.slice(0, 110)) + (e.description.length > 110 ? '…' : '') + '</div>'
+              : '')
+            + (comp && winner
+              ? '<div class="result-card-winner"><span class="result-winner-label">Vinner</span><span class="result-winner-name">' + escHtml(winner.winner_name) + '</span></div>'
+              : '<div class="result-card-done"><span class="result-done-badge">✓ Gjennomført</span></div>')
+            + '<div class="result-card-footer"><button class="result-detail-btn">Se detaljer →</button></div>'
+            + '</div>';
+        }).join('');
+
+        grid.querySelectorAll('.result-card').forEach(card => {
+          card.querySelector('.result-detail-btn').addEventListener('click', () => showResultDetail(card.dataset.id));
+        });
+      }
+
+      async function showResultDetail(eventId) {
+        const grid   = document.getElementById('resultsGrid');
+        const detail = document.getElementById('resultDetail');
+        grid.style.display   = 'none';
+        detail.style.display = 'block';
+        detail.innerHTML = '<div class="loading" style="padding:3rem 0;text-align:center;">Laster…</div>';
+
+        const event = allCompletedEvents.find(e => String(e.id) === String(eventId));
+        if (!event) { detail.innerHTML = '<div class="empty" style="padding:3rem;">Arrangementet ble ikke funnet.</div>'; return; }
+
+        const { count: participantCount } = await db.from('tournament_participants')
+          .select('id', { count: 'exact', head: true }).eq('tournament_id', eventId);
+
+        const results   = allEventResults.filter(r => String(r.tournament_id) === String(eventId)).sort((a, b) => a.position - b.position);
+        const comp      = isCompetition(event.type);
+        const typeCls   = getEventTypeCls(event.type);
+        const typeLabel = getEventTypeLabel(event.type);
+        const dateStr   = event.start_date
+          ? new Date(event.start_date).toLocaleDateString('no-NO', { day: 'numeric', month: 'long', year: 'numeric' }) : '—';
+        const medals    = { 1: '🥇', 2: '🥈', 3: '🥉' };
+
+        const placementsHtml = comp && results.length
+          ? '<div class="detail-section">'
+              + '<div class="detail-section-title">Plasseringer</div>'
+              + '<div class="detail-placements">'
+              + results.map(r => {
+                  const cls = r.position === 1 ? 'place-gold' : r.position === 2 ? 'place-silver' : r.position === 3 ? 'place-bronze' : '';
+                  return '<div class="detail-placement-row ' + cls + '">'
+                    + '<div class="detail-placement-pos">' + (medals[r.position] || ('#' + r.position)) + '</div>'
+                    + '<div class="detail-placement-name">' + escHtml(r.winner_name || '—') + '</div>'
+                    + '</div>';
+                }).join('')
+              + '</div></div>'
+          : '<div class="detail-section"><div class="detail-done-note">✓ Denne aktiviteten ble gjennomført'
+              + (participantCount ? ' med ' + participantCount + ' deltakere' : '')
+              + '.</div></div>';
+
+        const badges = [];
+        if (results.find(r => r.position === 1)) badges.push({ icon: '🏆', label: 'Turneringsvinner' });
+        if ((participantCount || 0) >= 10)       badges.push({ icon: '👥', label: 'Folksomt' });
+        if (!comp)                               badges.push({ icon: '🤝', label: 'Fellesskapsaktivitet' });
+        if ((participantCount || 0) >= 1)        badges.push({ icon: '⭐', label: 'Aktiv deltaker' });
+
+        detail.innerHTML =
+          '<button class="detail-back-btn" id="detailBackBtn">← Tilbake til resultater</button>'
+          + '<div class="detail-hero-band">'
+          + '<span class="result-type-badge ' + typeCls + '">' + typeLabel + '</span>'
+          + '<div class="detail-hero-title">' + escHtml(event.title) + '</div>'
+          + '<div class="detail-hero-meta">'
+          + '<span>📅 ' + dateStr + '</span>'
+          + (event.location ? ' <span>📍 ' + escHtml(event.location) + '</span>' : '')
+          + (participantCount ? ' <span>👥 ' + participantCount + ' deltakere</span>' : '')
+          + '</div></div>'
+          + (event.description
+            ? '<div class="detail-section"><div class="detail-section-title">Om arrangementet</div>'
+              + '<div class="detail-description">' + escHtml(event.description) + '</div></div>'
+            : '')
+          + placementsHtml
+          + (badges.length
+            ? '<div class="detail-section"><div class="detail-section-title">Utmerkelser</div>'
+              + '<div class="detail-badges">'
+              + badges.map(b => '<span class="badge-chip">' + b.icon + ' ' + escHtml(b.label) + '</span>').join('')
+              + '</div></div>'
+            : '')
+          + '<div class="detail-section">'
+          + '<div class="detail-section-title">Bilder fra arrangementet</div>'
+          + '<div class="detail-photos-empty">Ingen bilder er lagt til for dette arrangementet ennå.</div>'
+          + '</div>';
+
+        document.getElementById('detailBackBtn').addEventListener('click', () => {
+          detail.style.display = 'none';
+          grid.style.display   = '';
+        });
+      }
+
+      // ── PROFIL ────────────────────────────────────────────
       function renderProfile() {
         const m = currentMember;
         if (!m) return;
-        const fields = [
-          ['Fullt navn',     m.name],
-          ['Telefonnummer',  m.phone],
-          ['E-postadresse',  m.email || '—'],
-          ['Kommune',        m.municipality],
-          ['Innmeldt',       m.join_date ? new Date(m.join_date).toLocaleDateString('no-NO') : '—'],
-          ['Status',         m.role === 'admin' ? 'Admin' : 'Aktiv'],
-          ['Nivå',           getLevelFromXP(m.xp || 0).name],
-          ['XP',             (m.xp || 0) + ' poeng'],
+
+        const initials  = m.name?.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase() || '?';
+        const roleLabel = m.role === 'admin' ? 'Admin' : 'Medlem';
+        const joinDate  = m.join_date
+          ? new Date(m.join_date).toLocaleDateString('no-NO', { day:'numeric', month:'long', year:'numeric' }) : '—';
+        const memberId  = m.id ? '#' + String(m.id).padStart(4,'0') : '—';
+        const bio       = m.bio || 'Engasjert i fellesskap, aktiviteter og ungdomsarbeid.';
+
+        // ── Header ──
+        document.getElementById('profileHeader').innerHTML =
+          '<div class="profile-avatar-wrap">'
+          + '<div class="profile-avatar-lg">' + initials + '</div>'
+          + '<button class="profile-photo-btn" title="Bytt profilbilde">✎</button>'
+          + '</div>'
+          + '<div class="profile-header-info">'
+          + '<div class="profile-name">' + escHtml(m.name || '—') + '</div>'
+          + '<div class="profile-role-badge">' + roleLabel + '</div>'
+          + '<div class="profile-meta-row">'
+          + '<span class="profile-meta-item">📍 ' + escHtml(m.municipality || '—') + '</span>'
+          + '<span class="profile-meta-item">🗓 Medlem siden ' + joinDate + '</span>'
+          + '<span class="profile-meta-item">🪪 ' + memberId + '</span>'
+          + '</div>'
+          + '<div class="profile-bio">' + escHtml(bio) + '</div>'
+          + '</div>'
+          + '<div class="profile-header-actions">'
+          + '<button class="btn btn-ghost btn-sm" id="profileEditBtn">✎ Rediger profil</button>'
+          + '</div>';
+        const editBtn = document.getElementById('profileEditBtn');
+        if (editBtn) editBtn.addEventListener('click', () => {
+          // scroll to edit form in the same panel
+          document.getElementById('settingsAvatarUrl').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // ── Info card ──
+        const active = m.verified !== false;
+        const infoFields = [
+          ['Fullt navn',     escHtml(m.name || '—')],
+          ['Telefonnummer',  escHtml(m.phone || '—')],
+          ['E-postadresse',  escHtml(m.email || '—')],
+          ['Kommune',        escHtml(m.municipality || '—')],
+          ['Innmeldingsdato', joinDate],
+          ['Medlemsnummer',  memberId],
+          ['Rolle',          roleLabel],
+          ['Status',
+            '<span class="member-status-pill ' + (active ? 'msp-active' : 'msp-inactive') + '">'
+            + (active ? 'Aktiv' : 'Inaktiv') + '</span>'],
         ];
-        document.getElementById('profileContent').innerHTML = fields.map(([label, val]) => `
-          <div style="display:flex; justify-content:space-between; padding:0.9rem 0; border-bottom:1px solid rgba(255,255,255,0.05);">
-            <span style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:rgba(255,255,255,0.35); font-weight:600;">${label}</span>
-            <span style="font-size:0.88rem; color:rgba(255,255,255,0.75); font-weight:500;">${val}</span>
-          </div>`).join('');
+        document.getElementById('memberInfoGrid').innerHTML = infoFields.map(([label, val]) =>
+          '<div class="member-info-field">'
+          + '<div class="member-info-label">' + label + '</div>'
+          + '<div class="member-info-value">' + val + '</div>'
+          + '</div>'
+        ).join('');
+        document.getElementById('memberInfoCard').style.display = '';
       }
 
-      init();
+      async function loadMyPosts() {
+        const el = document.getElementById('myPostsList');
+        if (!currentSession) return;
+        const { data } = await db.from('community_posts')
+          .select('*').eq('author_id', currentSession.user.id)
+          .order('created_at', { ascending: false }).limit(10);
+        if (!data?.length) {
+          el.innerHTML =
+            '<div style="text-align:center;padding:2rem 1.5rem;">'
+            + '<div style="font-size:2rem;margin-bottom:0.85rem;opacity:0.35;">✍️</div>'
+            + '<div style="font-size:0.92rem;font-weight:700;color:rgba(255,255,255,0.62);margin-bottom:0.4rem;">Du har ikke publisert noe ennå</div>'
+            + '<div style="font-size:0.82rem;color:rgba(255,255,255,0.3);line-height:1.65;max-width:320px;margin:0 auto 1.25rem;">Del noe i Fellesskapet, og innleggene dine vil vises her.</div>'
+            + '<button class="btn btn-ghost btn-sm" id="myPostsEmptyBtn">Gå til Fellesskapet</button>'
+            + '</div>';
+          document.getElementById('myPostsEmptyBtn').addEventListener('click', () => showSection('community'));
+          return;
+        }
+        el.innerHTML = data.map(p =>
+          '<div class="my-post-item">'
+          + '<div class="my-post-time">' + timeAgo(p.created_at) + '</div>'
+          + '<div class="my-post-text">' + escHtml(p.content) + '</div>'
+          + '</div>'
+        ).join('');
+      }
+
+      async function loadMyActivities() {
+        const el = document.getElementById('myActivitiesList');
+        if (!currentSession) return;
+        const { data } = await db.from('tournament_participants')
+          .select('*, tournaments(title, start_date)')
+          .eq('user_id', currentSession.user.id)
+          .order('created_at', { ascending: false }).limit(10);
+        if (!data?.length) {
+          el.innerHTML =
+            '<div style="text-align:center;padding:2rem 1.5rem;">'
+            + '<div style="font-size:2rem;margin-bottom:0.85rem;opacity:0.35;">🏃</div>'
+            + '<div style="font-size:0.92rem;font-weight:700;color:rgba(255,255,255,0.62);margin-bottom:0.4rem;">Du har ikke meldt deg på aktiviteter ennå</div>'
+            + '<div style="font-size:0.82rem;color:rgba(255,255,255,0.3);line-height:1.65;max-width:320px;margin:0 auto 1.25rem;">Meld deg på arrangementer, og aktivitetene dine vil vises her.</div>'
+            + '<button class="btn btn-ghost btn-sm" id="myActivitiesEmptyBtn">Se arrangementer</button>'
+            + '</div>';
+          document.getElementById('myActivitiesEmptyBtn').addEventListener('click', () => showSection('turneringer'));
+          return;
+        }
+        el.innerHTML = data.map(p => {
+          const d = p.tournaments?.start_date
+            ? new Date(p.tournaments.start_date).toLocaleDateString('no-NO', { day:'numeric', month:'long', year:'numeric' }) : '—';
+          return '<div class="my-activity-item">'
+            + '<div><div class="my-activity-title">' + escHtml(p.tournaments?.title || '—') + '</div>'
+            + '<div class="my-activity-date">' + d + '</div></div>'
+            + '<span class="event-status-badge est-upcoming">Påmeldt</span>'
+            + '</div>';
+        }).join('');
+      }
+
+      // ── NÅ I FELLESSKAPET — premium rotator ──────────────
+      async function loadNowInFellesskap() {
+        const items = [];
+
+        // ── 1. Live updates ───────────────────────────────
+        const [
+          { data: newMembers },
+          { data: newPosts },
+          { data: newEvents },
+          { data: proposals },
+          { data: ann },
+          { count: memberCount },
+          { count: eventCount },
+          { count: proposalCount },
+        ] = await Promise.all([
+          db.from('members').select('name, municipality').order('join_date', { ascending: false }).limit(2),
+          db.from('community_posts').select('author_name, created_at').is('parent_id', null).order('created_at', { ascending: false }).limit(2),
+          db.from('tournaments').select('title, start_date').in('status', ['upcoming','active']).order('start_date', { ascending: true }).limit(2),
+          db.from('tournaments').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+          db.from('announcements').select('title').order('created_at', { ascending: false }).limit(1),
+          db.from('members').select('id', { count: 'exact', head: true }),
+          db.from('tournaments').select('id', { count: 'exact', head: true }).in('status', ['upcoming','active']),
+          db.from('tournaments').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+        ]);
+
+        (newMembers || []).forEach(m => items.push({
+          badge: 'Nytt medlem',
+          main:  escHtml((m.name || 'Et nytt medlem') + (m.municipality ? ' fra ' + m.municipality : '') + ' ble med'),
+          sub:   'Velkommen til UAN!',
+        }));
+
+        (newPosts || []).forEach(p => items.push({
+          badge: 'Ny samtale',
+          main:  escHtml(p.author_name || 'Et medlem') + ' delte et nytt innlegg',
+          sub:   timeAgo(p.created_at),
+        }));
+
+        (newEvents || []).forEach(t => {
+          const d = t.start_date
+            ? new Date(t.start_date).toLocaleDateString('no-NO', { day:'numeric', month:'long' }) : null;
+          items.push({
+            badge: 'Ny aktivitet',
+            main:  escHtml(t.title) + ' er lagt til',
+            sub:   d ? '📅 ' + d : 'Se Arrangementer for detaljer',
+          });
+        });
+
+        if (proposalCount > 0) items.push({
+          badge: 'Nytt forslag',
+          main:  proposalCount + ' arrangmentsforslag venter på godkjenning',
+          sub:   'Admin kan godkjenne i adminpanelet',
+        });
+
+        (ann || []).forEach(a => items.push({
+          badge: 'Viktig',
+          main:  escHtml(a.title),
+          sub:   'Se "Viktig nå" øverst for mer informasjon',
+        }));
+
+        // ── 2. Quotes ─────────────────────────────────────
+        const QUOTES = [
+          { main: 'Sammen skaper vi aktivitet',          sub: 'UAN — Ung og Aktive Norge' },
+          { main: 'Små initiativ kan løfte mange',       sub: 'Hvert bidrag teller' },
+          { main: 'Fellesskap vokser når noen tar første steg', sub: 'Vær den som starter noe' },
+          { main: 'Aktivitet binder mennesker sammen',   sub: 'UAN — Ung og Aktive Norge' },
+          { main: 'Din idé kan bli alles opplevelse',    sub: 'Foreslå et arrangement i dag' },
+        ];
+        QUOTES.forEach(q => items.push({ badge: 'Tanke', main: q.main, sub: q.sub }));
+
+        // ── 3. Reminders ──────────────────────────────────
+        const REMINDERS = [
+          { main: 'Har du delt noe i Fellesskapet i dag?',  sub: 'Et innlegg er alt som skal til' },
+          { main: 'Husk å sjekke kommende arrangementer',   sub: 'Meld deg på og sikre plassen din' },
+          { main: 'Kjenner du noen som burde bli medlem?',  sub: 'Del UAN med andre' },
+          { main: 'Har du en idé til en aktivitet?',        sub: 'Foreslå et arrangement — det tar 1 minutt' },
+        ];
+        REMINDERS.forEach(r => items.push({ badge: 'Påminnelse', main: r.main, sub: r.sub }));
+
+        // ── 4. Stats cards ────────────────────────────────
+        if (memberCount)   items.push({ badge: 'Status', main: memberCount + ' registrerte medlemmer',          sub: 'og UAN vokser' });
+        if (eventCount)    items.push({ badge: 'Status', main: eventCount + ' kommende ' + (eventCount === 1 ? 'arrangement' : 'arrangementer'), sub: 'Meld deg på og bli med' });
+        if (proposalCount) items.push({ badge: 'Status', main: proposalCount + ' forslag til behandling',       sub: 'Sendt inn av medlemmer' });
+
+        // ── Shuffle & display ─────────────────────────────
+        for (let i = items.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [items[i], items[j]] = [items[j], items[i]];
+        }
+
+        const dotsEl    = document.getElementById('nowDots');
+        const contentEl = document.getElementById('nowContent');
+        // Cap dots at 6 so they don't overflow
+        const dotCount  = Math.min(items.length, 6);
+        dotsEl.innerHTML = Array.from({ length: dotCount }, (_, i) =>
+          '<div class="now-dot' + (i === 0 ? ' active' : '') + '"></div>'
+        ).join('');
+        const dots = dotsEl.querySelectorAll('.now-dot');
+
+        let current = 0;
+        function showItem(idx) {
+          const item = items[idx];
+          contentEl.classList.add('fading');
+          setTimeout(() => {
+            contentEl.innerHTML =
+              '<div class="now-type-badge">' + item.badge + '</div>'
+              + '<div class="now-main">' + item.main + '</div>'
+              + '<div class="now-sub">'  + item.sub  + '</div>';
+            contentEl.classList.remove('fading');
+          }, 300);
+          dots.forEach((d, i) => d.classList.toggle('active', i === idx % dotCount));
+        }
+
+        showItem(0);
+        setInterval(() => { current = (current + 1) % items.length; showItem(current); }, 7500);
+      }
+
+      init().catch(err => console.error('[dashboard] init failed:', err));
+
+      // ── HERO SLIDESHOW — rolig crossfade hvert 6.5 sek ──────
+      (function () {
+        const slides = document.querySelectorAll('.hero-slide');
+        let current = 0;
+        setInterval(() => {
+          slides[current].classList.remove('active');
+          current = (current + 1) % slides.length;
+          slides[current].classList.add('active');
+        }, 6500);
+      })();
+
+
+      // ── SETTINGS ─────────────────────────────────────────
+      let settingsAvatarListenerAttached = false;
+
+      // Tab switching
+      document.querySelectorAll('.settings-nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+          document.querySelectorAll('.settings-nav-item').forEach(i => i.classList.remove('active'));
+          document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
+          item.classList.add('active');
+          document.getElementById('stab-' + item.dataset.tab).classList.add('active');
+        });
+      });
+
+      function showSettingsToast(id) {
+        const el = document.getElementById(id);
+        el.classList.remove('hidden');
+        setTimeout(() => el.classList.add('hidden'), 3000);
+      }
+
+      async function loadSettingsData() {
+        if (!currentMember) return;
+        renderProfile();
+        const emailEl = document.getElementById('settingsEmail');
+        const phoneEl = document.getElementById('settingsPhone');
+        const nameEl  = document.getElementById('settingsName');
+        const bioEl   = document.getElementById('settingsBio');
+        const kommuneEl = document.getElementById('settingsKommune');
+        const avatarEl  = document.getElementById('settingsAvatarUrl');
+        const previewEl = document.getElementById('settingsAvatarPreview');
+
+        if (currentSession?.user?.email) emailEl.value = currentSession.user.email;
+        if (currentMember.phone)    phoneEl.value    = currentMember.phone;
+        if (currentMember.name)     nameEl.value     = currentMember.name;
+        if (currentMember.bio)      bioEl.value      = currentMember.bio;
+        if (currentMember.kommune)  kommuneEl.value  = currentMember.kommune;
+        if (currentMember.avatar_url) {
+          avatarEl.value = currentMember.avatar_url;
+          previewEl.innerHTML = '<img src="' + escHtml(currentMember.avatar_url) + '" alt="avatar" />';
+        } else {
+          const initials = (currentMember.name || '?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+          previewEl.textContent = initials;
+        }
+
+        if (!settingsAvatarListenerAttached) {
+          settingsAvatarListenerAttached = true;
+          avatarEl.addEventListener('input', () => {
+            const url = avatarEl.value.trim();
+            if (url) {
+              previewEl.innerHTML = '<img src="' + escHtml(url) + '" alt="avatar" />';
+            } else {
+              const init = (nameEl.value || '?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+              previewEl.textContent = init;
+            }
+          });
+        }
+      }
+
+      document.getElementById('saveKontoBtn').addEventListener('click', async () => {
+        const email = document.getElementById('settingsEmail').value.trim();
+        const phone = document.getElementById('settingsPhone').value.trim();
+        const newPw = document.getElementById('settingsNewPw').value;
+        const confirmPw = document.getElementById('settingsConfirmPw').value;
+
+        if (newPw || confirmPw) {
+          if (newPw !== confirmPw) { alert('Passordene stemmer ikke overens.'); return; }
+          if (newPw.length < 6)   { alert('Passordet må være minst 6 tegn.'); return; }
+          const { error } = await db.auth.updateUser({ password: newPw });
+          if (error) { alert('Kunne ikke endre passord: ' + error.message); return; }
+          document.getElementById('settingsCurrentPw').value = '';
+          document.getElementById('settingsNewPw').value = '';
+          document.getElementById('settingsConfirmPw').value = '';
+        }
+
+        if (email && email !== currentSession?.user?.email) {
+          const { error } = await db.auth.updateUser({ email });
+          if (error) { alert('Kunne ikke endre e-post: ' + error.message); return; }
+        }
+
+        if (phone !== (currentMember?.phone || '')) {
+          await db.from('members').update({ phone }).eq('user_id', currentSession.user.id);
+          if (currentMember) currentMember.phone = phone;
+        }
+
+        showSettingsToast('toastKonto');
+      });
+
+      document.getElementById('saveProfilBtn').addEventListener('click', async () => {
+        const name       = document.getElementById('settingsName').value.trim();
+        const bio        = document.getElementById('settingsBio').value.trim();
+        const kommune    = document.getElementById('settingsKommune').value.trim();
+        const avatar_url = document.getElementById('settingsAvatarUrl').value.trim();
+
+        const { error } = await db.from('members')
+          .update({ name, bio, kommune, avatar_url: avatar_url || null })
+          .eq('user_id', currentSession.user.id);
+
+        if (error) { alert('Kunne ikke lagre profil: ' + error.message); return; }
+
+        if (currentMember) {
+          currentMember.name = name;
+          currentMember.bio = bio;
+          currentMember.kommune = kommune;
+          currentMember.avatar_url = avatar_url || null;
+        }
+
+        // Re-render profile overview and sidebar
+        renderProfile();
+        const initials = (name || '?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+        document.getElementById('sidebarAvatar').textContent = initials;
+        document.getElementById('sidebarName').textContent   = name || '—';
+
+        showSettingsToast('toastProfil');
+      });
+
+      document.getElementById('saveVarslerBtn').addEventListener('click', () => {
+        showSettingsToast('toastVarsler');
+      });
+
+      document.getElementById('savePersonvernBtn').addEventListener('click', () => {
+        showSettingsToast('toastPersonvern');
+      });
     </script>
   </body>
 </html>

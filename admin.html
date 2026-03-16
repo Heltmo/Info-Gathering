@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Brim — Adminpanel</title>
+    <title>UAN — Adminpanel</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,15 +11,13 @@
 
       body {
         font-family: 'Inter', system-ui, sans-serif;
-        background: #060610;
-        color: #fff;
-        display: flex;
-        min-height: 100vh;
+        background: #060610; color: #fff;
+        display: flex; min-height: 100vh;
       }
 
       /* ── SIDEBAR ─────────────────────────────────────── */
       .sidebar {
-        width: 240px; min-height: 100vh;
+        width: 230px; min-height: 100vh;
         background: rgba(6,6,16,0.99);
         border-right: 1px solid rgba(255,255,255,0.06);
         display: flex; flex-direction: column;
@@ -28,8 +26,8 @@
       }
       .sidebar-logo {
         display: flex; align-items: center; gap: 0.6rem;
-        padding: 0 1.5rem 2rem;
-        border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 1.5rem;
+        padding: 0 1.5rem 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 0.75rem;
       }
       .sidebar-logo .dot {
         width: 8px; height: 8px; border-radius: 50%;
@@ -38,123 +36,157 @@
       .sidebar-logo span { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
       .admin-badge {
         margin: 0 1.5rem 1rem;
-        font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+        font-size: 0.63rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
         color: #f59e0b; background: rgba(245,158,11,0.1);
         border: 1px solid rgba(245,158,11,0.2); border-radius: 4px;
         padding: 0.25rem 0.6rem; display: inline-block;
       }
-
       .nav-section {
-        font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-        color: rgba(255,255,255,0.2); padding: 0 1.5rem; margin-bottom: 0.5rem; margin-top: 1rem;
+        font-size: 0.63rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+        color: rgba(255,255,255,0.18); padding: 0 1.5rem; margin-bottom: 0.3rem; margin-top: 1rem;
       }
       .nav-item {
         display: flex; align-items: center; gap: 0.75rem;
-        padding: 0.65rem 1.5rem; font-size: 0.875rem; font-weight: 500;
+        padding: 0.6rem 1.5rem; font-size: 0.855rem; font-weight: 500;
         color: rgba(255,255,255,0.4); cursor: pointer;
         transition: color 0.15s, background 0.15s; user-select: none;
       }
       .nav-item:hover { color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.04); }
       .nav-item.active { color: #f59e0b; background: rgba(245,158,11,0.07); border-right: 2px solid #f59e0b; }
       .nav-item .icon { width: 18px; text-align: center; font-size: 1rem; }
-
       .sidebar-bottom {
         margin-top: auto; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1rem;
       }
 
       /* ── MAIN ────────────────────────────────────────── */
-      .main { margin-left: 240px; flex: 1; padding: 2.5rem; min-height: 100vh; }
+      .main { margin-left: 230px; flex: 1; padding: 2.5rem; min-height: 100vh; max-width: 1100px; }
+
+      .section { display: none; }
+      .section.active { display: block; }
 
       .page-header { margin-bottom: 2rem; }
       .page-title  { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
       .page-subtitle { font-size: 0.85rem; color: rgba(255,255,255,0.35); margin-top: 0.2rem; }
 
       /* ── STAT CARDS ──────────────────────────────────── */
-      .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+      .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.75rem; }
       .stat-card {
         background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
         border-radius: 1rem; padding: 1.25rem 1.5rem;
       }
       .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; color: rgba(255,255,255,0.3); margin-bottom: 0.4rem; }
       .stat-value { font-size: 2rem; font-weight: 800; }
+      .stat-value.amber { color: #f59e0b; }
       .stat-sub   { font-size: 0.72rem; color: rgba(255,255,255,0.28); margin-top: 0.15rem; }
 
-      /* ── TABLE ───────────────────────────────────────── */
+      /* ── CARD ────────────────────────────────────────── */
       .card {
         background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-        border-radius: 1.25rem; padding: 1.5rem;
+        border-radius: 1.25rem; padding: 1.5rem; margin-bottom: 1.25rem;
       }
-      .section-header {
+      .card-header {
         display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;
       }
-      .section-title { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); }
+      .card-title { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.45); }
 
+      /* ── TABLE ───────────────────────────────────────── */
       table { width: 100%; border-collapse: collapse; font-size: 0.845rem; }
       th {
-        text-align: left; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
-        text-transform: uppercase; color: rgba(255,255,255,0.28);
-        padding: 0 1rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.07);
+        text-align: left; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em;
+        text-transform: uppercase; color: rgba(255,255,255,0.25);
+        padding: 0 0.9rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.07);
       }
-      td { padding: 0.85rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: rgba(255,255,255,0.7); vertical-align: middle; }
+      td { padding: 0.8rem 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: rgba(255,255,255,0.7); vertical-align: middle; }
       tr:last-child td { border-bottom: none; }
       tr:hover td { background: rgba(255,255,255,0.02); }
 
-      .role-badge {
-        font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-        padding: 0.2rem 0.55rem; border-radius: 99px;
+      /* ── BADGES ──────────────────────────────────────── */
+      .badge {
+        display: inline-flex; align-items: center;
+        font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+        padding: 0.2rem 0.6rem; border-radius: 99px;
       }
-      .role-admin  { background: rgba(245,158,11,0.15); color: #f59e0b; }
-      .role-member { background: rgba(167,139,250,0.12); color: #a78bfa; }
+      .badge-pending   { background: rgba(167,139,250,0.12); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.2); }
+      .badge-review    { background: rgba(251,191,36,0.12);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+      .badge-approved  { background: rgba(52,211,153,0.12);  color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+      .badge-rejected  { background: rgba(248,113,113,0.12); color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+      .badge-draft     { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.1); }
+      .badge-published { background: rgba(52,211,153,0.12);  color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+      .badge-completed { background: rgba(96,165,250,0.12);  color: #60a5fa; border: 1px solid rgba(96,165,250,0.2); }
+      .badge-cancelled { background: rgba(248,113,113,0.12); color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+      .badge-admin     { background: rgba(245,158,11,0.12);  color: #f59e0b; border: 1px solid rgba(245,158,11,0.2); }
+      .badge-member    { background: rgba(167,139,250,0.1);  color: #a78bfa; border: 1px solid rgba(167,139,250,0.18); }
+      .badge-inactive  { background: rgba(248,113,113,0.1);  color: rgba(248,113,113,0.7); border: 1px solid rgba(248,113,113,0.15); }
+      .badge-pinned    { background: rgba(245,158,11,0.1);   color: #f59e0b; border: 1px solid rgba(245,158,11,0.2); }
+      .badge-hidden    { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.08); }
 
       /* ── BUTTONS ─────────────────────────────────────── */
       .btn {
         padding: 0.45rem 1rem; font-size: 0.8rem; font-family: inherit; font-weight: 600;
-        border: none; border-radius: 0.55rem; cursor: pointer; transition: opacity 0.15s;
+        border: none; border-radius: 0.55rem; cursor: pointer; transition: opacity 0.15s, transform 0.1s;
       }
-      .btn:hover { opacity: 0.8; }
-      .btn-amber  { background: rgba(245,158,11,0.15); color: #f59e0b; }
-      .btn-ghost  { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.08); }
-      .btn-danger { background: rgba(248,113,113,0.12); color: rgba(248,113,113,0.9); }
+      .btn:hover { opacity: 0.82; }
+      .btn:active { transform: scale(0.97); }
+      .btn-amber   { background: rgba(245,158,11,0.15); color: #f59e0b; }
+      .btn-green   { background: rgba(52,211,153,0.14); color: #34d399; }
+      .btn-red     { background: rgba(248,113,113,0.12); color: #f87171; }
+      .btn-ghost   { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.08); }
       .btn-primary { background: linear-gradient(135deg, #7c5cfc, #a78bfa); color: #fff; }
-      .btn-sm { padding: 0.3rem 0.7rem; font-size: 0.72rem; }
+      .btn-sm { padding: 0.28rem 0.65rem; font-size: 0.72rem; }
 
       /* ── FORM ────────────────────────────────────────── */
       .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-      .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
-      .form-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); }
+      .form-field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.9rem; }
+      .form-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: rgba(255,255,255,0.32); }
       .form-input, .form-select, .form-textarea {
         padding: 0.7rem 0.9rem; background: rgba(255,255,255,0.05);
         border: 1px solid rgba(255,255,255,0.09); border-radius: 0.7rem;
         color: #fff; font-family: inherit; font-size: 0.875rem; outline: none;
         transition: border-color 0.2s;
       }
-      .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(245,158,11,0.4); }
-      .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
-      .form-select option { background: #1a1a2e; }
-      .form-textarea { resize: vertical; min-height: 80px; }
+      .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(245,158,11,0.45); }
+      .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.18); }
+      .form-select option { background: #12101e; }
+      .form-textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+      .form-row-actions { display: flex; gap: 0.65rem; justify-content: flex-end; margin-top: 0.5rem; }
 
-      /* ── SECTIONS ────────────────────────────────────── */
-      .section { display: none; }
-      .section.active { display: block; }
+      /* ── MISC ────────────────────────────────────────── */
+      .empty   { text-align: center; padding: 2.5rem; color: rgba(255,255,255,0.22); font-size: 0.855rem; }
+      .loading { color: rgba(255,255,255,0.22); font-size: 0.855rem; padding: 1rem; }
 
-      .empty { text-align: center; padding: 2.5rem; color: rgba(255,255,255,0.25); font-size: 0.85rem; }
-      .loading { color: rgba(255,255,255,0.25); font-size: 0.85rem; padding: 1rem; }
-
-      /* ── ANNOUNCEMENT BADGE ──────────────────────────── */
-      .ann-row {
-        padding: 0.9rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
-        display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+      .preview-text {
+        max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        color: rgba(255,255,255,0.5);
       }
-      .ann-row:last-child { border-bottom: none; }
-      .ann-title   { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.2rem; }
-      .ann-content { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
-      .ann-type-badge {
-        font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
-        padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+
+      /* ── MODAL ───────────────────────────────────────── */
+      .modal-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.65);
+        display: flex; align-items: center; justify-content: center;
+        z-index: 300; padding: 1rem;
       }
-      .ann-info    { background: rgba(167,139,250,0.12); color: #a78bfa; }
-      .ann-warning { background: rgba(248,113,113,0.12); color: rgba(248,113,113,0.9); }
-      .ann-event   { background: rgba(52,211,153,0.12);  color: #34d399; }
+      .modal-overlay.hidden { display: none; }
+      .modal-box {
+        width: min(500px, 100%); background: #0e0c1f;
+        border: 1px solid rgba(255,255,255,0.1); border-radius: 1.25rem;
+        padding: 2rem; position: relative;
+        box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+      }
+      .modal-title    { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; }
+      .modal-subtitle { font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-bottom: 1.5rem; }
+      .modal-close {
+        position: absolute; top: 1rem; right: 1rem;
+        background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 0.45rem; width: 28px; height: 28px;
+        display: flex; align-items: center; justify-content: center;
+        color: rgba(255,255,255,0.4); cursor: pointer; font-size: 0.85rem; font-family: inherit;
+      }
+      .modal-close:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+
+      /* ── PROPOSAL DETAIL ─────────────────────────────── */
+      .detail-row { display: flex; gap: 0.5rem; margin-bottom: 0.65rem; font-size: 0.845rem; }
+      .detail-label { color: rgba(255,255,255,0.3); width: 80px; flex-shrink: 0; }
+      .detail-value { color: rgba(255,255,255,0.82); }
     </style>
   </head>
   <body>
@@ -163,39 +195,24 @@
     <aside class="sidebar">
       <div class="sidebar-logo">
         <div class="dot"></div>
-        <span>Brim Admin</span>
+        <span>UAN Admin</span>
       </div>
       <span class="admin-badge">⚙ Kontrollpanel</span>
 
       <span class="nav-section">Oversikt</span>
-      <div class="nav-item active" data-section="oversikt">
-        <span class="icon">⊞</span> Oversikt
-      </div>
-
-      <span class="nav-section">Brukere</span>
-      <div class="nav-item" data-section="members">
-        <span class="icon">◎</span> Medlemmer
-      </div>
+      <div class="nav-item active" data-section="oversikt"><span class="icon">⊞</span> Dashboard</div>
 
       <span class="nav-section">Innhold</span>
-      <div class="nav-item" data-section="community-admin">
-        <span class="icon">◈</span> Community
-      </div>
-      <div class="nav-item" data-section="kunngjøringer">
-        <span class="icon">📢</span> Kunngjøringer
-      </div>
+      <div class="nav-item" data-section="forslag"><span class="icon">📋</span> Forslag</div>
+      <div class="nav-item" data-section="arrangementer"><span class="icon">📅</span> Arrangementer</div>
+      <div class="nav-item" data-section="innlegg"><span class="icon">◈</span> Innlegg</div>
+      <div class="nav-item" data-section="resultater"><span class="icon">★</span> Resultater</div>
 
-      <span class="nav-section">Turneringer</span>
-      <div class="nav-item" data-section="turneringer-admin">
-        <span class="icon">⚡</span> Turneringer
-      </div>
-      <div class="nav-item" data-section="vinnere-admin">
-        <span class="icon">★</span> Registrer vinner
-      </div>
+      <span class="nav-section">Brukere</span>
+      <div class="nav-item" data-section="brukere"><span class="icon">◎</span> Brukere</div>
 
       <div class="sidebar-bottom">
-        <div class="nav-item" data-section="back" onclick="window.location.href='dashboard.html'"
-          style="color:rgba(167,139,250,0.6);">
+        <div class="nav-item" onclick="window.location.href='dashboard.html'" style="color:rgba(167,139,250,0.55);">
           <span class="icon">←</span> Til dashboard
         </div>
         <div class="nav-item" id="logoutBtn" style="color:rgba(248,113,113,0.5);">
@@ -207,176 +224,196 @@
     <!-- ── MAIN ─────────────────────────────────────────── -->
     <main class="main">
 
-      <!-- OVERSIKT -->
+      <!-- ══ OVERSIKT ══════════════════════════════════════ -->
       <div class="section active" id="sec-oversikt">
         <div class="page-header">
-          <div class="page-title">Adminoversikt</div>
-          <div class="page-subtitle">Nøkkeltall for Brim Community</div>
+          <div class="page-title">Dashboard</div>
+          <div class="page-subtitle">Nøkkeltall og siste aktivitet</div>
         </div>
         <div class="grid-4">
           <div class="stat-card">
-            <div class="stat-label">Totale medlemmer</div>
-            <div class="stat-value" id="statTotal">—</div>
-            <div class="stat-sub">registrerte</div>
+            <div class="stat-label">Ventende forslag</div>
+            <div class="stat-value amber" id="statPending">—</div>
+            <div class="stat-sub">krever behandling</div>
           </div>
           <div class="stat-card">
-            <div class="stat-label">Nye i dag</div>
-            <div class="stat-value" id="statToday">—</div>
-            <div class="stat-sub">innmeldinger</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Turneringer</div>
-            <div class="stat-value" id="statTournaments">—</div>
-            <div class="stat-sub">totalt</div>
+            <div class="stat-label">Arrangementer</div>
+            <div class="stat-value" id="statEvents">—</div>
+            <div class="stat-sub">publiserte</div>
           </div>
           <div class="stat-card">
             <div class="stat-label">Innlegg</div>
             <div class="stat-value" id="statPosts">—</div>
-            <div class="stat-sub">i community</div>
+            <div class="stat-sub">i fellesskapet</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Medlemmer</div>
+            <div class="stat-value" id="statMembers">—</div>
+            <div class="stat-sub">registrerte</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Siste forslag</span>
+              <button class="btn btn-ghost btn-sm" onclick="showSection('forslag')">Se alle</button>
+            </div>
+            <div id="overviewProposals"><div class="loading">Laster…</div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Nye medlemmer</span>
+              <button class="btn btn-ghost btn-sm" onclick="showSection('brukere')">Se alle</button>
+            </div>
+            <div id="overviewMembers"><div class="loading">Laster…</div></div>
           </div>
         </div>
         <div class="card">
-          <div class="section-header"><span class="section-title">Siste registreringer</span></div>
-          <div id="recentMembers"><div class="loading">Laster…</div></div>
-        </div>
-      </div>
-
-      <!-- MEMBERS -->
-      <div class="section" id="sec-members">
-        <div class="page-header">
-          <div class="page-title">Medlemmer</div>
-          <div class="page-subtitle">Alle registrerte brukere</div>
-        </div>
-        <div class="card">
-          <div id="membersTable"><div class="loading">Laster…</div></div>
-        </div>
-      </div>
-
-      <!-- COMMUNITY ADMIN -->
-      <div class="section" id="sec-community-admin">
-        <div class="page-header">
-          <div class="page-title">Community</div>
-          <div class="page-subtitle">Administrer innlegg og aktivitetsfeed</div>
-        </div>
-        <div class="card">
-          <div class="section-header">
-            <span class="section-title">Alle innlegg</span>
-            <button class="btn btn-amber" onclick="loadCommunityAdmin()">Oppdater</button>
+          <div class="card-header"><span class="card-title">Siste innlegg</span>
+            <button class="btn btn-ghost btn-sm" onclick="showSection('innlegg')">Se alle</button>
           </div>
-          <div id="communityAdmin"><div class="loading">Laster…</div></div>
+          <div id="overviewPosts"><div class="loading">Laster…</div></div>
         </div>
       </div>
 
-      <!-- KUNNGJØRINGER -->
-      <div class="section" id="sec-kunngjøringer">
+      <!-- ══ FORSLAG ════════════════════════════════════════ -->
+      <div class="section" id="sec-forslag">
         <div class="page-header">
-          <div class="page-title">Kunngjøringer</div>
-          <div class="page-subtitle">Publiser systemmeldinger til fellesskapet</div>
+          <div class="page-title">Arrangementforslag</div>
+          <div class="page-subtitle">Behandle forslag sendt inn av medlemmer</div>
         </div>
-        <div class="card" style="margin-bottom:1rem;">
-          <div class="section-header"><span class="section-title">Ny kunngjøring</span></div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Alle forslag</span>
+            <select class="form-select" id="forslagFilter" style="width:160px;padding:0.35rem 0.75rem;font-size:0.8rem;">
+              <option value="all">Alle statuser</option>
+              <option value="pending">Ventende</option>
+              <option value="under_review">Under vurdering</option>
+              <option value="approved">Godkjent</option>
+              <option value="rejected">Avvist</option>
+            </select>
+          </div>
+          <div id="forslagTable"><div class="loading">Laster…</div></div>
+        </div>
+      </div>
+
+      <!-- ══ ARRANGEMENTER ══════════════════════════════════ -->
+      <div class="section" id="sec-arrangementer">
+        <div class="page-header">
+          <div class="page-title">Arrangementer</div>
+          <div class="page-subtitle">Publiser og administrer arrangementer</div>
+        </div>
+        <div class="card" style="margin-bottom:1.25rem;">
+          <div class="card-header"><span class="card-title">Opprett nytt arrangement</span></div>
           <div class="form-grid">
             <div class="form-field">
               <label class="form-label">Tittel</label>
-              <input class="form-input" id="annTitle" placeholder="Tittel på kunngjøringen" />
+              <input class="form-input" id="evTitle" placeholder="Navn på arrangementet" />
             </div>
             <div class="form-field">
-              <label class="form-label">Type</label>
-              <select class="form-select" id="annType">
-                <option value="info">Info</option>
-                <option value="event">Arrangement</option>
-                <option value="warning">Advarsel</option>
-              </select>
+              <label class="form-label">Dato</label>
+              <input class="form-input" type="date" id="evDate" />
             </div>
-          </div>
-          <div class="form-field" style="margin-bottom:1rem;">
-            <label class="form-label">Innhold</label>
-            <textarea class="form-textarea" id="annContent" placeholder="Skriv kunngjøringen her…"></textarea>
-          </div>
-          <button class="btn btn-amber" id="annBtn">Publiser kunngjøring</button>
-        </div>
-        <div class="card">
-          <div class="section-header"><span class="section-title">Tidligere kunngjøringer</span></div>
-          <div id="annList"><div class="loading">Laster…</div></div>
-        </div>
-      </div>
-
-      <!-- TURNERINGER ADMIN -->
-      <div class="section" id="sec-turneringer-admin">
-        <div class="page-header">
-          <div class="page-title">Turneringer</div>
-          <div class="page-subtitle">Opprett og administrer turneringer</div>
-        </div>
-        <div class="card" style="margin-bottom:1rem;">
-          <div class="section-header"><span class="section-title">Opprett ny turnering</span></div>
-          <div class="form-grid">
             <div class="form-field">
-              <label class="form-label">Tittel</label>
-              <input class="form-input" id="tTitle" placeholder="Navn på turneringen" />
+              <label class="form-label">Sted</label>
+              <input class="form-input" id="evLocation" placeholder="F.eks. Halden kulturhus" />
             </div>
             <div class="form-field">
               <label class="form-label">Status</label>
-              <select class="form-select" id="tStatus">
-                <option value="upcoming">Kommende</option>
-                <option value="active">Aktiv</option>
-                <option value="completed">Avsluttet</option>
+              <select class="form-select" id="evStatus">
+                <option value="draft">Utkast</option>
+                <option value="upcoming">Publisert</option>
               </select>
             </div>
-            <div class="form-field">
-              <label class="form-label">Startdato</label>
-              <input class="form-input" type="date" id="tStart" />
-            </div>
-            <div class="form-field">
-              <label class="form-label">Sluttdato</label>
-              <input class="form-input" type="date" id="tEnd" />
-            </div>
           </div>
-          <div class="form-field" style="margin-bottom:1rem;">
+          <div class="form-field">
             <label class="form-label">Beskrivelse</label>
-            <textarea class="form-textarea" id="tDesc" placeholder="Kort beskrivelse…"></textarea>
+            <textarea class="form-textarea" id="evDesc" placeholder="Beskriv arrangementet…"></textarea>
           </div>
-          <button class="btn btn-amber" id="tBtn">Opprett turnering</button>
+          <div class="form-row-actions">
+            <button class="btn btn-amber" id="evCreateBtn">Opprett arrangement</button>
+          </div>
         </div>
         <div class="card">
-          <div class="section-header"><span class="section-title">Alle turneringer</span></div>
-          <div id="tournamentsAdmin"><div class="loading">Laster…</div></div>
+          <div class="card-header"><span class="card-title">Alle arrangementer</span>
+            <button class="btn btn-ghost btn-sm" id="evReloadBtn">Oppdater</button>
+          </div>
+          <div id="evTable"><div class="loading">Laster…</div></div>
         </div>
       </div>
 
-      <!-- VINNERE ADMIN -->
-      <div class="section" id="sec-vinnere-admin">
+      <!-- ══ INNLEGG ════════════════════════════════════════ -->
+      <div class="section" id="sec-innlegg">
         <div class="page-header">
-          <div class="page-title">Registrer vinner</div>
-          <div class="page-subtitle">Sett vinner for en avsluttet turnering</div>
+          <div class="page-title">Innlegg</div>
+          <div class="page-subtitle">Moderer fellesskapets innlegg</div>
         </div>
         <div class="card">
+          <div class="card-header">
+            <span class="card-title">Alle innlegg</span>
+            <button class="btn btn-ghost btn-sm" id="postsReloadBtn">Oppdater</button>
+          </div>
+          <div id="postsTable"><div class="loading">Laster…</div></div>
+        </div>
+      </div>
+
+      <!-- ══ RESULTATER ══════════════════════════════════════ -->
+      <div class="section" id="sec-resultater">
+        <div class="page-header">
+          <div class="page-title">Resultater</div>
+          <div class="page-subtitle">Publiser og administrer resultater for avsluttede arrangementer</div>
+        </div>
+        <div class="card" style="margin-bottom:1.25rem;">
+          <div class="card-header"><span class="card-title">Registrer nytt resultat</span></div>
           <div class="form-grid">
             <div class="form-field">
-              <label class="form-label">Turnering</label>
-              <select class="form-select" id="winnerTournament">
-                <option value="">Velg turnering…</option>
-              </select>
+              <label class="form-label">Arrangement</label>
+              <select class="form-select" id="resEvent"><option value="">Velg arrangement…</option></select>
             </div>
             <div class="form-field">
-              <label class="form-label">Vinnernavn</label>
-              <input class="form-input" id="winnerName" placeholder="Fullt navn på vinneren" />
-            </div>
-            <div class="form-field">
-              <label class="form-label">Plassering</label>
-              <select class="form-select" id="winnerPos">
-                <option value="1">1. plass</option>
-                <option value="2">2. plass</option>
-                <option value="3">3. plass</option>
-              </select>
+              <label class="form-label">Vinner / 1. plass</label>
+              <input class="form-input" id="resWinner" placeholder="Navn på vinner" />
             </div>
           </div>
-          <div style="margin-top:0.5rem;">
-            <button class="btn btn-amber" id="winnerBtn">Registrer vinner</button>
+          <div class="form-field">
+            <label class="form-label">Oppsummering</label>
+            <textarea class="form-textarea" id="resSummary" placeholder="Kort beskrivelse av resultatet…"></textarea>
           </div>
+          <div class="form-row-actions">
+            <button class="btn btn-amber" id="resCreateBtn">Publiser resultat</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Publiserte resultater</span></div>
+          <div id="resTable"><div class="loading">Laster…</div></div>
+        </div>
+      </div>
+
+      <!-- ══ BRUKERE ════════════════════════════════════════ -->
+      <div class="section" id="sec-brukere">
+        <div class="page-header">
+          <div class="page-title">Brukere</div>
+          <div class="page-subtitle">Administrer roller og tilgang</div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Alle medlemmer</span>
+            <button class="btn btn-ghost btn-sm" id="usersReloadBtn">Oppdater</button>
+          </div>
+          <div id="usersTable"><div class="loading">Laster…</div></div>
         </div>
       </div>
 
     </main>
+
+    <!-- ══ PROPOSAL DETAIL MODAL ══════════════════════════ -->
+    <div class="modal-overlay hidden" id="forslagModal">
+      <div class="modal-box">
+        <button class="modal-close" id="forslagModalClose">✕</button>
+        <div class="modal-title" id="forslagModalTitle">Forslag</div>
+        <div class="modal-subtitle" id="forslagModalMeta"></div>
+        <div id="forslagModalBody"></div>
+        <div id="forslagModalActions" style="margin-top:1.25rem;"></div>
+      </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="js/brim.js"></script>
@@ -384,30 +421,32 @@
       let adminSession = null;
       let adminMember  = null;
 
-      // ── NAV ──────────────────────────────────────────────
+      // ══ NAV ══════════════════════════════════════════════
+      function showSection(name) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-item[data-section]').forEach(n => n.classList.remove('active'));
+        document.getElementById('sec-' + name).classList.add('active');
+        document.querySelector('[data-section="' + name + '"]')?.classList.add('active');
+        const loaders = {
+          oversikt:       loadOverview,
+          forslag:        loadForslag,
+          arrangementer:  loadArrangementer,
+          innlegg:        loadInnlegg,
+          resultater:     loadResultater,
+          brukere:        loadBrukere,
+        };
+        loaders[name]?.();
+      }
+
       document.querySelectorAll('.nav-item[data-section]').forEach(el => {
-        el.addEventListener('click', () => {
-          if (el.dataset.section === 'back') return;
-          document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-          document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-          document.getElementById('sec-' + el.dataset.section).classList.add('active');
-          el.classList.add('active');
-          const loaders = {
-            members:           loadMembers,
-            'community-admin': loadCommunityAdmin,
-            'kunngjøringer':   loadAnnouncements,
-            'turneringer-admin': loadTournamentsAdmin,
-            'vinnere-admin':   loadWinnerForm,
-          };
-          loaders[el.dataset.section]?.();
-        });
+        el.addEventListener('click', () => showSection(el.dataset.section));
       });
 
       document.getElementById('logoutBtn').addEventListener('click', async () => {
         await db.auth.signOut(); window.location.href = 'login.html';
       });
 
-      // ── INIT ─────────────────────────────────────────────
+      // ══ INIT ═════════════════════════════════════════════
       async function init() {
         const result = await requireAdmin();
         if (!result) return;
@@ -416,210 +455,503 @@
         loadOverview();
       }
 
-      // ── OVERVIEW ─────────────────────────────────────────
+      // ══ OVERVIEW ═════════════════════════════════════════
       async function loadOverview() {
-        const today = new Date().toISOString().slice(0, 10);
-
-        const [members, todayMembers, tournaments, posts] = await Promise.all([
+        const [pendingRes, eventsRes, postsRes, membersRes] = await Promise.all([
+          db.from('event_proposals').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
+          db.from('tournaments').select('*', { count: 'exact', head: true }).eq('status', 'upcoming'),
+          db.from('community_posts').select('*', { count: 'exact', head: true }).eq('is_hidden', false),
           db.from('members').select('*', { count: 'exact', head: true }),
-          db.from('members').select('*', { count: 'exact', head: true }).eq('join_date', today),
-          db.from('tournaments').select('*', { count: 'exact', head: true }),
-          db.from('community_posts').select('*', { count: 'exact', head: true }),
+        ]);
+        document.getElementById('statPending').textContent = pendingRes.count ?? '—';
+        document.getElementById('statEvents').textContent  = eventsRes.count  ?? '—';
+        document.getElementById('statPosts').textContent   = postsRes.count   ?? '—';
+        document.getElementById('statMembers').textContent = membersRes.count  ?? '—';
+
+        const [proposals, members, posts] = await Promise.all([
+          db.from('event_proposals').select('id, title, status, created_at').order('created_at', { ascending: false }).limit(5),
+          db.from('members').select('name, role, join_date').order('join_date', { ascending: false }).limit(6),
+          db.from('community_posts').select('author_name, content, created_at').eq('is_hidden', false).order('created_at', { ascending: false }).limit(5),
         ]);
 
-        document.getElementById('statTotal').textContent      = members.count ?? '—';
-        document.getElementById('statToday').textContent      = todayMembers.count ?? '0';
-        document.getElementById('statTournaments').textContent = tournaments.count ?? '—';
-        document.getElementById('statPosts').textContent      = posts.count ?? '—';
+        // Recent proposals
+        const propEl = document.getElementById('overviewProposals');
+        if (!proposals.data?.length) { propEl.innerHTML = '<div class="empty">Ingen forslag.</div>'; }
+        else {
+          propEl.innerHTML = proposals.data.map(p =>
+            '<div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.04);">'
+            + '<span style="font-size:0.845rem;color:rgba(255,255,255,0.75);">' + escHtml(p.title) + '</span>'
+            + '<span class="badge badge-' + p.status + '">' + statusLabel(p.status) + '</span>'
+            + '</div>'
+          ).join('');
+        }
 
-        const { data: recent } = await db.from('members').select('name,municipality,join_date,role').order('join_date', { ascending: false }).limit(8);
-        const el = document.getElementById('recentMembers');
-        if (!recent?.length) { el.innerHTML = '<div class="empty">Ingen medlemmer ennå.</div>'; return; }
-        el.innerHTML = `<table>
-          <thead><tr><th>Navn</th><th>Kommune</th><th>Innmeldt</th><th>Rolle</th></tr></thead>
-          <tbody>${recent.map(m => `
-            <tr>
-              <td>${m.name}</td>
-              <td>${m.municipality || '—'}</td>
-              <td>${m.join_date ? new Date(m.join_date).toLocaleDateString('no-NO') : '—'}</td>
-              <td><span class="role-badge ${m.role === 'admin' ? 'role-admin' : 'role-member'}">${m.role}</span></td>
-            </tr>`).join('')}
-          </tbody></table>`;
+        // Recent members
+        const memEl = document.getElementById('overviewMembers');
+        if (!members.data?.length) { memEl.innerHTML = '<div class="empty">Ingen medlemmer.</div>'; }
+        else {
+          memEl.innerHTML = members.data.map(m =>
+            '<div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.04);">'
+            + '<span style="font-size:0.845rem;color:rgba(255,255,255,0.75);">' + escHtml(m.name || '—') + '</span>'
+            + '<span class="badge badge-' + (m.role === 'admin' ? 'admin' : 'member') + '">' + escHtml(m.role) + '</span>'
+            + '</div>'
+          ).join('');
+        }
+
+        // Recent posts
+        const postEl = document.getElementById('overviewPosts');
+        if (!posts.data?.length) { postEl.innerHTML = '<div class="empty">Ingen innlegg.</div>'; }
+        else {
+          postEl.innerHTML = '<table><thead><tr><th>Forfatter</th><th>Innhold</th><th>Dato</th></tr></thead><tbody>'
+            + posts.data.map(p =>
+              '<tr><td>' + escHtml(p.author_name || 'Ukjent') + '</td>'
+              + '<td class="preview-text">' + escHtml(p.content) + '</td>'
+              + '<td style="white-space:nowrap;">' + new Date(p.created_at).toLocaleDateString('no-NO') + '</td></tr>'
+            ).join('') + '</tbody></table>';
+        }
       }
 
-      // ── MEMBERS TABLE ─────────────────────────────────────
-      async function loadMembers() {
-        const { data } = await db.from('members').select('*').order('join_date', { ascending: false });
-        const el = document.getElementById('membersTable');
-        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen medlemmer.</div>'; return; }
-        el.innerHTML = `<table>
-          <thead><tr><th>Navn</th><th>Telefon</th><th>E-post</th><th>Kommune</th><th>Innmeldt</th><th>XP</th><th>Rolle</th><th></th></tr></thead>
-          <tbody>${data.map(m => `
-            <tr>
-              <td>${m.name}</td>
-              <td>${m.phone || '—'}</td>
-              <td>${m.email || '—'}</td>
-              <td>${m.municipality || '—'}</td>
-              <td>${m.join_date ? new Date(m.join_date).toLocaleDateString('no-NO') : '—'}</td>
-              <td>${m.xp || 0}</td>
-              <td><span class="role-badge ${m.role === 'admin' ? 'role-admin' : 'role-member'}">${m.role}</span></td>
-              <td>
-                <button class="btn btn-ghost btn-sm" onclick="giveXP('${m.user_id}', ${m.xp || 0})">+XP</button>
-                ${m.role !== 'admin'
-                  ? `<button class="btn btn-amber btn-sm" onclick="setAdmin('${m.user_id}')">Admin</button>`
-                  : ''}
-              </td>
-            </tr>`).join('')}
-          </tbody></table>`;
+      // ══ FORSLAG ══════════════════════════════════════════
+      let forslagCache = [];
+
+      function statusLabel(s) {
+        return { pending: 'Ventende', under_review: 'Under vurdering', approved: 'Godkjent', rejected: 'Avvist',
+                 upcoming: 'Publisert', draft: 'Utkast', completed: 'Fullført', cancelled: 'Avlyst' }[s] || s;
       }
 
-      async function giveXP(userId, currentXP) {
-        const amount = parseInt(prompt('Gi XP til bruker. Antall:', '50'), 10);
-        if (!amount || isNaN(amount)) return;
-        await db.from('members').update({ xp: currentXP + amount }).eq('user_id', userId);
-        loadMembers();
+      async function loadForslag() {
+        const el = document.getElementById('forslagTable');
+        el.innerHTML = '<div class="loading">Laster…</div>';
+
+        // Fetch proposals + member names
+        const { data, error } = await db.from('event_proposals').select('*, members(name)').order('created_at', { ascending: false });
+        if (error) { el.innerHTML = '<div class="empty">Feil: ' + escHtml(error.message) + '</div>'; return; }
+        forslagCache = data || [];
+        renderForslagTable(forslagCache);
       }
 
-      async function setAdmin(userId) {
-        if (!confirm('Gjør denne brukeren til admin?')) return;
-        await db.from('members').update({ role: 'admin' }).eq('user_id', userId);
-        loadMembers();
-      }
+      function renderForslagTable(rows) {
+        const el = document.getElementById('forslagTable');
+        if (!rows.length) { el.innerHTML = '<div class="empty">Ingen forslag.</div>'; return; }
+        el.innerHTML = '<table><thead><tr><th>Tittel</th><th>Innsendt av</th><th>Dato</th><th>Sted</th><th>Status</th><th></th></tr></thead><tbody>'
+          + rows.map(p =>
+            '<tr data-id="' + p.id + '">'
+            + '<td style="font-weight:600;color:rgba(255,255,255,0.85);">' + escHtml(p.title) + '</td>'
+            + '<td>' + escHtml(p.members?.name || '—') + '</td>'
+            + '<td>' + (p.event_date ? new Date(p.event_date).toLocaleDateString('no-NO') : '—') + '</td>'
+            + '<td>' + escHtml(p.location || '—') + '</td>'
+            + '<td><span class="badge badge-' + p.status + '">' + statusLabel(p.status) + '</span></td>'
+            + '<td><button class="btn btn-ghost btn-sm js-open-forslag" data-id="' + p.id + '">Åpne</button></td>'
+            + '</tr>'
+          ).join('') + '</tbody></table>';
 
-      // ── COMMUNITY ADMIN ───────────────────────────────────
-      async function loadCommunityAdmin() {
-        const { data } = await db.from('community_posts').select('*').order('created_at', { ascending: false }).limit(50);
-        const el = document.getElementById('communityAdmin');
-        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen innlegg.</div>'; return; }
-        el.innerHTML = `<table>
-          <thead><tr><th>Forfatter</th><th>Innhold</th><th>Type</th><th>Dato</th><th></th></tr></thead>
-          <tbody>${data.map(p => `
-            <tr>
-              <td>${p.author_name || 'System'}</td>
-              <td style="max-width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${p.content}</td>
-              <td>${p.type}</td>
-              <td>${new Date(p.created_at).toLocaleDateString('no-NO')}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="deletePost(${p.id})">Slett</button></td>
-            </tr>`).join('')}
-          </tbody></table>`;
-      }
-
-      async function deletePost(id) {
-        if (!confirm('Slette dette innlegget?')) return;
-        await db.from('community_posts').delete().eq('id', id);
-        loadCommunityAdmin();
-      }
-
-      // ── ANNOUNCEMENTS ─────────────────────────────────────
-      document.getElementById('annBtn').addEventListener('click', async () => {
-        const title   = document.getElementById('annTitle').value.trim();
-        const content = document.getElementById('annContent').value.trim();
-        const type    = document.getElementById('annType').value;
-        if (!title) return alert('Tittel er påkrevd.');
-
-        await db.from('announcements').insert({ title, content, type });
-
-        // Also post to community feed
-        await db.from('community_posts').insert({
-          author_id:   null,
-          author_name: 'Brim Community',
-          content:     `📢 ${title}${content ? ' — ' + content : ''}`,
-          type:        'system',
+        el.querySelectorAll('.js-open-forslag').forEach(btn => {
+          btn.addEventListener('click', () => openForslagModal(Number(btn.dataset.id)));
         });
+      }
 
-        document.getElementById('annTitle').value   = '';
-        document.getElementById('annContent').value = '';
-        loadAnnouncements();
-        alert('Kunngjøringen er publisert!');
+      document.getElementById('forslagFilter').addEventListener('change', function () {
+        const val = this.value;
+        renderForslagTable(val === 'all' ? forslagCache : forslagCache.filter(p => p.status === val));
       });
 
-      async function loadAnnouncements() {
-        const { data } = await db.from('announcements').select('*').order('created_at', { ascending: false });
-        const el = document.getElementById('annList');
-        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen kunngjøringer.</div>'; return; }
-        el.innerHTML = data.map(a => `
-          <div class="ann-row">
-            <div>
-              <div class="ann-title">${a.title}</div>
-              <div class="ann-content">${a.content || ''}</div>
-            </div>
-            <span class="ann-type-badge ann-${a.type}">${a.type}</span>
-          </div>`).join('');
+      function openForslagModal(id) {
+        const p = forslagCache.find(x => x.id === id);
+        if (!p) return;
+
+        document.getElementById('forslagModalTitle').textContent = p.title;
+        document.getElementById('forslagModalMeta').textContent = 'Innsendt av ' + (p.members?.name || 'ukjent');
+
+        document.getElementById('forslagModalBody').innerHTML =
+          '<div class="detail-row"><span class="detail-label">Dato</span><span class="detail-value">'
+          + escHtml(p.event_date ? new Date(p.event_date).toLocaleDateString('no-NO') : 'Ikke satt') + '</span></div>'
+          + '<div class="detail-row"><span class="detail-label">Sted</span><span class="detail-value">'
+          + escHtml(p.location || 'Ikke satt') + '</span></div>'
+          + '<div class="detail-row"><span class="detail-label">Status</span>'
+          + '<span class="badge badge-' + p.status + '">' + statusLabel(p.status) + '</span></div>'
+          + (p.description ? '<div style="margin-top:0.75rem;font-size:0.845rem;color:rgba(255,255,255,0.55);line-height:1.65;">' + escHtml(p.description) + '</div>' : '')
+          + (p.admin_note ? '<div style="margin-top:0.75rem;padding:0.75rem;background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.12);border-radius:0.65rem;font-size:0.8rem;color:rgba(248,113,113,0.7);">Admin: ' + escHtml(p.admin_note) + '</div>' : '');
+
+        const actEl = document.getElementById('forslagModalActions');
+        if (p.status === 'pending' || p.status === 'under_review') {
+          actEl.innerHTML =
+            '<div class="form-field"><label class="form-label">Admin-notat (vises ved avvisning)</label>'
+            + '<textarea class="form-textarea" id="forslagNote" placeholder="Valgfritt notat…" style="min-height:60px;">' + escHtml(p.admin_note || '') + '</textarea></div>'
+            + '<div class="form-row-actions">'
+            + '<button class="btn btn-ghost btn-sm" id="btnSetReview">Under vurdering</button>'
+            + '<button class="btn btn-red btn-sm" id="btnReject">Avvis</button>'
+            + '<button class="btn btn-green btn-sm" id="btnApprove">Godkjenn</button>'
+            + '</div>';
+
+          document.getElementById('btnSetReview').addEventListener('click', () => updateForslagStatus(id, 'under_review'));
+          document.getElementById('btnReject').addEventListener('click',    () => updateForslagStatus(id, 'rejected'));
+          document.getElementById('btnApprove').addEventListener('click',   () => updateForslagStatus(id, 'approved'));
+        } else {
+          actEl.innerHTML = '';
+        }
+
+        document.getElementById('forslagModal').classList.remove('hidden');
       }
 
-      // ── TOURNAMENTS ADMIN ─────────────────────────────────
-      document.getElementById('tBtn').addEventListener('click', async () => {
-        const title  = document.getElementById('tTitle').value.trim();
-        const status = document.getElementById('tStatus').value;
-        const start  = document.getElementById('tStart').value || null;
-        const end    = document.getElementById('tEnd').value   || null;
-        const desc   = document.getElementById('tDesc').value.trim() || null;
-        if (!title) return alert('Tittel er påkrevd.');
+      async function updateForslagStatus(id, status) {
+        const note = document.getElementById('forslagNote')?.value.trim() || null;
+        const { error } = await db.from('event_proposals').update({ status, admin_note: note }).eq('id', id);
+        if (error) { alert('Feil: ' + error.message); return; }
+        document.getElementById('forslagModal').classList.add('hidden');
+        await loadForslag();
+        // Refresh pending count
+        const { count } = await db.from('event_proposals').select('*', { count: 'exact', head: true }).eq('status', 'pending');
+        document.getElementById('statPending').textContent = count ?? '—';
+      }
 
-        await db.from('tournaments').insert({ title, status, start_date: start, end_date: end, description: desc });
-        document.getElementById('tTitle').value = '';
-        document.getElementById('tDesc').value  = '';
-        loadTournamentsAdmin();
-        alert('Turnering opprettet!');
+      document.getElementById('forslagModalClose').addEventListener('click', () => {
+        document.getElementById('forslagModal').classList.add('hidden');
+      });
+      document.getElementById('forslagModal').addEventListener('click', e => {
+        if (e.target === document.getElementById('forslagModal'))
+          document.getElementById('forslagModal').classList.add('hidden');
       });
 
-      async function loadTournamentsAdmin() {
-        const { data } = await db.from('tournaments').select('*').order('created_at', { ascending: false });
-        const el = document.getElementById('tournamentsAdmin');
-        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen turneringer.</div>'; return; }
-        el.innerHTML = `<table>
-          <thead><tr><th>Tittel</th><th>Status</th><th>Start</th><th>Slutt</th><th></th></tr></thead>
-          <tbody>${data.map(t => `
-            <tr>
-              <td>${t.title}</td>
-              <td>${t.status}</td>
-              <td>${t.start_date || '—'}</td>
-              <td>${t.end_date   || '—'}</td>
-              <td>
-                <button class="btn btn-ghost btn-sm" onclick="setTournamentStatus(${t.id}, 'active')">Aktiver</button>
-                <button class="btn btn-ghost btn-sm" onclick="setTournamentStatus(${t.id}, 'completed')">Avslutt</button>
-              </td>
-            </tr>`).join('')}
-          </tbody></table>`;
-      }
+      // ══ ARRANGEMENTER ════════════════════════════════════
+      document.getElementById('evCreateBtn').addEventListener('click', async () => {
+        const title    = document.getElementById('evTitle').value.trim();
+        const date     = document.getElementById('evDate').value || null;
+        const location = document.getElementById('evLocation').value.trim() || null;
+        const status   = document.getElementById('evStatus').value;
+        const desc     = document.getElementById('evDesc').value.trim() || null;
+        if (!title) { document.getElementById('evTitle').focus(); return; }
 
-      async function setTournamentStatus(id, status) {
-        await db.from('tournaments').update({ status }).eq('id', id);
-        loadTournamentsAdmin();
-      }
+        const { error } = await db.from('tournaments').insert({ title, description: desc, start_date: date, location, status });
+        if (error) { alert('Feil: ' + error.message); return; }
+        ['evTitle','evLocation','evDesc'].forEach(id => { document.getElementById(id).value = ''; });
+        document.getElementById('evDate').value   = '';
+        document.getElementById('evStatus').value = 'draft';
+        loadArrangementer();
+      });
 
-      // ── WINNER FORM ───────────────────────────────────────
-      async function loadWinnerForm() {
-        const { data } = await db.from('tournaments').select('id, title').order('created_at', { ascending: false });
-        const sel = document.getElementById('winnerTournament');
-        sel.innerHTML = '<option value="">Velg turnering…</option>';
-        data?.forEach(t => {
+      document.getElementById('evReloadBtn').addEventListener('click', loadArrangementer);
+
+      async function loadArrangementer() {
+        const el = document.getElementById('evTable');
+        el.innerHTML = '<div class="loading">Laster…</div>';
+        const { data, error } = await db.from('tournaments').select('*').order('created_at', { ascending: false });
+        if (error) { el.innerHTML = '<div class="empty">Feil: ' + escHtml(error.message) + '</div>'; return; }
+        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen arrangementer.</div>'; return; }
+        evCache = data;
+
+        // Also populate result event selector
+        const sel = document.getElementById('resEvent');
+        sel.innerHTML = '<option value="">Velg arrangement…</option>';
+        data.forEach(t => {
           const opt = document.createElement('option');
-          opt.value = t.id; opt.textContent = t.title;
+          opt.value = t.id;
+          opt.textContent = t.title;
           sel.appendChild(opt);
         });
-      }
 
-      document.getElementById('winnerBtn').addEventListener('click', async () => {
-        const tournamentId = document.getElementById('winnerTournament').value;
-        const winnerName   = document.getElementById('winnerName').value.trim();
-        const position     = parseInt(document.getElementById('winnerPos').value, 10);
-        if (!tournamentId || !winnerName) return alert('Velg turnering og skriv inn vinnernavn.');
+        el.innerHTML = '<table><thead><tr><th>Tittel</th><th>Dato</th><th>Sted</th><th>Status</th><th></th></tr></thead><tbody>'
+          + data.map(t =>
+            '<tr>'
+            + '<td style="font-weight:600;color:rgba(255,255,255,0.85);">' + escHtml(t.title) + '</td>'
+            + '<td>' + (t.start_date ? new Date(t.start_date).toLocaleDateString('no-NO') : '—') + '</td>'
+            + '<td>' + escHtml(t.location || '—') + '</td>'
+            + '<td><span class="badge badge-' + evStatusCls(t.status) + '">' + statusLabel(t.status) + '</span></td>'
+            + '<td style="display:flex;gap:0.4rem;flex-wrap:wrap;">'
+            + (t.status === 'draft'     ? '<button class="btn btn-green btn-sm js-ev-action" data-id="' + t.id + '" data-action="upcoming">Publiser</button>' : '')
+            + (t.status === 'upcoming'  ? '<button class="btn btn-ghost btn-sm js-ev-action" data-id="' + t.id + '" data-action="completed">Fullført</button>' : '')
+            + (t.status !== 'cancelled' && t.status !== 'completed' ? '<button class="btn btn-red btn-sm js-ev-action" data-id="' + t.id + '" data-action="cancelled">Avlys</button>' : '')
+            + '<button class="btn btn-amber btn-sm js-ev-edit" data-id="' + t.id + '">Rediger</button>'
+            + '</td></tr>'
+          ).join('') + '</tbody></table>';
 
-        await db.from('tournament_results').insert({ tournament_id: parseInt(tournamentId), winner_name: winnerName, position });
-
-        // Post to community
-        const pos = { 1: '🥇 1. plass', 2: '🥈 2. plass', 3: '🥉 3. plass' }[position] || position + '. plass';
-        await db.from('community_posts').insert({
-          author_id:   null,
-          author_name: 'Brim Community',
-          content:     `🏆 Gratulerer til ${winnerName} som vant ${pos} i turneringen!`,
-          type:        'system',
+        el.querySelectorAll('.js-ev-action').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            await db.from('tournaments').update({ status: btn.dataset.action }).eq('id', Number(btn.dataset.id));
+            loadArrangementer();
+          });
         });
 
-        document.getElementById('winnerName').value = '';
-        alert('Vinner registrert og kunngjort i community!');
+        el.querySelectorAll('.js-ev-edit').forEach(btn => {
+          btn.addEventListener('click', () => openEvEditModal(Number(btn.dataset.id)));
+        });
+      }
+
+      let evCache = [];
+      function openEvEditModal(id) {
+        const t = evCache.find(x => x.id === id);
+        if (!t) return;
+        const existing = document.getElementById('evEditModal');
+        if (existing) existing.remove();
+
+        const modal = document.createElement('div');
+        modal.id = 'evEditModal';
+        modal.className = 'modal-overlay';
+        modal.innerHTML =
+          '<div class="modal-box">'
+          + '<button class="modal-close" id="evEditClose">✕</button>'
+          + '<div class="modal-title">Rediger arrangement</div>'
+          + '<div class="modal-subtitle">Oppdater tittel, dato, sted og beskrivelse</div>'
+          + '<div class="form-grid">'
+          + '<div class="form-field"><label class="form-label">Tittel</label><input class="form-input" id="eeTitle" value="' + escHtml(t.title) + '"></div>'
+          + '<div class="form-field"><label class="form-label">Dato</label><input class="form-input" type="date" id="eeDate" value="' + escHtml(t.start_date || '') + '"></div>'
+          + '<div class="form-field"><label class="form-label">Sted</label><input class="form-input" id="eeLocation" value="' + escHtml(t.location || '') + '"></div>'
+          + '<div class="form-field"><label class="form-label">Status</label>'
+          + '<select class="form-select" id="eeStatus">'
+          + ['draft','upcoming','completed','cancelled'].map(s =>
+              '<option value="' + s + '"' + (t.status === s ? ' selected' : '') + '>' + statusLabel(s) + '</option>'
+            ).join('')
+          + '</select></div>'
+          + '</div>'
+          + '<div class="form-field"><label class="form-label">Beskrivelse</label>'
+          + '<textarea class="form-textarea" id="eeDesc">' + escHtml(t.description || '') + '</textarea></div>'
+          + '<div class="form-row-actions">'
+          + '<button class="btn btn-ghost" id="evEditCancel">Avbryt</button>'
+          + '<button class="btn btn-amber" id="evEditSave">Lagre</button>'
+          + '</div></div>';
+        document.body.appendChild(modal);
+
+        const close = () => modal.remove();
+        document.getElementById('evEditClose').addEventListener('click', close);
+        document.getElementById('evEditCancel').addEventListener('click', close);
+        modal.addEventListener('click', e => { if (e.target === modal) close(); });
+
+        document.getElementById('evEditSave').addEventListener('click', async () => {
+          const title    = document.getElementById('eeTitle').value.trim();
+          const date     = document.getElementById('eeDate').value || null;
+          const location = document.getElementById('eeLocation').value.trim() || null;
+          const desc     = document.getElementById('eeDesc').value.trim() || null;
+          const status   = document.getElementById('eeStatus').value;
+          if (!title) { document.getElementById('eeTitle').focus(); return; }
+          const btn = document.getElementById('evEditSave');
+          btn.disabled = true; btn.textContent = 'Lagrer…';
+          const { error } = await db.from('tournaments')
+            .update({ title, start_date: date, location, description: desc, status })
+            .eq('id', id);
+          if (error) { alert('Feil: ' + error.message); btn.disabled = false; btn.textContent = 'Lagre'; return; }
+          close();
+          loadArrangementer();
+        });
+      }
+
+      function evStatusCls(s) {
+        return { draft: 'draft', upcoming: 'published', completed: 'completed', cancelled: 'cancelled',
+                 active: 'published', pending: 'pending' }[s] || 'draft';
+      }
+
+      // ══ INNLEGG ══════════════════════════════════════════
+      document.getElementById('postsReloadBtn').addEventListener('click', loadInnlegg);
+
+      async function loadInnlegg() {
+        const el = document.getElementById('postsTable');
+        el.innerHTML = '<div class="loading">Laster…</div>';
+        const { data, error } = await db.from('community_posts')
+          .select('id, author_name, content, type, is_hidden, is_pinned, created_at')
+          .order('created_at', { ascending: false }).limit(80);
+        if (error) { el.innerHTML = '<div class="empty">Feil: ' + escHtml(error.message) + '</div>'; return; }
+        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen innlegg.</div>'; return; }
+
+        el.innerHTML = '<table><thead><tr><th>Forfatter</th><th>Innhold</th><th>Type</th><th>Dato</th><th>Status</th><th></th></tr></thead><tbody>'
+          + data.map(p => {
+            const flags = (p.is_pinned ? '<span class="badge badge-pinned" style="margin-right:0.3rem;">Festet</span>' : '')
+                        + (p.is_hidden ? '<span class="badge badge-hidden">Skjult</span>' : '');
+            return '<tr>'
+              + '<td>' + escHtml(p.author_name || 'System') + '</td>'
+              + '<td class="preview-text">' + escHtml(p.content) + '</td>'
+              + '<td>' + escHtml(p.type) + '</td>'
+              + '<td>' + new Date(p.created_at).toLocaleDateString('no-NO') + '</td>'
+              + '<td>' + (flags || '—') + '</td>'
+              + '<td style="display:flex;gap:0.35rem;flex-wrap:wrap;">'
+              + (p.is_pinned
+                  ? '<button class="btn btn-ghost btn-sm js-post-action" data-id="' + p.id + '" data-action="unpin">Løsgjør</button>'
+                  : '<button class="btn btn-amber btn-sm js-post-action" data-id="' + p.id + '" data-action="pin">Fest</button>')
+              + (p.is_hidden
+                  ? '<button class="btn btn-ghost btn-sm js-post-action" data-id="' + p.id + '" data-action="show">Vis</button>'
+                  : '<button class="btn btn-ghost btn-sm js-post-action" data-id="' + p.id + '" data-action="hide">Skjul</button>')
+              + '<button class="btn btn-red btn-sm js-post-action" data-id="' + p.id + '" data-action="delete">Slett</button>'
+              + '</td></tr>';
+          }).join('') + '</tbody></table>';
+
+        el.querySelectorAll('.js-post-action').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const id     = Number(btn.dataset.id);
+            const action = btn.dataset.action;
+            if (action === 'delete') {
+              if (!confirm('Slette dette innlegget permanent?')) return;
+              await db.from('community_posts').delete().eq('id', id);
+            } else if (action === 'pin')   { await db.from('community_posts').update({ is_pinned: true  }).eq('id', id); }
+            else if (action === 'unpin')   { await db.from('community_posts').update({ is_pinned: false }).eq('id', id); }
+            else if (action === 'hide')    { await db.from('community_posts').update({ is_hidden: true  }).eq('id', id); }
+            else if (action === 'show')    { await db.from('community_posts').update({ is_hidden: false }).eq('id', id); }
+            loadInnlegg();
+          });
+        });
+      }
+
+      // ══ RESULTATER ═══════════════════════════════════════
+      document.getElementById('resCreateBtn').addEventListener('click', async () => {
+        const eventId  = document.getElementById('resEvent').value;
+        const winner   = document.getElementById('resWinner').value.trim();
+        const summary  = document.getElementById('resSummary').value.trim() || null;
+        if (!eventId || !winner) { alert('Velg arrangement og skriv inn vinner.'); return; }
+
+        const { error } = await db.from('tournament_results').insert({
+          tournament_id: Number(eventId),
+          winner_name: winner,
+          position: 1,
+        });
+        if (error) { alert('Feil: ' + error.message); return; }
+
+        // Post to community feed
+        const evName = document.getElementById('resEvent').options[document.getElementById('resEvent').selectedIndex].textContent;
+        await db.from('community_posts').insert({
+          author_id: null, author_name: 'UAN',
+          content: '🏆 ' + winner + ' vant ' + evName + (summary ? ' — ' + summary : ''),
+          type: 'system',
+        });
+
+        document.getElementById('resWinner').value  = '';
+        document.getElementById('resSummary').value = '';
+        loadResultater();
       });
+
+      async function loadResultater() {
+        const el = document.getElementById('resTable');
+        el.innerHTML = '<div class="loading">Laster…</div>';
+        const { data, error } = await db.from('tournament_results')
+          .select('*, tournaments(title)')
+          .order('created_at', { ascending: false });
+        if (error) { el.innerHTML = '<div class="empty">Feil: ' + escHtml(error.message) + '</div>'; return; }
+        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen resultater.</div>'; return; }
+
+        resCache = data;
+
+        el.innerHTML = '<table><thead><tr><th>Arrangement</th><th>Vinner</th><th>Plassering</th><th>Dato</th><th></th></tr></thead><tbody>'
+          + data.map(r =>
+            '<tr>'
+            + '<td>' + escHtml(r.tournaments?.title || '—') + '</td>'
+            + '<td style="font-weight:600;">' + escHtml(r.winner_name) + '</td>'
+            + '<td>' + (r.position === 1 ? '🥇' : r.position === 2 ? '🥈' : '🥉') + ' ' + r.position + '. plass</td>'
+            + '<td>' + new Date(r.created_at).toLocaleDateString('no-NO') + '</td>'
+            + '<td style="display:flex;gap:0.35rem;">'
+            + '<button class="btn btn-amber btn-sm js-res-edit" data-id="' + r.id + '">Rediger</button>'
+            + '<button class="btn btn-red btn-sm js-res-delete" data-id="' + r.id + '">Slett</button>'
+            + '</td></tr>'
+          ).join('') + '</tbody></table>';
+
+        el.querySelectorAll('.js-res-edit').forEach(btn => {
+          btn.addEventListener('click', () => openResEditModal(Number(btn.dataset.id)));
+        });
+        el.querySelectorAll('.js-res-delete').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            if (!confirm('Slette dette resultatet permanent?')) return;
+            const { error } = await db.from('tournament_results').delete().eq('id', Number(btn.dataset.id));
+            if (error) { alert('Feil: ' + error.message); return; }
+            loadResultater();
+          });
+        });
+      }
+
+      let resCache = [];
+      function openResEditModal(id) {
+        const r = resCache.find(x => x.id === id);
+        if (!r) return;
+        const existing = document.getElementById('resEditModal');
+        if (existing) existing.remove();
+
+        const posOptions = [1,2,3,4,5].map(n =>
+          '<option value="' + n + '"' + (r.position === n ? ' selected' : '') + '>'
+          + (n === 1 ? '🥇' : n === 2 ? '🥈' : n === 3 ? '🥉' : n + '.') + ' plass</option>'
+        ).join('');
+
+        const modal = document.createElement('div');
+        modal.id = 'resEditModal';
+        modal.className = 'modal-overlay';
+        modal.innerHTML =
+          '<div class="modal-box">'
+          + '<button class="modal-close" id="resEditClose">✕</button>'
+          + '<div class="modal-title">Rediger resultat</div>'
+          + '<div class="form-grid">'
+          + '<div class="form-field"><label class="form-label">Vinner</label>'
+          + '<input class="form-input" id="reEditWinner" value="' + escHtml(r.winner_name) + '"></div>'
+          + '<div class="form-field"><label class="form-label">Plassering</label>'
+          + '<select class="form-select" id="reEditPos">' + posOptions + '</select></div>'
+          + '</div>'
+          + '<div class="form-row-actions">'
+          + '<button class="btn btn-ghost" id="resEditCancel">Avbryt</button>'
+          + '<button class="btn btn-amber" id="resEditSave">Lagre</button>'
+          + '</div></div>';
+        document.body.appendChild(modal);
+
+        const close = () => modal.remove();
+        document.getElementById('resEditClose').addEventListener('click', close);
+        document.getElementById('resEditCancel').addEventListener('click', close);
+        modal.addEventListener('click', e => { if (e.target === modal) close(); });
+
+        document.getElementById('resEditSave').addEventListener('click', async () => {
+          const winner   = document.getElementById('reEditWinner').value.trim();
+          const position = Number(document.getElementById('reEditPos').value);
+          if (!winner) { document.getElementById('reEditWinner').focus(); return; }
+          const btn = document.getElementById('resEditSave');
+          btn.disabled = true; btn.textContent = 'Lagrer…';
+          const { error } = await db.from('tournament_results')
+            .update({ winner_name: winner, position })
+            .eq('id', id);
+          if (error) { alert('Feil: ' + error.message); btn.disabled = false; btn.textContent = 'Lagre'; return; }
+          close();
+          loadResultater();
+        });
+      }
+
+      // ══ BRUKERE ══════════════════════════════════════════
+      document.getElementById('usersReloadBtn').addEventListener('click', loadBrukere);
+
+      async function loadBrukere() {
+        const el = document.getElementById('usersTable');
+        el.innerHTML = '<div class="loading">Laster…</div>';
+        const { data, error } = await db.from('members').select('*').order('join_date', { ascending: false });
+        if (error) { el.innerHTML = '<div class="empty">Feil: ' + escHtml(error.message) + '</div>'; return; }
+        if (!data?.length) { el.innerHTML = '<div class="empty">Ingen brukere.</div>'; return; }
+
+        el.innerHTML = '<table><thead><tr><th>Navn</th><th>E-post</th><th>Telefon</th><th>Kommune</th><th>Rolle</th><th>Status</th><th></th></tr></thead><tbody>'
+          + data.map(m => {
+            const active = m.is_active !== false;
+            return '<tr>'
+              + '<td style="font-weight:600;color:rgba(255,255,255,0.85);">' + escHtml(m.name || '—') + '</td>'
+              + '<td style="font-size:0.8rem;">' + escHtml(m.email || '—') + '</td>'
+              + '<td style="font-size:0.8rem;">' + escHtml(m.phone || '—') + '</td>'
+              + '<td>' + escHtml(m.municipality || '—') + '</td>'
+              + '<td><span class="badge badge-' + (m.role === 'admin' ? 'admin' : 'member') + '">' + escHtml(m.role || 'member') + '</span></td>'
+              + '<td><span class="badge ' + (active ? 'badge-approved' : 'badge-inactive') + '">' + (active ? 'Aktiv' : 'Deaktivert') + '</span></td>'
+              + '<td style="display:flex;gap:0.4rem;flex-wrap:wrap;">'
+              + (m.role !== 'admin'
+                  ? '<button class="btn btn-amber btn-sm js-user-action" data-uid="' + m.user_id + '" data-action="make-admin">Gjør admin</button>'
+                  : '<button class="btn btn-ghost btn-sm js-user-action" data-uid="' + m.user_id + '" data-action="make-member">Fjern admin</button>')
+              + (active
+                  ? '<button class="btn btn-red btn-sm js-user-action" data-uid="' + m.user_id + '" data-action="deactivate">Deaktiver</button>'
+                  : '<button class="btn btn-green btn-sm js-user-action" data-uid="' + m.user_id + '" data-action="activate">Aktiver</button>')
+              + '</td></tr>';
+          }).join('') + '</tbody></table>';
+
+        el.querySelectorAll('.js-user-action').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const uid    = btn.dataset.uid;
+            const action = btn.dataset.action;
+            if (action === 'make-admin') {
+              if (!confirm('Gjøre denne brukeren til admin?')) return;
+              await db.from('members').update({ role: 'admin' }).eq('user_id', uid);
+            } else if (action === 'make-member') {
+              if (!confirm('Fjerne adminrettigheter?')) return;
+              await db.from('members').update({ role: 'member' }).eq('user_id', uid);
+            } else if (action === 'deactivate') {
+              if (!confirm('Deaktivere denne brukeren?')) return;
+              await db.from('members').update({ is_active: false }).eq('user_id', uid);
+            } else if (action === 'activate') {
+              await db.from('members').update({ is_active: true }).eq('user_id', uid);
+            }
+            loadBrukere();
+          });
+        });
+      }
 
       init();
     </script>

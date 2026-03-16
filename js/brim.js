@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════
-// BRIM COMMUNITY — Shared client, auth helpers, utilities
+// UAN — Shared client, auth helpers, utilities
 // Include AFTER the Supabase CDN script
 // ═══════════════════════════════════════════════════════════
 
@@ -39,9 +39,22 @@ function xpProgress(xp) {
 }
 
 // ── AUTH ─────────────────────────────────────────────────────
+
+// Race any promise against a timeout; resolves to null on timeout/error
+function withTimeout(promise, ms = 8000) {
+  return Promise.race([
+    promise,
+    new Promise(resolve => setTimeout(() => resolve(null), ms)),
+  ]).catch(() => null);
+}
+
 async function getSession() {
-  const { data: { session } } = await db.auth.getSession();
-  return session;
+  try {
+    const result = await withTimeout(db.auth.getSession());
+    return result?.data?.session ?? null;
+  } catch {
+    return null;
+  }
 }
 
 async function requireAuth(redirect = 'login.html') {
@@ -51,8 +64,14 @@ async function requireAuth(redirect = 'login.html') {
 }
 
 async function getMember(userId) {
-  const { data } = await db.from('members').select('*').eq('user_id', userId).single();
-  return data;
+  try {
+    const result = await withTimeout(
+      db.from('members').select('*').eq('user_id', userId).single()
+    );
+    return result?.data ?? null;
+  } catch {
+    return null;
+  }
 }
 
 async function requireAdmin() {
@@ -88,7 +107,7 @@ function timeAgo(iso) {
 async function postSystemMessage(content) {
   await db.from('community_posts').insert({
     author_id:   null,
-    author_name: 'Brim Community',
+    author_name: 'UAN',
     content,
     type:        'system',
   });

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Brim — Sign Up</title>
+    <title>UAN — Bli medlem</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,7 +39,6 @@
         object-fit: cover;
         opacity: 0;
         transition: opacity 1.4s ease-in-out;
-        /* slight scale for a slow-zoom Ken Burns feel */
         transform: scale(1.05);
       }
 
@@ -47,7 +46,6 @@
         opacity: 1;
       }
 
-      /* Dark overlay — keeps card readable, edges slightly lighter */
       .bg-overlay {
         position: fixed;
         inset: 0;
@@ -97,7 +95,7 @@
         display: flex;
         align-items: center;
         gap: 0.55rem;
-        margin-bottom: 2.25rem;
+        margin-bottom: 1.5rem;
       }
 
       .brand-dot {
@@ -115,6 +113,47 @@
         text-transform: uppercase;
         color: rgba(255,255,255,0.45);
       }
+
+      /* ── AUTH TABS ────────────────────────────────────── */
+      .auth-tabs {
+        display: flex;
+        gap: 0.25rem;
+        margin-bottom: 2rem;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 0.75rem;
+        padding: 0.25rem;
+      }
+
+      .tab-btn {
+        flex: 1;
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+        font-family: inherit;
+        font-weight: 600;
+        border: none;
+        border-radius: 0.55rem;
+        cursor: pointer;
+        background: transparent;
+        color: rgba(255,255,255,0.38);
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        letter-spacing: 0.01em;
+      }
+
+      .tab-btn.active {
+        background: rgba(124, 92, 252, 0.25);
+        color: #c4b5fd;
+        box-shadow: 0 0 0 1px rgba(124,92,252,0.3);
+      }
+
+      .tab-btn:hover:not(.active) {
+        color: rgba(255,255,255,0.65);
+        background: rgba(255,255,255,0.05);
+      }
+
+      /* ── PANEL VISIBILITY ─────────────────────────────── */
+      .panel { display: none; }
+      .panel.active { display: block; }
 
       /* ── TYPOGRAPHY ───────────────────────────────────── */
       h1 {
@@ -238,7 +277,7 @@
         cursor: pointer;
       }
 
-      button {
+      .submit-btn {
         margin-top: 0.5rem;
         width: 100%;
         padding: 0.9rem;
@@ -255,15 +294,21 @@
         box-shadow: 0 4px 20px rgba(124, 92, 252, 0.35);
       }
 
-      button:hover {
+      .submit-btn:hover {
         transform: translateY(-1px);
         box-shadow: 0 8px 28px rgba(124, 92, 252, 0.48);
         opacity: 0.95;
       }
 
-      button:active {
+      .submit-btn:active {
         transform: translateY(1px);
         box-shadow: 0 2px 10px rgba(124, 92, 252, 0.25);
+      }
+
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
       }
 
       .footer-note {
@@ -334,22 +379,11 @@
   <body>
 
     <!-- ── BACKGROUND VIDEO MONTAGE ──────────────────────── -->
-    <!--
-      Replace the src attributes below with your own video files.
-      Recommended clips (4–6 seconds each, no sound needed):
-        video-1 → folk som spiller fotball (energi, glede, samspill)
-        video-2 → tur i skogen (ro, natur, frihet, samhold)
-        video-3 → folk som drikker te sammen (varme, nærhet, samtale)
-        video-4 → valgfritt fellesskapsøyeblikk (avsluttende stemning)
-
-      Tips: MP4 under 5 MB per klipp gir rask lastetid.
-      Tool: https://www.freeconvert.com/video-compressor
-    -->
     <div class="bg-video-wrap" id="bgWrap">
-      <video class="active" src="video-1.mp4" muted playsinline preload="auto"></video>
-      <video             src="video-2.mp4" muted playsinline preload="auto"></video>
-      <video             src="video-3.mp4" muted playsinline preload="auto"></video>
-      <video             src="video-4.mp4" muted playsinline preload="auto"></video>
+      <video class="active" src="Video.png/video-1.mp4" muted playsinline preload="auto"></video>
+      <video             src="Video.png/video-2.mp4" muted playsinline preload="auto"></video>
+      <video             src="Video.png/video-3.mp4" muted playsinline preload="auto"></video>
+      <video             src="Video.png/video-4.mp4" muted playsinline preload="auto"></video>
     </div>
     <div class="bg-overlay"></div>
 
@@ -357,64 +391,99 @@
     <main class="card">
       <div class="brand">
         <div class="brand-dot"></div>
-        <span class="brand-label">Brim Community</span>
+        <span class="brand-label">UAN COMMUNITY</span>
       </div>
 
-      <h1>Velkommen inn i fellesskapet.</h1>
-      <p class="subtitle">Et varmt og levende fellesskap for deg som vil skape flere minner og nye forbindelser.</p>
-      <div class="divider"></div>
+      <!-- ── AUTH TABS ──────────────────────────────────── -->
+      <div class="auth-tabs">
+        <button class="tab-btn active" id="tabRegister">Bli medlem</button>
+        <button class="tab-btn" id="tabLogin">Logg inn</button>
+      </div>
 
-      <form id="regForm" novalidate>
-        <!-- Fullt navn -->
-        <div class="field">
-          <label for="fullName">Fullt navn</label>
-          <input type="text" id="fullName" name="navn" placeholder="Ditt fulle navn" autocomplete="name" />
-          <span class="error-msg" id="err-fullName">Fullt navn er påkrevd.</span>
-        </div>
+      <!-- ── REGISTER PANEL ─────────────────────────────── -->
+      <div class="panel active" id="panelRegister">
+        <h1>Velkommen inn i fellesskapet.</h1>
+        <p class="subtitle">Et varmt og levende fellesskap for deg som vil skape flere minner og nye forbindelser.</p>
+        <div class="divider"></div>
 
-        <!-- Telefonnummer -->
-        <div class="field">
-          <label for="phoneNumber">Telefonnummer</label>
-          <input type="tel" id="phoneNumber" name="telefon" placeholder="+47 000 00 000" autocomplete="tel" />
-          <span class="error-msg" id="err-phoneNumber">Telefonnummer er påkrevd.</span>
-        </div>
+        <form id="regForm" novalidate>
+          <!-- Fullt navn -->
+          <div class="field">
+            <label for="fullName">Fullt navn</label>
+            <input type="text" id="fullName" name="navn" placeholder="Ditt fulle navn" autocomplete="name" />
+            <span class="error-msg" id="err-fullName">Fullt navn er påkrevd.</span>
+          </div>
 
-        <!-- E-postadresse (required — used for login) -->
-        <div class="field">
-          <label for="email">E-postadresse</label>
-          <input type="email" id="email" name="e_post" placeholder="din@epost.no" autocomplete="email" />
-          <span class="error-msg" id="err-email">Oppgi en gyldig e-postadresse.</span>
-        </div>
+          <!-- Telefonnummer -->
+          <div class="field">
+            <label for="phoneNumber">Telefonnummer</label>
+            <input type="tel" id="phoneNumber" name="telefon" placeholder="+47 000 00 000" autocomplete="tel" />
+            <span class="error-msg" id="err-phoneNumber">Telefonnummer er påkrevd.</span>
+          </div>
 
-        <!-- Fødselsdato -->
-        <div class="field">
-          <label for="birthdate">Fødselsdato</label>
-          <input type="date" id="birthdate" name="birthdate" />
-          <span class="error-msg" id="err-birthdate">Fødselsdato er påkrevd.</span>
-        </div>
+          <!-- E-postadresse -->
+          <div class="field">
+            <label for="email">E-postadresse</label>
+            <input type="email" id="email" name="e_post" placeholder="din@epost.no" autocomplete="email" />
+            <span class="error-msg" id="err-email">Oppgi en gyldig e-postadresse.</span>
+          </div>
 
-        <!-- Kommune -->
-        <div class="field">
-          <label for="kommune">Kommune</label>
-          <input type="text" id="kommune" name="kommune" placeholder="F.eks. Oslo" />
-          <span class="error-msg" id="err-kommune">Kommune er påkrevd.</span>
-        </div>
+          <!-- Fødselsdato -->
+          <div class="field">
+            <label for="birthdate">Fødselsdato</label>
+            <input type="date" id="birthdate" name="birthdate" />
+            <span class="error-msg" id="err-birthdate">Fødselsdato er påkrevd.</span>
+          </div>
 
-        <!-- Bekreftelse -->
-        <div class="check-field" id="check-wrap">
-          <input type="checkbox" id="bekreft" name="ønsker_medlemskap" />
-          <label for="bekreft">Jeg bekrefter at jeg ønsker å bli medlem</label>
-        </div>
-        <span class="error-msg" id="err-bekreft">Du må bekrefte at du ønsker å bli medlem.</span>
+          <!-- Kommune -->
+          <div class="field">
+            <label for="kommune">Kommune</label>
+            <input type="text" id="kommune" name="kommune" placeholder="F.eks. Oslo" />
+            <span class="error-msg" id="err-kommune">Kommune er påkrevd.</span>
+          </div>
 
-        <button type="submit">Bli medlem</button>
-      </form>
+          <!-- Bekreftelse -->
+          <div class="check-field" id="check-wrap">
+            <input type="checkbox" id="bekreft" name="ønsker_medlemskap" />
+            <label for="bekreft">Jeg bekrefter at jeg ønsker å bli medlem</label>
+          </div>
+          <span class="error-msg" id="err-bekreft">Du må bekrefte at du ønsker å bli medlem.</span>
+
+          <button type="submit" class="submit-btn">Bli medlem</button>
+        </form>
+      </div>
+
+      <!-- ── LOGIN PANEL ────────────────────────────────── -->
+      <div class="panel" id="panelLogin">
+        <h1>Logg inn</h1>
+        <p class="subtitle">Logg inn for å fortsette</p>
+        <div class="divider"></div>
+
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="loginPhone">Telefonnummer</label>
+            <input type="tel" id="loginPhone" placeholder="+47 000 00 000" autocomplete="tel" />
+            <span class="error-msg" id="err-loginPhone">Telefonnummer er påkrevd.</span>
+          </div>
+          <div class="field">
+            <label for="loginPassword">Passord</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" />
+            <span class="error-msg" id="err-loginPassword">Passord er påkrevd.</span>
+          </div>
+          <button type="submit" class="submit-btn">Logg inn</button>
+        </form>
+
+        <p class="footer-note" style="margin-top:1.25rem;">
+          Ikke medlem ennå?
+          <a href="#" id="switchToRegister" style="color:rgba(167,139,250,0.8);text-decoration:none;">Bli medlem</a>
+        </p>
+      </div>
 
       <!-- ── COUNTER ──────────────────────────────────────── -->
       <div class="counter-section">
         <div class="counter-header">
           <span class="counter-label">Medlemsmål</span>
-          <span class="counter-numbers"><span id="countNum">–</span> / 200</span>
+          <span class="counter-numbers"><span id="countNum">–</span> / <span id="remainingNum">–</span></span>
         </div>
         <div class="progress-track">
           <div class="progress-fill" id="progressFill"></div>
@@ -422,15 +491,36 @@
         <p class="counter-tagline">Ett mål. Ett fellesskap. Ett gjennombrudd.</p>
       </div>
 
-      <p class="footer-note">© 2026 Brim Community — All rights reserved.</p>
+      <p class="footer-note">© 2026 UAN — All rights reserved.</p>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="js/brim.js"></script>
 
     <script>
+      // Unregister any leftover service workers from the PWA attempt
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(regs => {
+          regs.forEach(r => r.unregister());
+        });
+      }
+
       const GOAL = 200;
-      // db and formatPhone come from js/brim.js
+
+      /* ── TAB SWITCHING ─────────────────────────────────── */
+      document.getElementById('tabRegister').addEventListener('click', function () {
+        document.getElementById('tabRegister').classList.add('active');
+        document.getElementById('tabLogin').classList.remove('active');
+        document.getElementById('panelRegister').classList.add('active');
+        document.getElementById('panelLogin').classList.remove('active');
+      });
+
+      document.getElementById('tabLogin').addEventListener('click', function () {
+        document.getElementById('tabLogin').classList.add('active');
+        document.getElementById('tabRegister').classList.remove('active');
+        document.getElementById('panelLogin').classList.add('active');
+        document.getElementById('panelRegister').classList.remove('active');
+      });
 
       /* ── VIDEO MONTAGE ─────────────────────────────────── */
       (function () {
@@ -455,6 +545,7 @@
       /* ── COUNTER ───────────────────────────────────────── */
       function setCounter(antall) {
         document.getElementById('countNum').textContent = antall;
+        document.getElementById('remainingNum').textContent = GOAL - antall;
         const pct = Math.min((antall / GOAL) * 100, 100);
         document.getElementById('progressFill').style.width = pct + '%';
       }
@@ -485,9 +576,8 @@
       // Clear error on input
       ['fullName','phoneNumber','email','birthdate','kommune'].forEach(id => {
         document.getElementById(id).addEventListener('input', () => {
-          const errId = 'err-' + id;
           document.getElementById(id).classList.remove('error');
-          document.getElementById(errId).classList.remove('visible');
+          document.getElementById('err-' + id).classList.remove('visible');
         });
       });
 
@@ -496,7 +586,22 @@
         document.getElementById('check-wrap').classList.remove('error');
       });
 
-      /* ── FORM SUBMIT ───────────────────────────────────── */
+      document.getElementById('loginPhone').addEventListener('input', () => {
+        document.getElementById('loginPhone').classList.remove('error');
+        document.getElementById('err-loginPhone').classList.remove('visible');
+      });
+
+      document.getElementById('loginPassword').addEventListener('input', () => {
+        document.getElementById('loginPassword').classList.remove('error');
+        document.getElementById('err-loginPassword').classList.remove('visible');
+      });
+
+      document.getElementById('switchToRegister').addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('tabRegister').click();
+      });
+
+      /* ── REGISTRATION SUBMIT ───────────────────────────── */
       document.getElementById('regForm').addEventListener('submit', async function (e) {
         e.preventDefault();
 
@@ -507,16 +612,12 @@
         const municipality = document.getElementById('kommune').value.trim();
         const bekreft      = document.getElementById('bekreft').checked;
 
-        // Validate each field individually
-        let valid = true;
-
         fieldError('fullName',    'err-fullName',    !name);
         fieldError('phoneNumber', 'err-phoneNumber', !phone);
         fieldError('birthdate',   'err-birthdate',   !birthdate);
         fieldError('kommune',     'err-kommune',      !municipality);
         checkboxError(!bekreft);
 
-        // Email is required for magic link auth
         const emailMissing = !emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
         fieldError('email', 'err-email', emailMissing);
         if (emailMissing) {
@@ -531,7 +632,6 @@
         btn.disabled    = true;
         btn.textContent = 'Sender lenke…';
 
-        // ── AUTH METHOD: email magic link (switch to phone OTP later) ──
         const redirectTo = window.location.origin
           + window.location.pathname.replace(/\/[^/]*$/, '/')
           + 'auth-callback.html';
@@ -548,9 +648,7 @@
           return;
         }
 
-        // Store registration data in localStorage (survives tab/email client)
-        // Key by email so auth-callback can match it
-        localStorage.setItem('brim_reg_' + emailVal, JSON.stringify({
+        localStorage.setItem('uan_reg_' + emailVal, JSON.stringify({
           name,
           phone,
           email:            emailVal,
@@ -561,6 +659,36 @@
         }));
 
         window.location.href = 'check-email.html?email=' + encodeURIComponent(emailVal);
+      });
+
+      /* ── LOGIN SUBMIT ──────────────────────────────────── */
+      document.getElementById('loginForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const phone    = document.getElementById('loginPhone').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        fieldError('loginPhone',    'err-loginPhone',    !phone);
+        fieldError('loginPassword', 'err-loginPassword', !password);
+        if (!phone || !password) return;
+
+        const btn = this.querySelector('button[type="submit"]');
+        btn.disabled    = true;
+        btn.textContent = 'Logger inn…';
+
+        const { error } = await db.auth.signInWithPassword({
+          phone: formatPhone(phone),
+          password,
+        });
+
+        if (error) {
+          alert('Feil: ' + error.message);
+          btn.disabled    = false;
+          btn.textContent = 'Logg inn';
+          return;
+        }
+
+        window.location.href = 'dashboard.html';
       });
     </script>
   </body>
